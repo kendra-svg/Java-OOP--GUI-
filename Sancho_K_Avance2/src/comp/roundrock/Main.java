@@ -5,7 +5,6 @@ import comp.roundrock.DAO.ComponenteDAO;
 import comp.roundrock.DAO.FamiliaDAO;
 import comp.roundrock.DAO.Memory.ComponenteDAOMemoria;
 import comp.roundrock.DAO.Memory.FamiliaDAOMemoria;
-import comp.roundrock.Utilitarios.Utils;
 import comp.roundrock.View.Vista;
 import comp.roundrock.Controller.ComponenteControlador;
 
@@ -13,11 +12,14 @@ import comp.roundrock.Controller.ComponenteControlador;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class Main extends JFrame {
 
-    private ComponenteDAO componenteDAO;
+    ComponenteDAO componenteDAO = new ComponenteDAOMemoria();
     private Vista vista;
+
+    private ComponenteDAOMemoria componenteDAOMemoria;
     private ComponenteControlador componenteControlador;
     private FamiliaDAO familiaDAO;
     private FamiliaControlador familiaControlador;
@@ -27,6 +29,8 @@ public class Main extends JFrame {
     private JButton registrarFamiliaButton;
     private JButton listarFamiliasButton;
     private JButton salirButton;
+
+
 
     public Main() {
         setTitle("Registro de computadoras y familias");
@@ -55,18 +59,28 @@ public class Main extends JFrame {
         registrarComponenteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                /*componenteControlador.registrarComponente();*/
                 vista.initComponents();
+                /*componenteControlador.registrarComponente();*/
+
+
+               /* return null;*/
 
             }
         });
 
-//        listarComponenteButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                componenteControlador.listarComponente();
-//            }
-//        });
+        listarComponenteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (componenteDAO != null) {
+                    componenteDAO.getEstado();
+                    List<Componente> listaComponentes = componenteDAO.obtenerListaComponentes();
+                    System.out.println("Número de componentes en la lista: " + listaComponentes.size());
+                    vista.listarComponente(listaComponentes);
+                } else {
+                    System.out.println("componenteDAO es nulo");
+                }
+            }
+        });
 //
 //        registrarFamiliaButton.addActionListener(new ActionListener() {
 //            @Override
@@ -82,12 +96,14 @@ public class Main extends JFrame {
 //            }
 //        });
 //
-//        salirButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                System.exit(0);
-//            }
-//        });
+        salirButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+                /*return null;*/
+
+            }
+        });
 
         // Crear panel y agregar botones
         JPanel panel = new JPanel();

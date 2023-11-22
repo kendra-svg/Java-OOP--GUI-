@@ -9,4 +9,8 @@ public interface ComponenteDAO {
     void agregar(Componente componente);
 
     List<Componente> obtenerListaComponentes();
+
+    void getEstado();
+
+
 }

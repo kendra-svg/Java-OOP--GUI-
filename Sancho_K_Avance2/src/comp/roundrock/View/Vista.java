@@ -1,6 +1,9 @@
 package comp.roundrock.View;
 import comp.roundrock.*;
+import comp.roundrock.DAO.ComponenteDAO;
+import comp.roundrock.DAO.Memory.ComponenteDAOMemoria;
 import comp.roundrock.Utilitarios.Utils;
+import comp.roundrock.Controller.ComponenteControlador;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,12 +18,16 @@ import java.awt.event.ActionListener;
 
 public class Vista extends JFrame {
 
+
+
         private JButton registrarRAMButton;
         private JButton registrarProcesadorButton;
         private JButton registrarAlmacenamientoButton;
         private JButton registrarFuenteDePoder;
         private JButton registrarTarjetaMadre;
         private JButton registrarTarjetaVideo;
+
+        private JButton guardarRAMButton;
 
         private JTextField txtModelo;
         private JTextField txtPrecio;
@@ -31,7 +38,21 @@ public class Vista extends JFrame {
 
         private JPanel panelPrincipal;
 
-        public Vista() {
+        private Componente componente;
+
+
+        /*private ComponenteDAO componenteDAO;*/
+
+        private ComponenteControlador componenteControlador;
+
+        private Vista vista;
+
+        List<String> listaDeComponentes = new ArrayList<>();
+
+
+    ComponenteDAOMemoria componenteDAO = new ComponenteDAOMemoria();
+
+    public Vista() {
 
             panelPrincipal = new JPanel();
             getContentPane().add(panelPrincipal);
@@ -46,6 +67,8 @@ public class Vista extends JFrame {
 
 
         }
+
+
 
 
 
@@ -71,12 +94,20 @@ public class Vista extends JFrame {
             registrarTarjetaMadre = new JButton("Registrar Tarjeta Madre");
             registrarTarjetaVideo = new JButton("Registrar Tarjeta de Video");
 
+            /*componenteDAO = new ComponenteDAOMemoria();*/
+
+            componenteControlador = new ComponenteControlador(componenteDAO, vista);
+
+
             registrarRAMButton.addActionListener(new ActionListener() { /*Esto hace que se muestre el panel de ram despues de hacer click en el boton*/
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     mostrarPanelRAM();
+                    /*return null;*/
+
                 }
             });
+
 
             JPanel panelComponentes = new JPanel();
             panelComponentes.add(registrarRAMButton);
@@ -93,71 +124,140 @@ public class Vista extends JFrame {
             // Agregar otros botones al buttonPanel...
 
             panelPrincipal.add(panelComponentes);
-        }
 
-//        private void initListeners() {
+//            guardarRAMButton = new JButton("Guardar RAM");
+//            guardarRAMButton.addActionListener(new ActionListener() {
 //
-//            registrarRAMButton.addActionListener(new ActionListener() { /*Esto hace que se muestre el panel de ram despues de hacer click en el boton*/
 //                @Override
 //                public void actionPerformed(ActionEvent e) {
-//                    mostrarPanelRAM();
+//
+//                    System.out.println("Si entro");
+//
 //                }
 //            });
-//
-//        }
 
 
+        }
 
 
 
 
         private void mostrarPanelRAM() {
-            JPanel panelRAM = new JPanel(new GridLayout(5, 2));
+            JPanel panelRAM = new JPanel(new GridLayout(6, 2));
             panelRAM.add(new JLabel("Modelo:"));
             panelRAM.add(txtModelo);
             panelRAM.add(new JLabel("Precio:"));
             panelRAM.add(txtPrecio);
             panelRAM.add(new JLabel("Capacidad (Elija entre 64, 128, 256, 512, 1024 GB):"));
-            panelRAM.add(txtCategoria);
+            panelRAM.add(txtCapacidad);
             panelRAM.add(new JLabel("Rating:"));
             panelRAM.add(txtRating);
             panelRAM.add(new JLabel("Id Componente:"));
             panelRAM.add(txtIdComponente);
+            guardarRAMButton = new JButton("Guardar RAM");
+            panelRAM.add(guardarRAMButton);
+
+            guardarRAMButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Componente nuevoComponente = obtenerComponenteRam();
+                    componenteDAO.agregar(nuevoComponente);
+                    componenteDAO.imprimirEstado(); // Agrega esta línea
+                    System.out.println("Componente agregado: " + nuevoComponente.getIdComponente());
+
+
+                   /*obtenerComponenteRam();*/
+
+                }
+            });
 
             /*limpiarPanelPrincipal();*/
             panelPrincipal.add(panelRAM);
+
             revalidate();
             repaint();
         }
 
-        private void limpiarPanelPrincipal() {
-            panelPrincipal.removeAll();
-        }
+        public Componente obtenerComponenteRam() {
 
-        /*public void main(String[] args) {
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    new Vista();
-                }
-            });
-        }*/
 
-        public Componente capturarNuevoComponente() {
+
             Componente componente = null;
-            String modelo = /*txtModelo.getText();*/ "modelo";
-            String capacidad = /*txtCapacidad.getText();*/ "capacidad";
-            int id = /*Integer.parseInt(txtIdComponente.getText());*/ 1;
-            int rating = /*Integer.parseInt(txtRating.getText());*/ 1;
-            double precio = /*Double.parseDouble(txtPrecio.getText());*/ 1000;
+            String modelo = txtModelo.getText();
+            String capacidad = txtCapacidad.getText();
+            String idString = txtIdComponente.getText();
+            String ratingString = txtRating.getText();
+            String precioString = txtPrecio.getText();
             String tipoComponente = "Ram";
 
+            int id = Integer.parseInt(idString);
+            int rating = Integer.parseInt(ratingString);
+            double precio = Double.parseDouble(precioString);
 
             Componente nuevoComp = new Ram(rating, tipoComponente, id, precio, modelo, capacidad);
             componente = new Componente(rating, tipoComponente, id, precio, modelo);
+
+
+
+
+
+
             return componente;
 
+
+
+
         }
+
+//        public Componente capturarNuevoComponente() {
+//            Componente componente = null;
+//
+//
+////            String modelo = String.valueOf((txtModelo));
+////            String capacidad = String.valueOf((txtCapacidad));
+////            int id = Integer.parseInt(String.valueOf((txtIdComponente)));
+//            int rating = Integer.parseInt(String.valueOf((txtRating)));
+//            double precio = Double.parseDouble(String.valueOf((txtPrecio)));
+//            String tipoComponente = "Ram";
+
+//            String modelo = txtModelo.getText();
+//            String capacidad = txtCapacidad.getText();
+//            String idText = txtIdComponente.getText();
+//            String ratingText = txtRating.getText();
+//            String precioText = txtPrecio.getText();
+//            String tipoComponente = "Ram";
+//            String modelo = txtModelo.getText();
+//            String capacidad = txtCapacidad.getText();
+//            int id = Integer.parseInt(txtIdComponente.getText());
+//            int rating = Integer.parseInt(txtRating.getText());
+//            double precio = Double.parseDouble(txtPrecio.getText());
+//            String tipoComponente = "Ram";
+//
+//            if (modelo.isEmpty() || capacidad.isEmpty() || idText.isEmpty() || ratingText.isEmpty() || precioText.isEmpty()) {
+//                // Manejar el caso en que uno o más campos estén vacíos
+//                JOptionPane.showMessageDialog(this, "Todos los campos deben ser completados", "Error", JOptionPane.ERROR_MESSAGE);
+//                return null;  // Retorna null si hay campos vacíos
+//            }
+//
+//            int id = Integer.parseInt(idText);
+//            int rating = Integer.parseInt(ratingText);
+//            double precio = Double.parseDouble(precioText);
+
+
+
+
+
+//
+//            Componente nuevoComp = new Ram(rating, tipoComponente, id, precio, modelo, capacidad);
+//            componente = new Componente(rating, tipoComponente, id, precio, modelo);
+
+
+
+//            return componente;
+//
+//        }
+
+
 
 
 //    public Componente capturarNuevoComponente() {
@@ -251,8 +351,11 @@ public class Vista extends JFrame {
 //            opcionComponente = Utils.leerString(String.format("%-20s: ", "Opción Incorrecta\n(Seleccione una de las siguientes opciones)\n1.Ram \n2.Procesador \n3.Almacenamiento \n4.Fuente de Poder \n5.Tarjeta Madre \n6.Tarjeta de Video "));
 //        Utils.limpiar();
 //        return componente;
-//    }
 //
+//
+
+
+
 
     public void listarComponente(List<Componente> componentes) {
         boolean impar = false;
