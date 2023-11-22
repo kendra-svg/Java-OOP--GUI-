@@ -2,220 +2,104 @@ package comp.roundrock.View;
 import comp.roundrock.*;
 import comp.roundrock.Utilitarios.Utils;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class Vista extends JFrame {
+public class VistaCopia {
 
-        private JButton registrarRAMButton;
-        private JButton registrarProcesadorButton;
-        private JButton registrarAlmacenamientoButton;
-        private JButton registrarFuenteDePoder;
-        private JButton registrarTarjetaMadre;
-        private JButton registrarTarjetaVideo;
+    public Componente capturarNuevoComponente() {
 
-        private JTextField txtModelo;
-        private JTextField txtPrecio;
-        private JTextField txtCategoria;
-        private JTextField txtCapacidad;
-        private JTextField txtRating;
-        private JTextField txtIdComponente;
+        Componente componente = null;
+        String modelo, tipoComponente, categoria, capacidad, duracionBateria, opcionComponente, chipset;
+        int rating, idComponente, cantidadNucleos, cantidadVentiladores;
+        double precio;
+        Utils.limpiar();
 
-        private JPanel panelPrincipal;
+        Utils.establecerColorAzul();
+        System.out.println("Registro de Componente:");
+        Utils.reiniciarColores();
+        opcionComponente = Utils.leerString(String.format("%-20s: ", "Tipo de componente (Seleccione una de las siguientes opciones)\n1.Ram \n2.Procesador \n3.Almacenamiento \n4.Fuente de Poder \n5.Tarjeta Madre \n6.Tarjeta de Video "));
 
-        public Vista() {
-            setTitle("Registro de componente");
-            setSize(800, 800);
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            setLocationRelativeTo(null);
+        if (opcionComponente.equals("1")) {
+            System.out.println("A continuación ingrese las siguientes características de la RAM");
+            modelo = Utils.leerString(String.format("%-20s: ", "Modelo"));
+            capacidad = Utils.leerString(String.format("%-20s: ", "Capacidad (Elija entre 64, 128, 256,  512, 1024 GB)"));
+            idComponente = Utils.leerEntero(String.format("%-20s: ", "Identificador del componente"));
+            tipoComponente = "Ram";
+            rating = Utils.leerEntero(String.format("%-20s: ", "Rating"));
+            precio = Utils.leerEntero(String.format("%-20s: ", "Precio"));
 
-            panelPrincipal = new JPanel();
-            getContentPane().add(panelPrincipal);
-
-            initComponents();
-
-            setVisible(true);
-        }
-
-        private void initComponents() {
-            txtModelo = new JTextField();
-            txtPrecio = new JTextField();
-            txtCategoria = new JTextField();
-            txtCapacidad = new JTextField();
-            txtRating = new JTextField();
-            txtIdComponente = new JTextField();
-
-            registrarRAMButton = new JButton("Registrar RAM");
-            registrarProcesadorButton = new JButton("Registrar Procesador");
-            registrarAlmacenamientoButton = new JButton("Registrar Almacenamiento");
-            registrarFuenteDePoder = new JButton("Registrar Fuente de Poder");
-            registrarTarjetaMadre = new JButton("Registrar Tarjeta Madre");
-            registrarTarjetaVideo = new JButton("Registrar Tarjeta de Video");
-
-            registrarRAMButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    mostrarPanelRAM();
-                }
-            });
-
-            JPanel buttonPanel = new JPanel();
-            buttonPanel.add(registrarRAMButton);
-            // Agregar otros botones al buttonPanel...
-
-            panelPrincipal.add(buttonPanel);
-        }
-
-        private void mostrarPanelRAM() {
-            JPanel panelRAM = new JPanel(new GridLayout(5, 2));
-            panelRAM.add(new JLabel("Modelo:"));
-            panelRAM.add(txtModelo);
-            panelRAM.add(new JLabel("Precio:"));
-            panelRAM.add(txtPrecio);
-            panelRAM.add(new JLabel("Capacidad (Elija entre 64, 128, 256, 512, 1024 GB):"));
-            panelRAM.add(txtCategoria);
-            panelRAM.add(new JLabel("Rating:"));
-            panelRAM.add(txtRating);
-            panelRAM.add(new JLabel("Id Componente:"));
-            panelRAM.add(txtIdComponente);
-
-            limpiarPanelPrincipal();
-            panelPrincipal.add(panelRAM);
-            revalidate();
-            repaint();
-        }
-
-        private void limpiarPanelPrincipal() {
-            panelPrincipal.removeAll();
-        }
-
-        public void main(String[] args) {
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    new Vista();
-                }
-            });
-        }
-
-        public Componente capturarNuevoComponente() {
-            Componente componente = null;
-            String modelo = txtModelo.getText();
-            String capacidad = txtCapacidad.getText();
-            int id = Integer.parseInt(txtIdComponente.getText());
-            int rating = Integer.parseInt(txtRating.getText());
-            double precio = Double.parseDouble(txtPrecio.getText());
-            String tipoComponente = "Ram";
+            Componente nuevoComp = new Ram(rating, tipoComponente, idComponente, precio, modelo, capacidad);
+            componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
 
 
-            Componente nuevoComp = new Ram(rating, tipoComponente, id, precio, modelo, capacidad);
-            componente = new Componente(rating, tipoComponente, id, precio, modelo);
-            return componente;
+        } else if (opcionComponente.equals("2")) {
+            System.out.println("A continuación ingrese las siguientes características del Procesador");
+            modelo = Utils.leerString(String.format("%-20s: ", "Modelo"));
+            cantidadNucleos = Utils.leerEntero((String.format("%-20s: ", "Cantidad de Nucleos")));
+            idComponente = Utils.leerEntero(String.format("%-20s: ", "Identificador del componente"));
+            tipoComponente = "Procesador";
+            rating = Utils.leerEntero(String.format("%-20s: ", "Rating"));
+            precio = Utils.leerEntero(String.format("%-20s: ", "Precio"));
 
-        }
+            Componente nuevoComp = new Procesador(rating, tipoComponente, idComponente, precio, modelo, cantidadNucleos);
+            componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
+
+        } else if (opcionComponente.equals("3")) {
+            System.out.println("A continuación ingrese las siguientes características de Almacenamiento");
+            modelo = Utils.leerString(String.format("%-20s: ", "Modelo"));
+            categoria = Utils.leerString((String.format("%-20s: ", "Categoria")));
+            capacidad = Utils.leerString((String.format("%-20s: ", "Capacidad")));
+            idComponente = Utils.leerEntero(String.format("%-20s: ", "Identificador del componente"));
+            tipoComponente = "Almacenamiento";
+            rating = Utils.leerEntero(String.format("%-20s: ", "Rating"));
+            precio = Utils.leerEntero(String.format("%-20s: ", "Precio"));
+
+            Componente nuevoComp = new Almacenamiento(rating, tipoComponente, idComponente, precio, categoria, capacidad, modelo);
+            componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
 
 
-//    public Componente capturarNuevoComponente() {
-//
-//        Componente componente = null;
-//        String modelo, tipoComponente, categoria, capacidad, duracionBateria, opcionComponente, chipset;
-//        int rating, idComponente, cantidadNucleos, cantidadVentiladores;
-//        double precio;
-//        Utils.limpiar();
-//
-//        Utils.establecerColorAzul();
-//        System.out.println("Registro de Componente:");
-//        Utils.reiniciarColores();
-//        opcionComponente = Utils.leerString(String.format("%-20s: ", "Tipo de componente (Seleccione una de las siguientes opciones)\n1.Ram \n2.Procesador \n3.Almacenamiento \n4.Fuente de Poder \n5.Tarjeta Madre \n6.Tarjeta de Video "));
-//
-//        if (opcionComponente.equals("1")) {
-//            System.out.println("A continuación ingrese las siguientes características de la RAM");
-//            modelo = Utils.leerString(String.format("%-20s: ", "Modelo"));
-//            capacidad = Utils.leerString(String.format("%-20s: ", "Capacidad (Elija entre 64, 128, 256,  512, 1024 GB)"));
-//            idComponente = Utils.leerEntero(String.format("%-20s: ", "Identificador del componente"));
-//            tipoComponente = "Ram";
-//            rating = Utils.leerEntero(String.format("%-20s: ", "Rating"));
-//            precio = Utils.leerEntero(String.format("%-20s: ", "Precio"));
-//
-//            Componente nuevoComp = new Ram(rating, tipoComponente, idComponente, precio, modelo, capacidad);
-//            componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
-//
-//
-//        } else if (opcionComponente.equals("2")) {
-//            System.out.println("A continuación ingrese las siguientes características del Procesador");
-//            modelo = Utils.leerString(String.format("%-20s: ", "Modelo"));
-//            cantidadNucleos = Utils.leerEntero((String.format("%-20s: ", "Cantidad de Nucleos")));
-//            idComponente = Utils.leerEntero(String.format("%-20s: ", "Identificador del componente"));
-//            tipoComponente = "Procesador";
-//            rating = Utils.leerEntero(String.format("%-20s: ", "Rating"));
-//            precio = Utils.leerEntero(String.format("%-20s: ", "Precio"));
-//
-//            Componente nuevoComp = new Procesador(rating, tipoComponente, idComponente, precio, modelo, cantidadNucleos);
-//            componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
-//
-//        } else if (opcionComponente.equals("3")) {
-//            System.out.println("A continuación ingrese las siguientes características de Almacenamiento");
-//            modelo = Utils.leerString(String.format("%-20s: ", "Modelo"));
-//            categoria = Utils.leerString((String.format("%-20s: ", "Categoria")));
-//            capacidad = Utils.leerString((String.format("%-20s: ", "Capacidad")));
-//            idComponente = Utils.leerEntero(String.format("%-20s: ", "Identificador del componente"));
-//            tipoComponente = "Almacenamiento";
-//            rating = Utils.leerEntero(String.format("%-20s: ", "Rating"));
-//            precio = Utils.leerEntero(String.format("%-20s: ", "Precio"));
-//
-//            Componente nuevoComp = new Almacenamiento(rating, tipoComponente, idComponente, precio, categoria, capacidad, modelo);
-//            componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
-//
-//
-//        } else if (opcionComponente.equals("4")) {
-//            System.out.println("A continuación ingrese las siguientes características de la Fuente de Poder");
-//            modelo = Utils.leerString(String.format("%-20s: ", "Modelo"));
-//            duracionBateria = Utils.leerString((String.format("%-20s: ", "Duración de la batería")));
-//            idComponente = Utils.leerEntero(String.format("%-20s: ", "Identificador del componente"));
-//            tipoComponente = "Fuente de Poder";
-//            rating = Utils.leerEntero(String.format("%-20s: ", "Rating"));
-//            precio = Utils.leerEntero(String.format("%-20s: ", "Precio"));
-//
-//            Componente nuevoComp = new FuentePoder(rating, tipoComponente, idComponente, precio, duracionBateria, modelo);
-//            componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
-//
-//        } else if (opcionComponente.equals("5")) {
-//            System.out.println("A continuación ingrese las siguientes características de la Tarjeta Madre");
-//            modelo = Utils.leerString(String.format("%-20s: ", "Modelo"));
-//            chipset = Utils.leerString((String.format("%-20s: ", "Chipset")));
-//            idComponente = Utils.leerEntero(String.format("%-20s: ", "Identificador del componente"));
-//            tipoComponente = "Tarjeta Madre";
-//            rating = Utils.leerEntero(String.format("%-20s: ", "Rating"));
-//            precio = Utils.leerEntero(String.format("%-20s: ", "Precio"));
-//
-//            Componente nuevoComp = new TarjetaMadre(rating, tipoComponente, idComponente, precio, chipset, modelo);
-//            componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
-//        } else if (opcionComponente.equals("6")) {
-//            System.out.println("A continuación ingrese las siguientes características de la Tarjeta de Video");
-//            modelo = Utils.leerString(String.format("%-20s: ", "Modelo"));
-//            cantidadVentiladores = Utils.leerEntero((String.format("%-20s: ", "Cantidad de Ventiladores")));
-//            idComponente = Utils.leerEntero(String.format("%-20s: ", "Identificador del componente"));
-//            tipoComponente = "Tarjeta de Video";
-//            rating = Utils.leerEntero(String.format("%-20s: ", "Rating"));
-//            precio = Utils.leerEntero(String.format("%-20s: ", "Precio"));
-//
-//            Componente nuevoComp = new TarjetaVideo(rating, tipoComponente, idComponente, precio, modelo, cantidadVentiladores);
-//            componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
-//
-//        } else
-//            opcionComponente = Utils.leerString(String.format("%-20s: ", "Opción Incorrecta\n(Seleccione una de las siguientes opciones)\n1.Ram \n2.Procesador \n3.Almacenamiento \n4.Fuente de Poder \n5.Tarjeta Madre \n6.Tarjeta de Video "));
-//        Utils.limpiar();
-//        return componente;
-//    }
-//
+        } else if (opcionComponente.equals("4")) {
+            System.out.println("A continuación ingrese las siguientes características de la Fuente de Poder");
+            modelo = Utils.leerString(String.format("%-20s: ", "Modelo"));
+            duracionBateria = Utils.leerString((String.format("%-20s: ", "Duración de la batería")));
+            idComponente = Utils.leerEntero(String.format("%-20s: ", "Identificador del componente"));
+            tipoComponente = "Fuente de Poder";
+            rating = Utils.leerEntero(String.format("%-20s: ", "Rating"));
+            precio = Utils.leerEntero(String.format("%-20s: ", "Precio"));
+
+            Componente nuevoComp = new FuentePoder(rating, tipoComponente, idComponente, precio, duracionBateria, modelo);
+            componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
+
+        } else if (opcionComponente.equals("5")) {
+            System.out.println("A continuación ingrese las siguientes características de la Tarjeta Madre");
+            modelo = Utils.leerString(String.format("%-20s: ", "Modelo"));
+            chipset = Utils.leerString((String.format("%-20s: ", "Chipset")));
+            idComponente = Utils.leerEntero(String.format("%-20s: ", "Identificador del componente"));
+            tipoComponente = "Tarjeta Madre";
+            rating = Utils.leerEntero(String.format("%-20s: ", "Rating"));
+            precio = Utils.leerEntero(String.format("%-20s: ", "Precio"));
+
+            Componente nuevoComp = new TarjetaMadre(rating, tipoComponente, idComponente, precio, chipset, modelo);
+            componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
+        } else if (opcionComponente.equals("6")) {
+            System.out.println("A continuación ingrese las siguientes características de la Tarjeta de Video");
+            modelo = Utils.leerString(String.format("%-20s: ", "Modelo"));
+            cantidadVentiladores = Utils.leerEntero((String.format("%-20s: ", "Cantidad de Ventiladores")));
+            idComponente = Utils.leerEntero(String.format("%-20s: ", "Identificador del componente"));
+            tipoComponente = "Tarjeta de Video";
+            rating = Utils.leerEntero(String.format("%-20s: ", "Rating"));
+            precio = Utils.leerEntero(String.format("%-20s: ", "Precio"));
+
+            Componente nuevoComp = new TarjetaVideo(rating, tipoComponente, idComponente, precio, modelo, cantidadVentiladores);
+            componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
+
+        } else
+            opcionComponente = Utils.leerString(String.format("%-20s: ", "Opción Incorrecta\n(Seleccione una de las siguientes opciones)\n1.Ram \n2.Procesador \n3.Almacenamiento \n4.Fuente de Poder \n5.Tarjeta Madre \n6.Tarjeta de Video "));
+        Utils.limpiar();
+        return componente;
+    }
+
 
     public void listarComponente(List<Componente> componentes) {
         boolean impar = false;

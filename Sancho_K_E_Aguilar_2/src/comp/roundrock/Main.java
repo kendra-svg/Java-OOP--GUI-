@@ -56,33 +56,33 @@ public class Main extends JFrame {
             }
         });
 
-        listarComponenteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                componenteControlador.listarComponente();
-            }
-        });
-
-        registrarFamiliaButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                familiaControlador.registraFamilia();
-            }
-        });
-
-        listarFamiliasButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                familiaControlador.listarFamilia();
-            }
-        });
-
-        salirButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
+//        listarComponenteButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                componenteControlador.listarComponente();
+//            }
+//        });
+//
+//        registrarFamiliaButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                familiaControlador.registraFamilia();
+//            }
+//        });
+//
+//        listarFamiliasButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                familiaControlador.listarFamilia();
+//            }
+//        });
+//
+//        salirButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                System.exit(0);
+//            }
+//        });
 
         // Crear panel y agregar botones
         JPanel panel = new JPanel();
