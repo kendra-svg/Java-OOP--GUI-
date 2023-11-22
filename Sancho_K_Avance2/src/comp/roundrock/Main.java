@@ -43,6 +43,9 @@ public class Main extends JFrame {
 
         // Crear botones
         registrarComponenteButton = new JButton("Registrar Componente");
+
+
+
         listarComponenteButton = new JButton("Listar Componentes");
         registrarFamiliaButton = new JButton("Registrar Familia");
         listarFamiliasButton = new JButton("Listar Familias");
@@ -52,7 +55,9 @@ public class Main extends JFrame {
         registrarComponenteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                componenteControlador.registrarComponente();
+                /*componenteControlador.registrarComponente();*/
+                vista.initComponents();
+
             }
         });
 
@@ -91,6 +96,8 @@ public class Main extends JFrame {
         panel.add(registrarFamiliaButton);
         panel.add(listarFamiliasButton);
         panel.add(salirButton);
+
+
 
         // Agregar panel a la ventana
         getContentPane().add(panel);

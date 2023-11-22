@@ -32,20 +32,31 @@ public class Vista extends JFrame {
         private JPanel panelPrincipal;
 
         public Vista() {
-            setTitle("Registro de componente");
-            setSize(800, 800);
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            setLocationRelativeTo(null);
 
             panelPrincipal = new JPanel();
             getContentPane().add(panelPrincipal);
+//            registrarRAMButton.addActionListener(new ActionListener() { /*Esto hace que se muestre el panel de ram despues de hacer click en el boton*/
+//                @Override
+//                public void actionPerformed(ActionEvent e) {
+//                    mostrarPanelRAM();
+//                }
+//            });
 
-            initComponents();
+            /*initComponents();*/
 
-            setVisible(true);
+
         }
 
-        private void initComponents() {
+
+
+        public void initComponents() {
+            setTitle("Registro de componente");
+            setSize(1500, 1500);
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            setLocationRelativeTo(null);
+            setVisible(true);
+
+
             txtModelo = new JTextField();
             txtPrecio = new JTextField();
             txtCategoria = new JTextField();
@@ -60,19 +71,45 @@ public class Vista extends JFrame {
             registrarTarjetaMadre = new JButton("Registrar Tarjeta Madre");
             registrarTarjetaVideo = new JButton("Registrar Tarjeta de Video");
 
-            registrarRAMButton.addActionListener(new ActionListener() {
+            registrarRAMButton.addActionListener(new ActionListener() { /*Esto hace que se muestre el panel de ram despues de hacer click en el boton*/
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     mostrarPanelRAM();
                 }
             });
 
-            JPanel buttonPanel = new JPanel();
-            buttonPanel.add(registrarRAMButton);
+            JPanel panelComponentes = new JPanel();
+            panelComponentes.add(registrarRAMButton);
+            panelComponentes.add(registrarAlmacenamientoButton);
+            panelComponentes.add(registrarProcesadorButton);
+            panelComponentes.add(registrarFuenteDePoder);
+            panelComponentes.add(registrarTarjetaVideo);
+            panelComponentes.add(registrarTarjetaMadre);
+
+
+
+
+
             // Agregar otros botones al buttonPanel...
 
-            panelPrincipal.add(buttonPanel);
+            panelPrincipal.add(panelComponentes);
         }
+
+//        private void initListeners() {
+//
+//            registrarRAMButton.addActionListener(new ActionListener() { /*Esto hace que se muestre el panel de ram despues de hacer click en el boton*/
+//                @Override
+//                public void actionPerformed(ActionEvent e) {
+//                    mostrarPanelRAM();
+//                }
+//            });
+//
+//        }
+
+
+
+
+
 
         private void mostrarPanelRAM() {
             JPanel panelRAM = new JPanel(new GridLayout(5, 2));
@@ -87,7 +124,7 @@ public class Vista extends JFrame {
             panelRAM.add(new JLabel("Id Componente:"));
             panelRAM.add(txtIdComponente);
 
-            limpiarPanelPrincipal();
+            /*limpiarPanelPrincipal();*/
             panelPrincipal.add(panelRAM);
             revalidate();
             repaint();
@@ -97,23 +134,22 @@ public class Vista extends JFrame {
             panelPrincipal.removeAll();
         }
 
-        public void main(String[] args) {
+        /*public void main(String[] args) {
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     new Vista();
                 }
             });
-        }
+        }*/
 
         public Componente capturarNuevoComponente() {
             Componente componente = null;
-            /*q dolor de cabeza*/
-            String modelo = txtModelo.getText();
-            String capacidad = txtCapacidad.getText();
-            int id = Integer.parseInt(txtIdComponente.getText());
-            int rating = Integer.parseInt(txtRating.getText());
-            double precio = Double.parseDouble(txtPrecio.getText());
+            String modelo = /*txtModelo.getText();*/ "modelo";
+            String capacidad = /*txtCapacidad.getText();*/ "capacidad";
+            int id = /*Integer.parseInt(txtIdComponente.getText());*/ 1;
+            int rating = /*Integer.parseInt(txtRating.getText());*/ 1;
+            double precio = /*Double.parseDouble(txtPrecio.getText());*/ 1000;
             String tipoComponente = "Ram";
 
 
