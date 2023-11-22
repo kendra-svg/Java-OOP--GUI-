@@ -108,6 +108,7 @@ public class Vista extends JFrame {
 
         public Componente capturarNuevoComponente() {
             Componente componente = null;
+            /*q dolor de cabeza*/
             String modelo = txtModelo.getText();
             String capacidad = txtCapacidad.getText();
             int id = Integer.parseInt(txtIdComponente.getText());
