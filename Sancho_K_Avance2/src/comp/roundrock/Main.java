@@ -32,6 +32,8 @@ public class Main extends JFrame {
 
 
 
+
+
     public Main() {
         setTitle("Registro de computadoras y familias");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -63,24 +65,19 @@ public class Main extends JFrame {
                 /*componenteControlador.registrarComponente();*/
 
 
-               /* return null;*/
-
             }
         });
 
         listarComponenteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (componenteDAO != null) {
-                    componenteDAO.getEstado();
-                    List<Componente> listaComponentes = componenteDAO.obtenerListaComponentes();
-                    System.out.println("Número de componentes en la lista: " + listaComponentes.size());
-                    vista.listarComponente(listaComponentes);
-                } else {
-                    System.out.println("componenteDAO es nulo");
-                }
+                vista.panelInit();
+                vista.initListaComponente();
+
             }
         });
+
+
 //
 //        registrarFamiliaButton.addActionListener(new ActionListener() {
 //            @Override
@@ -100,7 +97,7 @@ public class Main extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
-                /*return null;*/
+
 
             }
         });

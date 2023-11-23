@@ -16,6 +16,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+
 public class Vista extends JFrame {
 
 
@@ -29,6 +31,12 @@ public class Vista extends JFrame {
 
         private JButton guardarRAMButton;
 
+        private JButton volverAlMenuBoutton;
+
+    private JButton mostrarComponentesButton;
+
+
+
         private JTextField txtModelo;
         private JTextField txtPrecio;
         private JTextField txtCategoria;
@@ -37,6 +45,8 @@ public class Vista extends JFrame {
         private JTextField txtIdComponente;
 
         private JPanel panelPrincipal;
+
+        private JPanel panelPrincipalMostrarComponentes;
 
         private Componente componente;
 
@@ -49,6 +59,8 @@ public class Vista extends JFrame {
 
         List<String> listaDeComponentes = new ArrayList<>();
 
+    private JFrame frameListaComponentes;
+
 
     ComponenteDAOMemoria componenteDAO = new ComponenteDAOMemoria();
 
@@ -56,19 +68,18 @@ public class Vista extends JFrame {
 
             panelPrincipal = new JPanel();
             getContentPane().add(panelPrincipal);
-//            registrarRAMButton.addActionListener(new ActionListener() { /*Esto hace que se muestre el panel de ram despues de hacer click en el boton*/
-//                @Override
-//                public void actionPerformed(ActionEvent e) {
-//                    mostrarPanelRAM();
-//                }
-//            });
 
-            /*initComponents();*/
+    }
 
+    public void panelInit() {
 
-        }
+            panelPrincipalMostrarComponentes = new JPanel();
+            getContentPane().add(panelPrincipalMostrarComponentes);
+    }
 
-
+    public void crearVista() {
+        
+    }
 
 
 
@@ -94,17 +105,13 @@ public class Vista extends JFrame {
             registrarTarjetaMadre = new JButton("Registrar Tarjeta Madre");
             registrarTarjetaVideo = new JButton("Registrar Tarjeta de Video");
 
-            /*componenteDAO = new ComponenteDAOMemoria();*/
 
             componenteControlador = new ComponenteControlador(componenteDAO, vista);
-
 
             registrarRAMButton.addActionListener(new ActionListener() { /*Esto hace que se muestre el panel de ram despues de hacer click en el boton*/
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     mostrarPanelRAM();
-                    /*return null;*/
-
                 }
             });
 
@@ -117,24 +124,68 @@ public class Vista extends JFrame {
             panelComponentes.add(registrarTarjetaVideo);
             panelComponentes.add(registrarTarjetaMadre);
 
-
-
-
-
-            // Agregar otros botones al buttonPanel...
-
             panelPrincipal.add(panelComponentes);
 
-//            guardarRAMButton = new JButton("Guardar RAM");
-//            guardarRAMButton.addActionListener(new ActionListener() {
-//
-//                @Override
-//                public void actionPerformed(ActionEvent e) {
-//
-//                    System.out.println("Si entro");
-//
-//                }
-//            });
+
+
+        }
+
+
+        public void initListaComponente(){
+            setTitle("Listar componentes");
+            setSize(900, 900);
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            setLocationRelativeTo(null);
+            setVisible(true);
+
+
+            mostrarComponentesButton = new JButton("Mostrar Componentes");
+
+            mostrarComponentesButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                    mostrarPanelListarComponentes();
+                }
+            });
+
+            JPanel panelMainComponentes = new JPanel();
+            panelMainComponentes.add(mostrarComponentesButton);
+
+            /*-panelPrincipalMostrarComponentes.add(panelMainComponentes);*/
+
+
+        }
+
+        private void mostrarPanelListarComponentes() {
+
+            JPanel panelLista = new JPanel();
+            panelLista.add(new JLabel("Tipo de componente: " + componente.getTipoComponente()));
+            panelLista.add(new JLabel("Modelo: " + componente.getModelo()));
+            panelLista.add(new JLabel("Precio: " + componente.getPrecio()));
+
+
+            mostrarComponentesButton = new JButton("Mostrar Componentes");
+            panelLista.add(mostrarComponentesButton);
+
+
+            mostrarComponentesButton.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                    panelLista.add(new JLabel("Tipo de componente: " + componente.getTipoComponente()));
+                    panelLista.add(new JLabel("Modelo: " + componente.getModelo()));
+                    panelLista.add(new JLabel("Precio: " + componente.getPrecio()));
+                    revalidate();
+                    repaint();
+
+                }
+            });
+//          panelPrincipalMostrarComponentes.add(panelLista);
+            panelPrincipalMostrarComponentes.add(panelLista);
+
+            revalidate();
+            repaint();
 
 
         }
@@ -156,6 +207,8 @@ public class Vista extends JFrame {
             panelRAM.add(txtIdComponente);
             guardarRAMButton = new JButton("Guardar RAM");
             panelRAM.add(guardarRAMButton);
+            volverAlMenuBoutton = new JButton("Volver al menu principal");
+            panelRAM.add(volverAlMenuBoutton);
 
             guardarRAMButton.addActionListener(new ActionListener() {
                 @Override
@@ -166,12 +219,17 @@ public class Vista extends JFrame {
                     System.out.println("Componente agregado: " + nuevoComponente.getIdComponente());
 
 
-                   /*obtenerComponenteRam();*/
 
                 }
             });
 
-            /*limpiarPanelPrincipal();*/
+            volverAlMenuBoutton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    dispose();
+                }
+            });
+
             panelPrincipal.add(panelRAM);
 
             revalidate();
@@ -179,8 +237,6 @@ public class Vista extends JFrame {
         }
 
         public Componente obtenerComponenteRam() {
-
-
 
             Componente componente = null;
             String modelo = txtModelo.getText();
@@ -197,162 +253,13 @@ public class Vista extends JFrame {
             Componente nuevoComp = new Ram(rating, tipoComponente, id, precio, modelo, capacidad);
             componente = new Componente(rating, tipoComponente, id, precio, modelo);
 
-
-
-
-
-
             return componente;
-
-
-
 
         }
 
-//        public Componente capturarNuevoComponente() {
-//            Componente componente = null;
-//
-//
-////            String modelo = String.valueOf((txtModelo));
-////            String capacidad = String.valueOf((txtCapacidad));
-////            int id = Integer.parseInt(String.valueOf((txtIdComponente)));
-//            int rating = Integer.parseInt(String.valueOf((txtRating)));
-//            double precio = Double.parseDouble(String.valueOf((txtPrecio)));
-//            String tipoComponente = "Ram";
+        public void listarComponentesRegistrados(){
 
-//            String modelo = txtModelo.getText();
-//            String capacidad = txtCapacidad.getText();
-//            String idText = txtIdComponente.getText();
-//            String ratingText = txtRating.getText();
-//            String precioText = txtPrecio.getText();
-//            String tipoComponente = "Ram";
-//            String modelo = txtModelo.getText();
-//            String capacidad = txtCapacidad.getText();
-//            int id = Integer.parseInt(txtIdComponente.getText());
-//            int rating = Integer.parseInt(txtRating.getText());
-//            double precio = Double.parseDouble(txtPrecio.getText());
-//            String tipoComponente = "Ram";
-//
-//            if (modelo.isEmpty() || capacidad.isEmpty() || idText.isEmpty() || ratingText.isEmpty() || precioText.isEmpty()) {
-//                // Manejar el caso en que uno o más campos estén vacíos
-//                JOptionPane.showMessageDialog(this, "Todos los campos deben ser completados", "Error", JOptionPane.ERROR_MESSAGE);
-//                return null;  // Retorna null si hay campos vacíos
-//            }
-//
-//            int id = Integer.parseInt(idText);
-//            int rating = Integer.parseInt(ratingText);
-//            double precio = Double.parseDouble(precioText);
-
-
-
-
-
-//
-//            Componente nuevoComp = new Ram(rating, tipoComponente, id, precio, modelo, capacidad);
-//            componente = new Componente(rating, tipoComponente, id, precio, modelo);
-
-
-
-//            return componente;
-//
-//        }
-
-
-
-
-//    public Componente capturarNuevoComponente() {
-//
-//        Componente componente = null;
-//        String modelo, tipoComponente, categoria, capacidad, duracionBateria, opcionComponente, chipset;
-//        int rating, idComponente, cantidadNucleos, cantidadVentiladores;
-//        double precio;
-//        Utils.limpiar();
-//
-//        Utils.establecerColorAzul();
-//        System.out.println("Registro de Componente:");
-//        Utils.reiniciarColores();
-//        opcionComponente = Utils.leerString(String.format("%-20s: ", "Tipo de componente (Seleccione una de las siguientes opciones)\n1.Ram \n2.Procesador \n3.Almacenamiento \n4.Fuente de Poder \n5.Tarjeta Madre \n6.Tarjeta de Video "));
-//
-//        if (opcionComponente.equals("1")) {
-//            System.out.println("A continuación ingrese las siguientes características de la RAM");
-//            modelo = Utils.leerString(String.format("%-20s: ", "Modelo"));
-//            capacidad = Utils.leerString(String.format("%-20s: ", "Capacidad (Elija entre 64, 128, 256,  512, 1024 GB)"));
-//            idComponente = Utils.leerEntero(String.format("%-20s: ", "Identificador del componente"));
-//            tipoComponente = "Ram";
-//            rating = Utils.leerEntero(String.format("%-20s: ", "Rating"));
-//            precio = Utils.leerEntero(String.format("%-20s: ", "Precio"));
-//
-//            Componente nuevoComp = new Ram(rating, tipoComponente, idComponente, precio, modelo, capacidad);
-//            componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
-//
-//
-//        } else if (opcionComponente.equals("2")) {
-//            System.out.println("A continuación ingrese las siguientes características del Procesador");
-//            modelo = Utils.leerString(String.format("%-20s: ", "Modelo"));
-//            cantidadNucleos = Utils.leerEntero((String.format("%-20s: ", "Cantidad de Nucleos")));
-//            idComponente = Utils.leerEntero(String.format("%-20s: ", "Identificador del componente"));
-//            tipoComponente = "Procesador";
-//            rating = Utils.leerEntero(String.format("%-20s: ", "Rating"));
-//            precio = Utils.leerEntero(String.format("%-20s: ", "Precio"));
-//
-//            Componente nuevoComp = new Procesador(rating, tipoComponente, idComponente, precio, modelo, cantidadNucleos);
-//            componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
-//
-//        } else if (opcionComponente.equals("3")) {
-//            System.out.println("A continuación ingrese las siguientes características de Almacenamiento");
-//            modelo = Utils.leerString(String.format("%-20s: ", "Modelo"));
-//            categoria = Utils.leerString((String.format("%-20s: ", "Categoria")));
-//            capacidad = Utils.leerString((String.format("%-20s: ", "Capacidad")));
-//            idComponente = Utils.leerEntero(String.format("%-20s: ", "Identificador del componente"));
-//            tipoComponente = "Almacenamiento";
-//            rating = Utils.leerEntero(String.format("%-20s: ", "Rating"));
-//            precio = Utils.leerEntero(String.format("%-20s: ", "Precio"));
-//
-//            Componente nuevoComp = new Almacenamiento(rating, tipoComponente, idComponente, precio, categoria, capacidad, modelo);
-//            componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
-//
-//
-//        } else if (opcionComponente.equals("4")) {
-//            System.out.println("A continuación ingrese las siguientes características de la Fuente de Poder");
-//            modelo = Utils.leerString(String.format("%-20s: ", "Modelo"));
-//            duracionBateria = Utils.leerString((String.format("%-20s: ", "Duración de la batería")));
-//            idComponente = Utils.leerEntero(String.format("%-20s: ", "Identificador del componente"));
-//            tipoComponente = "Fuente de Poder";
-//            rating = Utils.leerEntero(String.format("%-20s: ", "Rating"));
-//            precio = Utils.leerEntero(String.format("%-20s: ", "Precio"));
-//
-//            Componente nuevoComp = new FuentePoder(rating, tipoComponente, idComponente, precio, duracionBateria, modelo);
-//            componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
-//
-//        } else if (opcionComponente.equals("5")) {
-//            System.out.println("A continuación ingrese las siguientes características de la Tarjeta Madre");
-//            modelo = Utils.leerString(String.format("%-20s: ", "Modelo"));
-//            chipset = Utils.leerString((String.format("%-20s: ", "Chipset")));
-//            idComponente = Utils.leerEntero(String.format("%-20s: ", "Identificador del componente"));
-//            tipoComponente = "Tarjeta Madre";
-//            rating = Utils.leerEntero(String.format("%-20s: ", "Rating"));
-//            precio = Utils.leerEntero(String.format("%-20s: ", "Precio"));
-//
-//            Componente nuevoComp = new TarjetaMadre(rating, tipoComponente, idComponente, precio, chipset, modelo);
-//            componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
-//        } else if (opcionComponente.equals("6")) {
-//            System.out.println("A continuación ingrese las siguientes características de la Tarjeta de Video");
-//            modelo = Utils.leerString(String.format("%-20s: ", "Modelo"));
-//            cantidadVentiladores = Utils.leerEntero((String.format("%-20s: ", "Cantidad de Ventiladores")));
-//            idComponente = Utils.leerEntero(String.format("%-20s: ", "Identificador del componente"));
-//            tipoComponente = "Tarjeta de Video";
-//            rating = Utils.leerEntero(String.format("%-20s: ", "Rating"));
-//            precio = Utils.leerEntero(String.format("%-20s: ", "Precio"));
-//
-//            Componente nuevoComp = new TarjetaVideo(rating, tipoComponente, idComponente, precio, modelo, cantidadVentiladores);
-//            componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
-//
-//        } else
-//            opcionComponente = Utils.leerString(String.format("%-20s: ", "Opción Incorrecta\n(Seleccione una de las siguientes opciones)\n1.Ram \n2.Procesador \n3.Almacenamiento \n4.Fuente de Poder \n5.Tarjeta Madre \n6.Tarjeta de Video "));
-//        Utils.limpiar();
-//        return componente;
-//
-//
+        }
 
 
 
