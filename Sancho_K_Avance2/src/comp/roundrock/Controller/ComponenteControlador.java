@@ -18,7 +18,7 @@ public class ComponenteControlador {
 
 
     public void registrarComponente() {
-        Componente nuevoComponente = vista.obtenerComponenteRam();
+        Componente nuevoComponente = vista.capturarComponenteRam();
         componenteDAO.agregar(nuevoComponente);
     }
 

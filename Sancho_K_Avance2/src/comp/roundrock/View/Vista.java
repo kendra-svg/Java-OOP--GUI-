@@ -1,7 +1,9 @@
 package comp.roundrock.View;
 import comp.roundrock.*;
+import comp.roundrock.Controller.FamiliaControlador;
 import comp.roundrock.DAO.ComponenteDAO;
 import comp.roundrock.DAO.Memory.ComponenteDAOMemoria;
+import comp.roundrock.DAO.Memory.FamiliaDAOMemoria;
 import comp.roundrock.Utilitarios.Utils;
 import comp.roundrock.Controller.ComponenteControlador;
 
@@ -25,35 +27,65 @@ public class Vista extends JFrame {
         private JButton registrarRAMButton;
         private JButton registrarProcesadorButton;
         private JButton registrarAlmacenamientoButton;
-        private JButton registrarFuenteDePoder;
-        private JButton registrarTarjetaMadre;
-        private JButton registrarTarjetaVideo;
+        private JButton registrarFuenteDePoderButton;
+        private JButton registrarTarjetaMadreButton;
+        private JButton registrarTarjetaVideoButton;
 
         private JButton guardarRAMButton;
 
+        private JButton guardarProcesadorButton;
+
+        private JButton guardarAlmacenamientoButton;
+
+        private JButton guardarFuentePoder;
+
+        private JButton guardarTarjetaMadre;
+
+        private JButton guardarTarjetaVideo;
+
         private JButton volverAlMenuBoutton;
 
-    private JButton mostrarComponentesButton;
+         private JButton mostrarComponentesButton;
 
 
 
         private JTextField txtModelo;
+
+        private JTextField txtChipset;
+
+        private JPanel inicializacionGeneralPaneles;
+
+        private JTextField txtCantidadVentiladores;
         private JTextField txtPrecio;
         private JTextField txtCategoria;
         private JTextField txtCapacidad;
         private JTextField txtRating;
+
+        private JTextField txtDuracionBateria;
         private JTextField txtIdComponente;
 
         private JPanel panelPrincipal;
 
+        private JPanel panelPrueba;
+
         private JPanel panelPrincipalMostrarComponentes;
 
+        private JPanel panelRegistroProcesador;
+
         private Componente componente;
+
+        private JButton registrarComponenteButton;
+        private JButton listarComponenteButton;
+        private JButton registrarFamiliaButton;
+        private JButton listarFamiliasButton;
+        private JButton salirButton;
 
 
         /*private ComponenteDAO componenteDAO;*/
 
         private ComponenteControlador componenteControlador;
+
+
 
         private Vista vista;
 
@@ -64,12 +96,22 @@ public class Vista extends JFrame {
 
     ComponenteDAOMemoria componenteDAO = new ComponenteDAOMemoria();
 
+
+
     public Vista() {
+
 
             panelPrincipal = new JPanel();
             getContentPane().add(panelPrincipal);
 
+            /*panelPrincipalMostrarComponentes = new JPanel();
+            /*getContentPane().add(panelPrincipalMostrarComponentes);*/
+
     }
+
+    /*public void inicializacionGeneralPaneles(){
+        panel
+    }*/
 
     public void panelInit() {
 
@@ -77,8 +119,14 @@ public class Vista extends JFrame {
             getContentPane().add(panelPrincipalMostrarComponentes);
     }
 
+    public void panelInitProcesador() {
+        panelRegistroProcesador = new JPanel();
+        getContentPane().add(panelRegistroProcesador);
+
+    }
+
     public void crearVista() {
-        
+
     }
 
 
@@ -97,13 +145,16 @@ public class Vista extends JFrame {
             txtCapacidad = new JTextField();
             txtRating = new JTextField();
             txtIdComponente = new JTextField();
+            txtChipset = new JTextField();
+            txtCantidadVentiladores = new JTextField();
+            txtDuracionBateria = new JTextField();
 
             registrarRAMButton = new JButton("Registrar RAM");
             registrarProcesadorButton = new JButton("Registrar Procesador");
             registrarAlmacenamientoButton = new JButton("Registrar Almacenamiento");
-            registrarFuenteDePoder = new JButton("Registrar Fuente de Poder");
-            registrarTarjetaMadre = new JButton("Registrar Tarjeta Madre");
-            registrarTarjetaVideo = new JButton("Registrar Tarjeta de Video");
+            registrarFuenteDePoderButton = new JButton("Registrar Fuente de Poder");
+            registrarTarjetaMadreButton= new JButton("Registrar Tarjeta Madre");
+            registrarTarjetaVideoButton = new JButton("Registrar Tarjeta de Video");
 
 
             componenteControlador = new ComponenteControlador(componenteDAO, vista);
@@ -115,14 +166,51 @@ public class Vista extends JFrame {
                 }
             });
 
+            registrarProcesadorButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    mostrarPanelProcesador();
+                }
+            });
+
+            registrarAlmacenamientoButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    mostrarPanelAlmacenamiento();
+                }
+            });
+
+            registrarFuenteDePoderButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    mostrarPanelFuentePoder();
+                }
+            });
+
+            registrarTarjetaVideoButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    mostrarPanelTarjetaVideo();
+                }
+            });
+
+            registrarTarjetaMadreButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    mostrarPanelTarjetaMadre();
+                }
+            });
+
+
+
 
             JPanel panelComponentes = new JPanel();
             panelComponentes.add(registrarRAMButton);
             panelComponentes.add(registrarAlmacenamientoButton);
             panelComponentes.add(registrarProcesadorButton);
-            panelComponentes.add(registrarFuenteDePoder);
-            panelComponentes.add(registrarTarjetaVideo);
-            panelComponentes.add(registrarTarjetaMadre);
+            panelComponentes.add(registrarFuenteDePoderButton);
+            panelComponentes.add(registrarTarjetaVideoButton);
+            panelComponentes.add(registrarTarjetaMadreButton);
 
             panelPrincipal.add(panelComponentes);
 
@@ -137,17 +225,19 @@ public class Vista extends JFrame {
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setLocationRelativeTo(null);
             setVisible(true);
+            panelPrincipalMostrarComponentes = new JPanel();
+            mostrarPanelListarComponentes();
 
 
-            mostrarComponentesButton = new JButton("Mostrar Componentes");
+            /*mostrarComponentesButton = new JButton("Mostrar Componentes");
 
-            mostrarComponentesButton.addActionListener(new ActionListener() {
+            /mostrarComponentesButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
 
                     mostrarPanelListarComponentes();
                 }
-            });
+            });*/
 
             JPanel panelMainComponentes = new JPanel();
             panelMainComponentes.add(mostrarComponentesButton);
@@ -160,22 +250,19 @@ public class Vista extends JFrame {
         private void mostrarPanelListarComponentes() {
 
             JPanel panelLista = new JPanel();
-            panelLista.add(new JLabel("Tipo de componente: " + componente.getTipoComponente()));
-            panelLista.add(new JLabel("Modelo: " + componente.getModelo()));
-            panelLista.add(new JLabel("Precio: " + componente.getPrecio()));
-
+            panelLista.add(new JLabel("Tipo de componente: " )); /*+ componente.getTipoComponente()));*/
+            panelLista.add(new JLabel("Modelo: " )); /*+ componente.getModelo()));*/
+            panelLista.add(new JLabel("Precio: " )); /*+ componente.getPrecio()));*/
 
             mostrarComponentesButton = new JButton("Mostrar Componentes");
             panelLista.add(mostrarComponentesButton);
 
-
             mostrarComponentesButton.addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent e) {
-
-                    panelLista.add(new JLabel("Tipo de componente: " + componente.getTipoComponente()));
-                    panelLista.add(new JLabel("Modelo: " + componente.getModelo()));
-                    panelLista.add(new JLabel("Precio: " + componente.getPrecio()));
+                    panelLista.add(new JLabel("Tipo de componente: " )); /*+ componente.getTipoComponente()));*/
+                    panelLista.add(new JLabel("Modelo: " )); /*+ componente.getModelo()));*/
+                    panelLista.add(new JLabel("Precio: " )); /*+ componente.getPrecio()));*/;
                     revalidate();
                     repaint();
 
@@ -186,8 +273,6 @@ public class Vista extends JFrame {
 
             revalidate();
             repaint();
-
-
         }
 
 
@@ -213,7 +298,7 @@ public class Vista extends JFrame {
             guardarRAMButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Componente nuevoComponente = obtenerComponenteRam();
+                    Componente nuevoComponente = capturarComponenteRam();
                     componenteDAO.agregar(nuevoComponente);
                     componenteDAO.imprimirEstado(); // Agrega esta línea
                     System.out.println("Componente agregado: " + nuevoComponente.getIdComponente());
@@ -236,7 +321,7 @@ public class Vista extends JFrame {
             repaint();
         }
 
-        public Componente obtenerComponenteRam() {
+        public Componente capturarComponenteRam() {
 
             Componente componente = null;
             String modelo = txtModelo.getText();
@@ -246,20 +331,352 @@ public class Vista extends JFrame {
             String precioString = txtPrecio.getText();
             String tipoComponente = "Ram";
 
-            int id = Integer.parseInt(idString);
+            int idComponente = Integer.parseInt(idString);
             int rating = Integer.parseInt(ratingString);
             double precio = Double.parseDouble(precioString);
 
-            Componente nuevoComp = new Ram(rating, tipoComponente, id, precio, modelo, capacidad);
-            componente = new Componente(rating, tipoComponente, id, precio, modelo);
+            Componente nuevoComp = new Ram(rating, tipoComponente, idComponente, precio, modelo, capacidad);
+            componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
 
             return componente;
 
         }
 
+
+        private void mostrarPanelProcesador(){
+            JPanel panelProcesador= new JPanel(new GridLayout(6, 2));
+            panelProcesador.add(new JLabel("Modelo: "));
+            panelProcesador.add(txtModelo);
+            panelProcesador.add(new JLabel("Precio: "));
+            panelProcesador.add(txtPrecio);
+            panelProcesador.add(new JLabel("Cantidad de Nucleos: "));
+            panelProcesador.add(txtCantidadVentiladores);
+            panelProcesador.add(new JLabel("Rating: "));
+            panelProcesador.add(txtRating);
+            panelProcesador.add(new JLabel("Id Componente: "));
+            panelProcesador.add(txtIdComponente);
+            volverAlMenuBoutton = new JButton("Volver al menu principal");
+            panelProcesador.add(volverAlMenuBoutton);
+            guardarProcesadorButton = new JButton("Guardar Procesador");
+            panelProcesador.add(guardarProcesadorButton);
+
+            guardarProcesadorButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Componente nuevoComponente = capturarComponenteProcesador();
+                    componenteDAO.agregar(nuevoComponente);
+                    componenteDAO.imprimirEstado(); // Agrega esta línea
+                    System.out.println("Componente agregado: " + nuevoComponente.getIdComponente());
+                }
+            });
+
+            volverAlMenuBoutton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    dispose();
+                }
+            });
+
+            panelPrincipal.add(panelProcesador);
+            revalidate();
+            repaint();
+        }
+        public Componente capturarComponenteProcesador() {
+
+        Componente componente = null;
+        String modelo = txtModelo.getText();
+        String cantidadNucleosString = txtCapacidad.getText();
+        String idString = txtIdComponente.getText();
+        String ratingString = txtRating.getText();
+        String precioString = txtPrecio.getText();
+        String tipoComponente = "Procesador";
+
+        int cantidadNucleos = Integer.parseInt(cantidadNucleosString);
+
+        int idComponente = Integer.parseInt(idString);
+        int rating = Integer.parseInt(ratingString);
+        double precio = Double.parseDouble(precioString);
+
+        Componente nuevoComp = new Procesador(rating, tipoComponente, idComponente, precio, modelo, cantidadNucleos);
+        componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
+
+        return componente;
+
+    }
+
+    private void mostrarPanelAlmacenamiento() {
+        setTitle("Registro de componente de Almacenamiento");
+        setSize(1500, 1500);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setVisible(true);
+        JPanel panelAlmacenamiento= new JPanel(new GridLayout(6, 2));
+        panelAlmacenamiento.add(new JLabel("Modelo: "));
+        panelAlmacenamiento.add(txtModelo);
+        panelAlmacenamiento.add(new JLabel("Precio: "));
+        panelAlmacenamiento.add(txtPrecio);
+        panelAlmacenamiento.add(new JLabel("Rating: "));
+        panelAlmacenamiento.add(txtRating);
+        panelAlmacenamiento.add(new JLabel("Id Componente: "));
+        panelAlmacenamiento.add(txtIdComponente);
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+        panelAlmacenamiento.add(volverAlMenuBoutton);
+        guardarAlmacenamientoButton = new JButton("Guardar Almacenamiento");
+        panelAlmacenamiento.add(guardarAlmacenamientoButton);
+
+        guardarAlmacenamientoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Componente nuevoComponente = capturarComponenteAlmacenamiento();
+                componenteDAO.agregar(nuevoComponente);
+                componenteDAO.imprimirEstado(); // Agrega esta línea
+                System.out.println("Componente agregado: " + nuevoComponente.getIdComponente());
+            }
+        });
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+
+        panelPrincipal.add(panelAlmacenamiento);
+        revalidate();
+        repaint();
+    }
+
+    public Componente capturarComponenteAlmacenamiento() {
+
+        Componente componente = null;
+        String modelo = txtModelo.getText();
+        String capacidad = txtCapacidad.getText();
+        String categoria = txtCapacidad.getText();
+        String idString = txtIdComponente.getText();
+        String ratingString = txtRating.getText();
+        String precioString = txtPrecio.getText();
+        String tipoComponente = "Almacenamiento";
+
+
+        int idComponente = Integer.parseInt(idString);
+        int rating = Integer.parseInt(ratingString);
+        double precio = Double.parseDouble(precioString);
+
+        Componente nuevoComp = new Almacenamiento(rating, tipoComponente, idComponente, precio, modelo, categoria, capacidad);
+        componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
+
+        return componente;
+
+    }
+
+    private void mostrarPanelFuentePoder() {
+        setTitle("Registro de componente de Fuente de Poder");
+        setSize(1500, 1500);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setVisible(true);
+        JPanel panelFuentePoder= new JPanel(new GridLayout(6, 2));
+        panelFuentePoder.add(new JLabel("Modelo: "));
+        panelFuentePoder.add(txtModelo);
+        panelFuentePoder.add(new JLabel("Precio: "));
+        panelFuentePoder.add(txtPrecio);
+        panelFuentePoder.add(new JLabel("Rating: "));
+        panelFuentePoder.add(txtRating);
+        panelFuentePoder.add(new JLabel("Duración batería: "));
+        panelFuentePoder.add(txtDuracionBateria);
+        panelFuentePoder.add(new JLabel("Id Componente: "));
+        panelFuentePoder.add(txtIdComponente);
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+        panelFuentePoder.add(volverAlMenuBoutton);
+        guardarFuentePoder = new JButton("Guardar Fuente de Poder");
+        panelFuentePoder.add(guardarFuentePoder);
+
+        guardarFuentePoder.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Componente nuevoComponente = capturarComponenteFuentePoder();
+                componenteDAO.agregar(nuevoComponente);
+                componenteDAO.imprimirEstado(); // Agrega esta línea
+                System.out.println("Componente agregado: " + nuevoComponente.getIdComponente());
+            }
+        });
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+
+        panelPrincipal.add(panelFuentePoder);
+        revalidate();
+        repaint();
+    }
+
+    public Componente capturarComponenteFuentePoder() {
+        Componente componente = null;
+        String modelo = txtModelo.getText();
+        String idString = txtIdComponente.getText();
+        String ratingString = txtRating.getText();
+        String precioString = txtPrecio.getText();
+        String duracionBateria = txtPrecio.getText();
+        String tipoComponente = "Fuente de Poder";
+
+
+        int idComponente = Integer.parseInt(idString);
+        int rating = Integer.parseInt(ratingString);
+        double precio = Double.parseDouble(precioString);
+
+        Componente nuevoComp = new FuentePoder(rating, tipoComponente, idComponente, precio, modelo, duracionBateria);
+        componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
+
+        return componente;
+
+    }
+
+    private void mostrarPanelTarjetaMadre() {
+        setTitle("Registro de componente de Tarjeta Madre");
+        setSize(1500, 1500);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setVisible(true);
+        JPanel panelTarjetaMadre= new JPanel(new GridLayout(6, 2));
+        panelTarjetaMadre.add(new JLabel("Modelo: "));
+        panelTarjetaMadre.add(txtModelo);
+        panelTarjetaMadre.add(new JLabel("Precio: "));
+        panelTarjetaMadre.add(txtPrecio);
+        panelTarjetaMadre.add(new JLabel("Rating: "));
+        panelTarjetaMadre.add(txtRating);
+        panelTarjetaMadre.add(new JLabel("Chipset: "));
+        panelTarjetaMadre.add(txtChipset);
+        panelTarjetaMadre.add(new JLabel("Id Componente: "));
+        panelTarjetaMadre.add(txtIdComponente);
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+        panelTarjetaMadre.add(volverAlMenuBoutton);
+        guardarTarjetaMadre = new JButton("Guardar Fuente de Poder");
+        panelTarjetaMadre.add(guardarTarjetaMadre);
+
+        guardarTarjetaMadre.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Componente nuevoComponente = capturarComponenteTarjetaMadre();
+                componenteDAO.agregar(nuevoComponente);
+                componenteDAO.imprimirEstado(); // Agrega esta línea
+                System.out.println("Componente agregado: " + nuevoComponente.getIdComponente());
+            }
+        });
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+
+        panelPrincipal.add(panelTarjetaMadre);
+        revalidate();
+        repaint();
+    }
+
+
+
+
+
+    public Componente capturarComponenteTarjetaMadre(){
+        Componente componente = null;
+        String modelo = txtModelo.getText();
+        String chipset = txtChipset.getText();
+        String idString = txtIdComponente.getText();
+        String ratingString = txtRating.getText();
+        String precioString = txtPrecio.getText();
+        String tipoComponente = "Tarjeta Madre";
+
+
+        int idComponente = Integer.parseInt(idString);
+        int rating = Integer.parseInt(ratingString);
+        double precio = Double.parseDouble(precioString);
+
+        Componente nuevoComp = new TarjetaMadre(rating, tipoComponente, idComponente, precio, modelo, chipset);
+        componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
+
+        return componente;
+    }
+
+    private void mostrarPanelTarjetaVideo() {
+        setTitle("Registro de componente de Tarjeta de Video");
+        setSize(1500, 1500);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setVisible(true);
+        JPanel panelTarjetaVideo= new JPanel(new GridLayout(6, 2));
+        panelTarjetaVideo.add(new JLabel("Modelo: "));
+        panelTarjetaVideo.add(txtModelo);
+        panelTarjetaVideo.add(new JLabel("Precio: "));
+        panelTarjetaVideo.add(txtPrecio);
+        panelTarjetaVideo.add(new JLabel("Rating: "));
+        panelTarjetaVideo.add(txtRating);
+        panelTarjetaVideo.add(new JLabel("Cantidad de Ventiladores: "));
+        panelTarjetaVideo.add(txtCantidadVentiladores);
+        panelTarjetaVideo.add(new JLabel("Id Componente: "));
+        panelTarjetaVideo.add(txtIdComponente);
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+        panelTarjetaVideo.add(volverAlMenuBoutton);
+        guardarTarjetaVideo = new JButton("Guardar Fuente de Poder");
+        panelTarjetaVideo.add(guardarTarjetaVideo);
+
+        guardarTarjetaVideo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Componente nuevoComponente = capturarComponenteTarjetaVideo();
+                componenteDAO.agregar(nuevoComponente);
+                componenteDAO.imprimirEstado(); // Agrega esta línea
+                System.out.println("Componente agregado: " + nuevoComponente.getIdComponente());
+            }
+        });
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+
+        panelPrincipal.add(panelTarjetaVideo);
+        revalidate();
+        repaint();
+    }
+
+
+
+
+    public Componente capturarComponenteTarjetaVideo(){
+        Componente componente = null;
+        String modelo = txtModelo.getText();
+        String cantidadVentiladoresString = txtCantidadVentiladores.getText();
+        String idString = txtIdComponente.getText();
+        String ratingString = txtRating.getText();
+        String precioString = txtPrecio.getText();
+        String tipoComponente = "Tarjeta Video";
+
+        int cantidadVentiladores = Integer.parseInt(cantidadVentiladoresString);
+        int idComponente = Integer.parseInt(idString);
+        int rating = Integer.parseInt(ratingString);
+        double precio = Double.parseDouble(precioString);
+
+        Componente nuevoComp = new TarjetaVideo(rating, tipoComponente, idComponente, precio, modelo, cantidadVentiladores);
+        componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
+
+        return componente;
+
+    }
+
+
+
         public void listarComponentesRegistrados(){
 
         }
+
+
 
 
 

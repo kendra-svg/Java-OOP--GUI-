@@ -71,9 +71,8 @@ public class Main extends JFrame {
         listarComponenteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                vista.panelInit();
                 vista.initListaComponente();
-
+                vista.panelInit();
             }
         });
 
