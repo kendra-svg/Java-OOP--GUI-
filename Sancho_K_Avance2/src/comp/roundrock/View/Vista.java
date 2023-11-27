@@ -155,6 +155,7 @@ public class Vista extends JFrame {
             registrarFuenteDePoderButton = new JButton("Registrar Fuente de Poder");
             registrarTarjetaMadreButton= new JButton("Registrar Tarjeta Madre");
             registrarTarjetaVideoButton = new JButton("Registrar Tarjeta de Video");
+            volverAlMenuBoutton = new JButton("Menú Principal");
 
 
             componenteControlador = new ComponenteControlador(componenteDAO, vista);
@@ -204,6 +205,8 @@ public class Vista extends JFrame {
 
 
 
+
+
             JPanel panelComponentes = new JPanel();
             panelComponentes.add(registrarRAMButton);
             panelComponentes.add(registrarAlmacenamientoButton);
@@ -211,6 +214,16 @@ public class Vista extends JFrame {
             panelComponentes.add(registrarFuenteDePoderButton);
             panelComponentes.add(registrarTarjetaVideoButton);
             panelComponentes.add(registrarTarjetaMadreButton);
+            panelComponentes.add(volverAlMenuBoutton);
+
+            volverAlMenuBoutton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    dispose();
+                    panelPrincipal.remove(panelComponentes);
+
+                }
+            });
 
             panelPrincipal.add(panelComponentes);
 
@@ -226,50 +239,81 @@ public class Vista extends JFrame {
             setLocationRelativeTo(null);
             setVisible(true);
             panelPrincipalMostrarComponentes = new JPanel();
-            mostrarPanelListarComponentes();
 
 
-            /*mostrarComponentesButton = new JButton("Mostrar Componentes");
 
-            /mostrarComponentesButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-
-                    mostrarPanelListarComponentes();
-                }
-            });*/
+            mostrarComponentesButton = new JButton("Mostrar Componentes");
+            JButton cerrarButton = new JButton("Menú Principal");
 
             JPanel panelMainComponentes = new JPanel();
             panelMainComponentes.add(mostrarComponentesButton);
+            panelMainComponentes.add(cerrarButton);
+            panelPrincipal.add(panelMainComponentes);
+
+
+
+            mostrarComponentesButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                    mostrarPanelListarComponentes(/*List<Componente> componentes*/);
+//                    JFrame frameMostrarComponentes = new JFrame();
+//                    frameMostrarComponentes.setVisible(true);
+//                    frameMostrarComponentes.setSize(800, 800);
+//                    frameMostrarComponentes.add(panelMainComponentes);
+                }
+            });
+
+            cerrarButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    dispose();
+                    panelPrincipal.remove(panelMainComponentes);
+                }
+            });
+
+
 
             /*-panelPrincipalMostrarComponentes.add(panelMainComponentes);*/
 
 
         }
 
-        private void mostrarPanelListarComponentes() {
+        private void mostrarPanelListarComponentes(/*List<Componente> componentes*/) {
 
-            JPanel panelLista = new JPanel();
-            panelLista.add(new JLabel("Tipo de componente: " )); /*+ componente.getTipoComponente()));*/
-            panelLista.add(new JLabel("Modelo: " )); /*+ componente.getModelo()));*/
-            panelLista.add(new JLabel("Precio: " )); /*+ componente.getPrecio()));*/
+            JPanel panelLista = new JPanel(new GridLayout(3, 1));
+            panelLista.add(new JLabel("Tipo de componente: " + componente.getIdComponente())); /*+ componente.getTipoComponente()));*/
+            panelLista.add(new JLabel("Modelo: " + componente.getModelo()));
+            panelLista.add(new JLabel("Precio: " + componente.getPrecio()));
+            panelPrincipal.add(panelLista);
 
-            mostrarComponentesButton = new JButton("Mostrar Componentes");
-            panelLista.add(mostrarComponentesButton);
+            volverAlMenuBoutton = new JButton("Volver al menu principal");
+            panelPrincipal.add(volverAlMenuBoutton);
 
-            mostrarComponentesButton.addActionListener(new ActionListener(){
+            volverAlMenuBoutton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    panelLista.add(new JLabel("Tipo de componente: " )); /*+ componente.getTipoComponente()));*/
-                    panelLista.add(new JLabel("Modelo: " )); /*+ componente.getModelo()));*/
-                    panelLista.add(new JLabel("Precio: " )); /*+ componente.getPrecio()));*/;
-                    revalidate();
-                    repaint();
-
+                    dispose();
+                    panelPrincipal.remove(panelLista);
                 }
             });
+
+//            mostrarComponentesButton = new JButton("Mostrar Componentes");
+//            panelLista.add(mostrarComponentesButton);
+//
+//            mostrarComponentesButton.addActionListener(new ActionListener(){
+//                @Override
+//                public void actionPerformed(ActionEvent e) {
+//                    panelLista.add(new JLabel("Tipo de componente: " )); /*+ componente.getTipoComponente()));*/
+//                    panelLista.add(new JLabel("Modelo: " )); /*+ componente.getModelo()));*/
+//                    panelLista.add(new JLabel("Precio: " )); /*+ componente.getPrecio()));*/;
+//                    revalidate();
+//                    repaint();
+//
+//                }
+//            });
 //          panelPrincipalMostrarComponentes.add(panelLista);
-            panelPrincipalMostrarComponentes.add(panelLista);
+            /*panelPrincipalMostrarComponentes.add(panelLista);*/
 
             revalidate();
             repaint();
@@ -280,12 +324,17 @@ public class Vista extends JFrame {
 
         private void mostrarPanelRAM() {
             JPanel panelRAM = new JPanel(new GridLayout(6, 2));
+            String modelo, tipoComponente, categoria, capacidad, duracionBateria, opcionComponente, chipset;
+            int rating, idComponente, cantidadNucleos, cantidadVentiladores;
+            double precio;
             panelRAM.add(new JLabel("Modelo:"));
             panelRAM.add(txtModelo);
+            modelo = String.valueOf(txtModelo);
             panelRAM.add(new JLabel("Precio:"));
             panelRAM.add(txtPrecio);
             panelRAM.add(new JLabel("Capacidad (Elija entre 64, 128, 256, 512, 1024 GB):"));
             panelRAM.add(txtCapacidad);
+            capacidad = String.valueOf(txtCapacidad);
             panelRAM.add(new JLabel("Rating:"));
             panelRAM.add(txtRating);
             panelRAM.add(new JLabel("Id Componente:"));
@@ -294,14 +343,39 @@ public class Vista extends JFrame {
             panelRAM.add(guardarRAMButton);
             volverAlMenuBoutton = new JButton("Volver al menu principal");
             panelRAM.add(volverAlMenuBoutton);
+            tipoComponente = "Ram";
+
+//            String textoPrecio = txtPrecio.getText();
+//            String textoRating = txtRating.getText();
+//            String textoIdComponente = txtIdComponente.getText();
+//            precio = Double.parseDouble(String.valueOf((textoPrecio)));
+//            rating = Integer.parseInt(String.valueOf(textoRating));
+//            idComponente = Integer.parseInt(String.valueOf(textoIdComponente));
+
 
             guardarRAMButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Componente nuevoComponente = capturarComponenteRam();
-                    componenteDAO.agregar(nuevoComponente);
-                    componenteDAO.imprimirEstado(); // Agrega esta línea
-                    System.out.println("Componente agregado: " + nuevoComponente.getIdComponente());
+//                Componente nuevoComponente = capturarComponenteRam();
+//                    componenteDAO.agregar(nuevoComponente);
+//                    componenteDAO.imprimirEstado(); // Agrega esta línea
+//                    System.out.println("Componente agregado: " + nuevoComponente.getIdComponente());
+//                    String textoPrecio = txtPrecio.getText();
+//                    String textoRating = txtRating.getText();
+//                    String textoIdComponente = txtIdComponente.getText();
+//                    String textoModelo = txtModelo.getText();
+//                    String textoCapacidad = txtCapacidad.getText();
+
+
+                    /*precio = Double.parseDouble(String.valueOf((textoPrecio)));
+                    rating = Integer.parseInt(String.valueOf(textoRating));
+                    idComponente = Integer.parseInt(String.valueOf(textoIdComponente));*/
+
+
+//                    Componente nuevoComp = new Ram(Integer.parseInt(textoRating), tipoComponente, Integer.parseInt(textoIdComponente), Double.parseDouble(textoPrecio), textoModelo, textoCapacidad);
+//                    componente = new Componente(Integer.parseInt(textoRating), tipoComponente, Integer.parseInt(textoIdComponente), Double.parseDouble(textoPrecio), textoModelo);
+
+                    almacenaComponenteRam();
 
 
 
@@ -312,6 +386,7 @@ public class Vista extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     dispose();
+                    panelPrincipal.remove(panelRAM);
                 }
             });
 
@@ -319,6 +394,24 @@ public class Vista extends JFrame {
 
             revalidate();
             repaint();
+        }
+
+        public Componente almacenaComponenteRam(){
+
+            Componente componente1 = null;
+
+            String textoPrecio = txtPrecio.getText();
+            String textoRating = txtRating.getText();
+            String textoIdComponente = txtIdComponente.getText();
+            String textoModelo = txtModelo.getText();
+            String textoCapacidad = txtCapacidad.getText();
+            String tipoComponente = "Ram";
+
+            Componente nuevoComp = new Ram(Integer.parseInt(textoRating), tipoComponente, Integer.parseInt(textoIdComponente), Double.parseDouble(textoPrecio), textoModelo, textoCapacidad);
+            componente = new Componente(Integer.parseInt(textoRating), tipoComponente, Integer.parseInt(textoIdComponente), Double.parseDouble(textoPrecio), textoModelo);
+
+            return componente1;
+
         }
 
         public Componente capturarComponenteRam() {
@@ -374,6 +467,7 @@ public class Vista extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     dispose();
+                    panelPrincipal.remove(panelProcesador);
                 }
             });
 
@@ -438,6 +532,7 @@ public class Vista extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
+                panelPrincipal.remove(panelAlmacenamiento);
             }
         });
 
@@ -505,6 +600,7 @@ public class Vista extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
+                panelPrincipal.remove(panelFuentePoder);
             }
         });
 
@@ -570,6 +666,7 @@ public class Vista extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
+                panelPrincipal.remove(panelTarjetaMadre);
             }
         });
 
@@ -638,6 +735,7 @@ public class Vista extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
+                panelPrincipal.remove(panelTarjetaVideo);
             }
         });
 

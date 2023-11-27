@@ -72,7 +72,7 @@ public class Main extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 vista.initListaComponente();
-                vista.panelInit();
+                /*vista.panelInit();*/
             }
         });
 
@@ -91,7 +91,7 @@ public class Main extends JFrame {
 //                familiaControlador.listarFamilia();
 //            }
 //        });
-//
+
         salirButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

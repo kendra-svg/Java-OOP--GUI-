@@ -27,6 +27,7 @@ public class Componente {
         this.modelo = modelo;
     }
 
+
     public String getModelo() {
         return modelo;
     }
