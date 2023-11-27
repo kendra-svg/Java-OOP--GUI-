@@ -64,6 +64,8 @@ public class Vista extends JFrame {
         private JTextField txtDuracionBateria;
         private JTextField txtIdComponente;
 
+        private JTextField txtCantidadNucleos;
+
         private JPanel panelPrincipal;
 
         private JPanel panelPrueba;
@@ -89,7 +91,7 @@ public class Vista extends JFrame {
 
         private Vista vista;
 
-        List<String> listaDeComponentes = new ArrayList<>();
+        List<Componente> listaDeComponentes = new ArrayList<>();
 
     private JFrame frameListaComponentes;
 
@@ -148,6 +150,7 @@ public class Vista extends JFrame {
             txtChipset = new JTextField();
             txtCantidadVentiladores = new JTextField();
             txtDuracionBateria = new JTextField();
+            txtCantidadNucleos = new JTextField();
 
             registrarRAMButton = new JButton("Registrar RAM");
             registrarProcesadorButton = new JButton("Registrar Procesador");
@@ -256,7 +259,7 @@ public class Vista extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
 
-                    mostrarPanelListarComponentes(/*List<Componente> componentes*/);
+                    mostrarPanelListarComponentes(listaDeComponentes);
 //                    JFrame frameMostrarComponentes = new JFrame();
 //                    frameMostrarComponentes.setVisible(true);
 //                    frameMostrarComponentes.setSize(800, 800);
@@ -279,16 +282,33 @@ public class Vista extends JFrame {
 
         }
 
-        private void mostrarPanelListarComponentes(/*List<Componente> componentes*/) {
+        private void mostrarPanelListarComponentes(List<Componente> listaDeComponentes) { /*HASTA ACA*/
+//            JFrame frameMostrarListaComponentes = new JFrame();
+//            frameMostrarListaComponentes.setSize(800, 800);
 
-            JPanel panelLista = new JPanel(new GridLayout(3, 1));
-            panelLista.add(new JLabel("Tipo de componente: " + componente.getIdComponente())); /*+ componente.getTipoComponente()));*/
-            panelLista.add(new JLabel("Modelo: " + componente.getModelo()));
-            panelLista.add(new JLabel("Precio: " + componente.getPrecio()));
+
+            JPanel panelLista = new JPanel(new GridLayout(3, 2));
+            for (Componente componente : listaDeComponentes) {
+                panelLista.add(new JLabel("Tipo de componente: "));
+                JTextArea textAreaTipoComponente = new JTextArea(String.valueOf(componente.getTipoComponente()));
+                textAreaTipoComponente.setEditable(false);
+                panelLista.add(textAreaTipoComponente);
+                panelLista.add(new JLabel("Modelo: "));
+                JTextArea textAreaModelo = new JTextArea(componente.getModelo());
+                textAreaModelo.setEditable(false);
+                panelLista.add(textAreaModelo);
+                panelLista.add(new JLabel("Precio: "));
+                JTextArea textAreaPrecio = new JTextArea(String.valueOf(componente.getPrecio()));
+                textAreaPrecio.setEditable(false);
+                panelLista.add(textAreaPrecio);
+            }
+
             panelPrincipal.add(panelLista);
+//            frameMostrarListaComponentes.add(panelLista);
 
             volverAlMenuBoutton = new JButton("Volver al menu principal");
             panelPrincipal.add(volverAlMenuBoutton);
+//            frameMostrarListaComponentes.add(volverAlMenuBoutton);
 
             volverAlMenuBoutton.addActionListener(new ActionListener() {
                 @Override
@@ -297,23 +317,6 @@ public class Vista extends JFrame {
                     panelPrincipal.remove(panelLista);
                 }
             });
-
-//            mostrarComponentesButton = new JButton("Mostrar Componentes");
-//            panelLista.add(mostrarComponentesButton);
-//
-//            mostrarComponentesButton.addActionListener(new ActionListener(){
-//                @Override
-//                public void actionPerformed(ActionEvent e) {
-//                    panelLista.add(new JLabel("Tipo de componente: " )); /*+ componente.getTipoComponente()));*/
-//                    panelLista.add(new JLabel("Modelo: " )); /*+ componente.getModelo()));*/
-//                    panelLista.add(new JLabel("Precio: " )); /*+ componente.getPrecio()));*/;
-//                    revalidate();
-//                    repaint();
-//
-//                }
-//            });
-//          panelPrincipalMostrarComponentes.add(panelLista);
-            /*panelPrincipalMostrarComponentes.add(panelLista);*/
 
             revalidate();
             repaint();
@@ -345,39 +348,13 @@ public class Vista extends JFrame {
             panelRAM.add(volverAlMenuBoutton);
             tipoComponente = "Ram";
 
-//            String textoPrecio = txtPrecio.getText();
-//            String textoRating = txtRating.getText();
-//            String textoIdComponente = txtIdComponente.getText();
-//            precio = Double.parseDouble(String.valueOf((textoPrecio)));
-//            rating = Integer.parseInt(String.valueOf(textoRating));
-//            idComponente = Integer.parseInt(String.valueOf(textoIdComponente));
 
 
             guardarRAMButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-//                Componente nuevoComponente = capturarComponenteRam();
-//                    componenteDAO.agregar(nuevoComponente);
-//                    componenteDAO.imprimirEstado(); // Agrega esta línea
-//                    System.out.println("Componente agregado: " + nuevoComponente.getIdComponente());
-//                    String textoPrecio = txtPrecio.getText();
-//                    String textoRating = txtRating.getText();
-//                    String textoIdComponente = txtIdComponente.getText();
-//                    String textoModelo = txtModelo.getText();
-//                    String textoCapacidad = txtCapacidad.getText();
-
-
-                    /*precio = Double.parseDouble(String.valueOf((textoPrecio)));
-                    rating = Integer.parseInt(String.valueOf(textoRating));
-                    idComponente = Integer.parseInt(String.valueOf(textoIdComponente));*/
-
-
-//                    Componente nuevoComp = new Ram(Integer.parseInt(textoRating), tipoComponente, Integer.parseInt(textoIdComponente), Double.parseDouble(textoPrecio), textoModelo, textoCapacidad);
-//                    componente = new Componente(Integer.parseInt(textoRating), tipoComponente, Integer.parseInt(textoIdComponente), Double.parseDouble(textoPrecio), textoModelo);
 
                     almacenaComponenteRam();
-
-
 
                 }
             });
@@ -409,33 +386,29 @@ public class Vista extends JFrame {
 
             Componente nuevoComp = new Ram(Integer.parseInt(textoRating), tipoComponente, Integer.parseInt(textoIdComponente), Double.parseDouble(textoPrecio), textoModelo, textoCapacidad);
             componente = new Componente(Integer.parseInt(textoRating), tipoComponente, Integer.parseInt(textoIdComponente), Double.parseDouble(textoPrecio), textoModelo);
+            listaDeComponentes.add(componente);
 
             return componente1;
 
         }
 
-        public Componente capturarComponenteRam() {
 
-            Componente componente = null;
-            String modelo = txtModelo.getText();
-            String capacidad = txtCapacidad.getText();
-            String idString = txtIdComponente.getText();
-            String ratingString = txtRating.getText();
-            String precioString = txtPrecio.getText();
-            String tipoComponente = "Ram";
 
-            int idComponente = Integer.parseInt(idString);
-            int rating = Integer.parseInt(ratingString);
-            double precio = Double.parseDouble(precioString);
+        public Componente almacenaComponenteProcesador(){
+            Componente componente1 = null;
 
-            Componente nuevoComp = new Ram(rating, tipoComponente, idComponente, precio, modelo, capacidad);
-            componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
+            String textoPrecio = txtPrecio.getText();
+            String textoCantidadNucleos = txtCantidadNucleos.getText();
+            String textoRating = txtRating.getText();
+            String textoIdComponente = txtIdComponente.getText();
+            String textoModelo = txtModelo.getText();
+            String tipoComponente = "Procesador";
 
-            return componente;
-
+            Componente nuevoComp = new Procesador(Integer.parseInt(textoRating), tipoComponente, Integer.parseInt(textoIdComponente), Double.parseDouble(textoPrecio), textoModelo,  Integer.parseInt(textoCantidadNucleos));
+            componente = new Componente(Integer.parseInt(textoRating), tipoComponente, Integer.parseInt(textoIdComponente), Double.parseDouble(textoPrecio), textoModelo);
+            listaDeComponentes.add(componente);
+            return componente1;
         }
-
-
         private void mostrarPanelProcesador(){
             JPanel panelProcesador= new JPanel(new GridLayout(6, 2));
             panelProcesador.add(new JLabel("Modelo: "));
@@ -443,7 +416,7 @@ public class Vista extends JFrame {
             panelProcesador.add(new JLabel("Precio: "));
             panelProcesador.add(txtPrecio);
             panelProcesador.add(new JLabel("Cantidad de Nucleos: "));
-            panelProcesador.add(txtCantidadVentiladores);
+            panelProcesador.add(txtCantidadNucleos);
             panelProcesador.add(new JLabel("Rating: "));
             panelProcesador.add(txtRating);
             panelProcesador.add(new JLabel("Id Componente: "));
@@ -456,10 +429,7 @@ public class Vista extends JFrame {
             guardarProcesadorButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Componente nuevoComponente = capturarComponenteProcesador();
-                    componenteDAO.agregar(nuevoComponente);
-                    componenteDAO.imprimirEstado(); // Agrega esta línea
-                    System.out.println("Componente agregado: " + nuevoComponente.getIdComponente());
+                    almacenaComponenteProcesador();
                 }
             });
 
@@ -475,29 +445,25 @@ public class Vista extends JFrame {
             revalidate();
             repaint();
         }
-        public Componente capturarComponenteProcesador() {
 
-        Componente componente = null;
-        String modelo = txtModelo.getText();
-        String cantidadNucleosString = txtCapacidad.getText();
-        String idString = txtIdComponente.getText();
-        String ratingString = txtRating.getText();
-        String precioString = txtPrecio.getText();
-        String tipoComponente = "Procesador";
 
-        int cantidadNucleos = Integer.parseInt(cantidadNucleosString);
+    public Componente almacenaComponenteAlmacenamiento() {
+        Componente componente1 = null;
 
-        int idComponente = Integer.parseInt(idString);
-        int rating = Integer.parseInt(ratingString);
-        double precio = Double.parseDouble(precioString);
+        String textoPrecio = txtPrecio.getText();
+        String textoRating = txtRating.getText();
+        String textoIdComponente = txtIdComponente.getText();
+        String textoModelo = txtModelo.getText();
+        String textoCapacidad = txtCapacidad.getText();
+        String tipoComponente = "Almacenamiento";
+        String textoCategoria = txtCategoria.getText();
 
-        Componente nuevoComp = new Procesador(rating, tipoComponente, idComponente, precio, modelo, cantidadNucleos);
-        componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
-
-        return componente;
+         Componente nuevoComp = new Almacenamiento(Integer.parseInt(textoRating), tipoComponente, Integer.parseInt(textoIdComponente), Double.parseDouble(textoPrecio), textoModelo, textoCategoria, textoCapacidad);
+         componente = new Componente(Integer.parseInt(textoRating), tipoComponente, Integer.parseInt(textoIdComponente), Double.parseDouble(textoPrecio), textoModelo);
+         listaDeComponentes.add(componente);
+        return componente1;
 
     }
-
     private void mostrarPanelAlmacenamiento() {
         setTitle("Registro de componente de Almacenamiento");
         setSize(1500, 1500);
@@ -521,10 +487,7 @@ public class Vista extends JFrame {
         guardarAlmacenamientoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Componente nuevoComponente = capturarComponenteAlmacenamiento();
-                componenteDAO.agregar(nuevoComponente);
-                componenteDAO.imprimirEstado(); // Agrega esta línea
-                System.out.println("Componente agregado: " + nuevoComponente.getIdComponente());
+                almacenaComponenteAlmacenamiento();
             }
         });
 
@@ -541,26 +504,22 @@ public class Vista extends JFrame {
         repaint();
     }
 
-    public Componente capturarComponenteAlmacenamiento() {
-
-        Componente componente = null;
-        String modelo = txtModelo.getText();
-        String capacidad = txtCapacidad.getText();
-        String categoria = txtCapacidad.getText();
-        String idString = txtIdComponente.getText();
-        String ratingString = txtRating.getText();
-        String precioString = txtPrecio.getText();
-        String tipoComponente = "Almacenamiento";
 
 
-        int idComponente = Integer.parseInt(idString);
-        int rating = Integer.parseInt(ratingString);
-        double precio = Double.parseDouble(precioString);
+    public Componente almacenaFuentePoder(){
+        Componente componente1 = null;
+        String textoPrecio = txtPrecio.getText();
+        String textoRating = txtRating.getText();
+        String textoIdComponente = txtIdComponente.getText();
+        String textoModelo = txtModelo.getText();
+        String textoDuracionBateria = txtDuracionBateria.getText();
+        String tipoComponente = "Fuente de Poder";
 
-        Componente nuevoComp = new Almacenamiento(rating, tipoComponente, idComponente, precio, modelo, categoria, capacidad);
-        componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
+        Componente nuevoComp = new FuentePoder(Integer.parseInt(textoRating),tipoComponente, Integer.parseInt(textoIdComponente), Double.parseDouble(textoPrecio), textoModelo, textoDuracionBateria);
+        componente = new Componente(Integer.parseInt(textoRating), tipoComponente, Integer.parseInt(textoIdComponente), Double.parseDouble(textoPrecio), textoModelo);
+        listaDeComponentes.add(componente);
 
-        return componente;
+        return componente1;
 
     }
 
@@ -589,10 +548,7 @@ public class Vista extends JFrame {
         guardarFuentePoder.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Componente nuevoComponente = capturarComponenteFuentePoder();
-                componenteDAO.agregar(nuevoComponente);
-                componenteDAO.imprimirEstado(); // Agrega esta línea
-                System.out.println("Componente agregado: " + nuevoComponente.getIdComponente());
+                almacenaFuentePoder();
             }
         });
 
@@ -609,25 +565,22 @@ public class Vista extends JFrame {
         repaint();
     }
 
-    public Componente capturarComponenteFuentePoder() {
-        Componente componente = null;
-        String modelo = txtModelo.getText();
-        String idString = txtIdComponente.getText();
-        String ratingString = txtRating.getText();
-        String precioString = txtPrecio.getText();
-        String duracionBateria = txtPrecio.getText();
-        String tipoComponente = "Fuente de Poder";
 
 
-        int idComponente = Integer.parseInt(idString);
-        int rating = Integer.parseInt(ratingString);
-        double precio = Double.parseDouble(precioString);
+    public Componente almacenaTarjetaMadre(){
+        Componente componente1 = null;
+        String textoPrecio = txtPrecio.getText();
+        String textoRating = txtRating.getText();
+        String textoIdComponente = txtIdComponente.getText();
+        String textoModelo = txtModelo.getText();
+        String textoChipset = txtChipset.getText();
+        String tipoComponente = "Tarjeta Madre";
 
-        Componente nuevoComp = new FuentePoder(rating, tipoComponente, idComponente, precio, modelo, duracionBateria);
-        componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
+        Componente nuevoComp = new TarjetaMadre(Integer.parseInt(textoRating), tipoComponente, Integer.parseInt(textoIdComponente), Double.parseDouble(textoPrecio), textoModelo, textoChipset);
+        componente = new Componente(Integer.parseInt(textoRating), tipoComponente, Integer.parseInt(textoIdComponente), Double.parseDouble(textoPrecio), textoModelo);
+        listaDeComponentes.add(componente);
 
-        return componente;
-
+        return componente1;
     }
 
     private void mostrarPanelTarjetaMadre() {
@@ -655,10 +608,8 @@ public class Vista extends JFrame {
         guardarTarjetaMadre.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Componente nuevoComponente = capturarComponenteTarjetaMadre();
-                componenteDAO.agregar(nuevoComponente);
-                componenteDAO.imprimirEstado(); // Agrega esta línea
-                System.out.println("Componente agregado: " + nuevoComponente.getIdComponente());
+
+                almacenaTarjetaMadre();
             }
         });
 
@@ -679,24 +630,24 @@ public class Vista extends JFrame {
 
 
 
-    public Componente capturarComponenteTarjetaMadre(){
-        Componente componente = null;
-        String modelo = txtModelo.getText();
-        String chipset = txtChipset.getText();
-        String idString = txtIdComponente.getText();
-        String ratingString = txtRating.getText();
-        String precioString = txtPrecio.getText();
-        String tipoComponente = "Tarjeta Madre";
 
 
-        int idComponente = Integer.parseInt(idString);
-        int rating = Integer.parseInt(ratingString);
-        double precio = Double.parseDouble(precioString);
+    public Componente almacenaTarjetaVideo(){
+        Componente componente1 = null;
+        String textoPrecio = txtPrecio.getText();
+        String textoRating = txtRating.getText();
+        String textoIdComponente = txtIdComponente.getText();
+        String textoModelo = txtModelo.getText();
+        String textoChipset = txtChipset.getText();
+        String tipoComponente = "Tarjeta Video";
+        String textoCantidadVentiladores = txtCantidadVentiladores.getText();
 
-        Componente nuevoComp = new TarjetaMadre(rating, tipoComponente, idComponente, precio, modelo, chipset);
-        componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
+        Componente nuevoComp = new TarjetaVideo(Integer.parseInt(textoRating), tipoComponente, Integer.parseInt(textoIdComponente),  Double.parseDouble(textoPrecio), textoModelo, Integer.parseInt(textoCantidadVentiladores));
+        componente = new Componente(Integer.parseInt(textoRating),tipoComponente, Integer.parseInt(textoIdComponente), Double.parseDouble(textoPrecio), textoModelo);
+        listaDeComponentes.add(componente);
 
-        return componente;
+        return componente1;
+
     }
 
     private void mostrarPanelTarjetaVideo() {
@@ -724,10 +675,8 @@ public class Vista extends JFrame {
         guardarTarjetaVideo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Componente nuevoComponente = capturarComponenteTarjetaVideo();
-                componenteDAO.agregar(nuevoComponente);
-                componenteDAO.imprimirEstado(); // Agrega esta línea
-                System.out.println("Componente agregado: " + nuevoComponente.getIdComponente());
+
+                almacenaTarjetaVideo();
             }
         });
 
@@ -747,32 +696,7 @@ public class Vista extends JFrame {
 
 
 
-    public Componente capturarComponenteTarjetaVideo(){
-        Componente componente = null;
-        String modelo = txtModelo.getText();
-        String cantidadVentiladoresString = txtCantidadVentiladores.getText();
-        String idString = txtIdComponente.getText();
-        String ratingString = txtRating.getText();
-        String precioString = txtPrecio.getText();
-        String tipoComponente = "Tarjeta Video";
 
-        int cantidadVentiladores = Integer.parseInt(cantidadVentiladoresString);
-        int idComponente = Integer.parseInt(idString);
-        int rating = Integer.parseInt(ratingString);
-        double precio = Double.parseDouble(precioString);
-
-        Componente nuevoComp = new TarjetaVideo(rating, tipoComponente, idComponente, precio, modelo, cantidadVentiladores);
-        componente = new Componente(rating, tipoComponente, idComponente, precio, modelo);
-
-        return componente;
-
-    }
-
-
-
-        public void listarComponentesRegistrados(){
-
-        }
 
 
 

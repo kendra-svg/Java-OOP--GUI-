@@ -17,11 +17,11 @@ public class ComponenteControlador {
 
 
 
-    public void registrarComponente() {
+    /*public void registrarComponente() {
         Componente nuevoComponente = vista.capturarComponenteRam();
         componenteDAO.agregar(nuevoComponente);
     }
-
+*/
     public void listarComponente() {
         List<Componente> componentes = componenteDAO.obtenerListaComponentes();
         vista.listarComponente(componentes);
