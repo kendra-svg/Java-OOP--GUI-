@@ -12,7 +12,7 @@ public class Familia {
 
      private List listaComponentes;
 
-     private float rating;
+     private int rating;
 
      private double precio;
 
@@ -40,7 +40,7 @@ public class Familia {
 //        this.idFamilia = idFamilia;
 //    }
 
-    public Familia(String tipoFamilia, int idFamilia, List listaComponentes, float rating, double precio) {
+    public Familia(String tipoFamilia, int idFamilia, List listaComponentes, int rating, double precio) {
         this.tipoFamilia = tipoFamilia;
         this.idFamilia = idFamilia;
         this.listaComponentes = listaComponentes;
@@ -80,7 +80,7 @@ public class Familia {
         return rating;
     }
 
-    public void setRating(float rating) {
+    public void setRating(int rating) {
         this.rating = rating;
     }
 

@@ -77,20 +77,20 @@ public class Main extends JFrame {
         });
 
 
-//
-//        registrarFamiliaButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                familiaControlador.registraFamilia();
-//            }
-//        });
-//
-//        listarFamiliasButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                familiaControlador.listarFamilia();
-//            }
-//        });
+
+        registrarFamiliaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               vista.initFamilias();
+            }
+        });
+
+        listarFamiliasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vista.initListaFamilias();
+            }
+        });
 
         salirButton.addActionListener(new ActionListener() {
             @Override
