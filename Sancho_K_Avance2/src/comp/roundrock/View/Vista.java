@@ -53,6 +53,8 @@ public class Vista extends JFrame {
 
     private JButton guardarFamiliaEscolar;
 
+    private JButton guardarFamiliaServidor;
+
     private JButton guardarSubfamiliaGaming;
 
 
@@ -758,7 +760,7 @@ public class Vista extends JFrame {
         registrarFamiliaServidor.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                mostrarPanelFamiliaServidor();
             }
         });
 
@@ -783,6 +785,94 @@ public class Vista extends JFrame {
 
 
     }
+
+    private void mostrarPanelFamiliaServidor(){
+        ArrayList<String> listaComponentesFamiliaServidor = new ArrayList<>();
+        listaComponentesFamiliaServidor.add(0, "64 / 128 / 256 / 512 / 1024 GB (máximo 16 sticks)");
+        listaComponentesFamiliaServidor.add(1, "32 / 64 /128 TB");
+        listaComponentesFamiliaServidor.add(2, "Tipo de computadora no admite cambios de tarjeta de video)");
+        listaComponentesFamiliaServidor.add(3, "máximo 8");
+        JPanel panelFamiliaServidor = new JPanel(new GridLayout(10, 2));
+        panelFamiliaServidor.add(new JLabel("Precio"));
+        panelFamiliaServidor.add(txtPrecio);
+        panelFamiliaServidor.add(new JLabel("Rating"));
+        panelFamiliaServidor.add(txtRating);
+        panelFamiliaServidor.add(new JLabel("ID Familia: "));
+        panelFamiliaServidor.add(txtIdFamilia);
+        panelFamiliaServidor.add(new JLabel("RAM"));
+        JTextArea textAreaRam = new JTextArea(listaComponentesFamiliaServidor.get(0));
+        textAreaRam.setEditable(false);
+        panelFamiliaServidor.add(textAreaRam);
+        panelFamiliaServidor.add(new JLabel("Almacenamiento"));
+        JTextArea textAreaAlmacenamiento = new JTextArea(listaComponentesFamiliaServidor.get(1));
+        textAreaAlmacenamiento.setEditable(false);
+        panelFamiliaServidor.add(textAreaAlmacenamiento);
+        panelFamiliaServidor.add(new JLabel("Tarjeta de Video"));
+        JTextArea textAreaTarjetaVideo = new JTextArea(listaComponentesFamiliaServidor.get(2));
+        textAreaTarjetaVideo.setEditable(false);
+        panelFamiliaServidor.add(textAreaTarjetaVideo);
+        panelFamiliaServidor.add(new JLabel("Fuente de poder"));
+        JTextArea textAreaFuentePoder = new JTextArea(listaComponentesFamiliaServidor.get(1));
+        textAreaAlmacenamiento.setEditable(false);
+        panelFamiliaServidor.add(textAreaFuentePoder);
+
+
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+
+        panelPrincipal.add(panelFamiliaServidor);
+
+        guardarFamiliaServidor = new JButton("Guardar Familia Servidor");
+
+
+        panelFamiliaServidor.add(guardarFamiliaServidor);
+        panelFamiliaServidor.add(volverAlMenuBoutton);
+
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                panelPrincipal.remove(panelFamiliaServidor);
+            }
+        });
+
+        guardarFamiliaServidor.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                almacenaFamiliaServidor();
+            }
+        });
+
+        revalidate();
+        repaint();
+    }
+
+    public Familia almacenaFamiliaServidor(){
+        Familia familia = null;
+        ArrayList<String> listaComponentesFamilia = new ArrayList<>();
+        String opcionFamilia, opcionSobremesa, opcionPortable, tipoFamilia, subFamilia, duracionBateria;
+        double precio;
+        float rating, peso;
+        int idFamilia;
+        listaComponentesFamilia.add(0, "RAM: 64 / 128 / 256 / 512 / 1024 GB (máximo 16 sticks)");
+        listaComponentesFamilia.add(1, "Almacenamiento:  32 / 64 /128 TB");
+        listaComponentesFamilia.add(2, "Tarjeta de video: Tipo de computadora no admite cambios de tarjeta de video)");
+        listaComponentesFamilia.add(3, "Fuentes de poder: maximo 8");
+
+        tipoFamilia = "Servidor";
+        String textoPrecio = txtPrecio.getText();
+        String textoRating = txtRating.getText();
+        String textoIdFamilia = txtIdFamilia.getText();
+
+        Familia nuevaFamiliaServidor= new Servidor(tipoFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), listaComponentesFamilia);
+        familia = new Familia(tipoFamilia, Integer.parseInt(textoIdFamilia), listaComponentesFamilia, Integer.parseInt(textoRating), Double.parseDouble(textoPrecio));
+        listaFamiliasRegistradas.add(familia);
+
+
+        return familia;
+
+    }
+
 
     private void mostrarPanelFamiliaEscolar() {
 
