@@ -128,7 +128,6 @@ public class Vista extends JFrame {
     List<Familia> listaFamiliasRegistradas = new ArrayList<>();
 
 
-
     private JFrame frameListaComponentes;
 
 
@@ -752,7 +751,7 @@ public class Vista extends JFrame {
         registrarFamiliaPortable.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                mostrarPanelFamiliaPortable();
             }
         });
 
@@ -841,9 +840,131 @@ public class Vista extends JFrame {
         repaint();
     }
 
+    private void mostrarPanelFamiliaPortable() {
+        JPanel panelFamiliaPortable = new JPanel();
+
+        registrarPortableCasa = new JButton("Registrar  subfamilia Casa");
+        registrarPortableTrabajo = new JButton("Registrar subfamilia Trabajo");
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+
+        registrarPortableCasa.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarPanelSubfamiliaCasa();
+            }
+        });
+
+        registrarPortableTrabajo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
 
-    private void mostrarPanelFamiliaSobremesa(){
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                panelPrincipal.remove(panelFamiliaPortable);
+            }
+        });
+
+        panelFamiliaPortable.add(registrarPortableCasa);
+        panelFamiliaPortable.add(registrarPortableTrabajo);
+        panelFamiliaPortable.add(volverAlMenuBoutton);
+
+        panelPrincipal.add(panelFamiliaPortable);
+
+
+    }
+
+    public void mostrarPanelSubfamiliaCasa() {
+        ArrayList<String> listaComponentesSubFamiliaCasa = new ArrayList<>();
+
+        listaComponentesSubFamiliaCasa.add(0, "8 o 16B en maximo 2 sticks");
+        listaComponentesSubFamiliaCasa.add(1, " 1 SSD (256GB / 512GB)");
+        listaComponentesSubFamiliaCasa.add(2, "Tipo de familia no acepta tarjeta de video");
+        listaComponentesSubFamiliaCasa.add(3, "De 8 a 10 horas de duracion");
+
+        JPanel panelSubfamiliaCasa = new JPanel(new GridLayout(10, 2));
+        panelSubfamiliaCasa.add(new JLabel("Precio"));
+        panelSubfamiliaCasa.add(txtPrecio);
+        panelSubfamiliaCasa.add(new JLabel("Rating"));
+        panelSubfamiliaCasa.add(txtRating);
+        panelSubfamiliaCasa.add(new JLabel("ID Familia: "));
+        panelSubfamiliaCasa.add(txtIdFamilia);
+        panelSubfamiliaCasa.add(new JLabel("RAM"));
+        JTextArea textAreaRam = new JTextArea(listaComponentesSubFamiliaCasa.get(0));
+        textAreaRam.setEditable(false);
+        panelSubfamiliaCasa.add(textAreaRam);
+        panelSubfamiliaCasa.add(new JLabel("Almacenamiento"));
+        JTextArea textAreaAlmacenamiento = new JTextArea(listaComponentesSubFamiliaCasa.get(1));
+        textAreaAlmacenamiento.setEditable(false);
+        panelSubfamiliaCasa.add(textAreaAlmacenamiento);
+        panelSubfamiliaCasa.add(new JLabel("Tarjeta de Video"));
+        JTextArea textAreaTarjetaVideo = new JTextArea(listaComponentesSubFamiliaCasa.get(2));
+        textAreaTarjetaVideo.setEditable(false);
+        panelSubfamiliaCasa.add(textAreaTarjetaVideo);
+        panelSubfamiliaCasa.add(new JLabel("Duración de batería"));
+        JTextArea textAreaDuracionBateria = new JTextArea(listaComponentesSubFamiliaCasa.get(3));
+        textAreaDuracionBateria.setEditable(false);
+        panelSubfamiliaCasa.add(textAreaDuracionBateria);
+
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+        guardarSubfamiliaCasa = new JButton("Guardar Subfamilia Casa");
+        panelPrincipal.add(panelSubfamiliaCasa);
+
+        panelSubfamiliaCasa.add(guardarSubfamiliaCasa);
+        panelSubfamiliaCasa.add(volverAlMenuBoutton);
+
+        panelPrincipal.add(panelSubfamiliaCasa);
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                panelPrincipal.remove(panelSubfamiliaCasa);
+            }
+        });
+
+        guardarSubfamiliaCasa.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                almacenaSubfamiliaCasa();
+            }
+        });
+
+        revalidate();
+        repaint();
+    }
+
+    public Familia almacenaSubfamiliaCasa() {
+        Familia familia = null;
+        ArrayList<String> listaComponentesFamilia = new ArrayList<>();
+        String opcionFamilia, opcionSobremesa, opcionPortable, tipoFamilia, subFamilia, duracionBateria;
+        double precio;
+        int idFamilia;
+        listaComponentesFamilia.add(0, "RAM: 8 o 16B en maximo 2 sticks");
+        listaComponentesFamilia.add(1, "Almacenamiento:  1 SSD (256GB / 512GB)");
+        listaComponentesFamilia.add(2, "Tarjeta de video: Tipo de computadora no acepta tarjeta de video");
+        listaComponentesFamilia.add(3, "Duracion de bateria: de 8 a 10 horas de duracion");
+
+        tipoFamilia = "Portable";
+        String textoPrecio = txtPrecio.getText();
+        String textoRating = txtRating.getText();
+        String textoIdFamilia = txtIdFamilia.getText();
+        subFamilia = "Casa";
+
+        Familia nuevaFamiliaPortable = new Portable(tipoFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), listaComponentesFamilia, subFamilia);
+        familia = new Familia(tipoFamilia, Integer.parseInt(textoIdFamilia), listaComponentesFamilia, Integer.parseInt(textoRating), Double.parseDouble(textoPrecio));
+        listaFamiliasRegistradas.add(familia);
+
+
+        return familia;
+    }
+
+    private void mostrarPanelFamiliaSobremesa() {
         JPanel panelFamiliaSobremesa = new JPanel();
 
         registrarSobremesaGaming = new JButton("Registrar  subfamilia Gaming");
@@ -890,7 +1011,7 @@ public class Vista extends JFrame {
     }
 
 
-    public void mostrarPanelSubfamiliaGaming(){
+    public void mostrarPanelSubfamiliaGaming() {
         ArrayList<String> listaComponentesSubFamiliaGaming = new ArrayList<>();
 
         listaComponentesSubFamiliaGaming.add(0, " 16, 24 o 32GB en maximo 4 sticks");
@@ -945,7 +1066,7 @@ public class Vista extends JFrame {
         repaint();
     }
 
-    public void mostrarPanelSubfamiliaOficina(){
+    public void mostrarPanelSubfamiliaOficina() {
         ArrayList<String> listaComponentesSubFamiliaOficina = new ArrayList<>();
 
         listaComponentesSubFamiliaOficina.add(0, "8 o 16GB en maximo 2 sticks");
@@ -1000,7 +1121,7 @@ public class Vista extends JFrame {
         repaint();
     }
 
-    public void mostrarPanelSubfamiliaWorkstation(){
+    public void mostrarPanelSubfamiliaWorkstation() {
         ArrayList<String> listaComponentesSubFamiliaWorkstation = new ArrayList<>();
 
         listaComponentesSubFamiliaWorkstation.add(0, "32 o 64GB en maximo 8 sticks");
@@ -1055,7 +1176,7 @@ public class Vista extends JFrame {
         repaint();
     }
 
-    public Familia almacenaSubfamiliaWorkstation(List<Familia> listaFamiliasRegistradas){
+    public Familia almacenaSubfamiliaWorkstation(List<Familia> listaFamiliasRegistradas) {
         Familia familia = null;
         ArrayList<String> listaComponentesFamilia = new ArrayList<>();
         String opcionFamilia, opcionSobremesa, opcionPortable, tipoFamilia, subFamilia, duracionBateria;
@@ -1081,9 +1202,7 @@ public class Vista extends JFrame {
     }
 
 
-
-
-    public void initListaFamilias(){
+    public void initListaFamilias() {
         setTitle("Listar Familias");
         setSize(900, 900);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -1106,7 +1225,7 @@ public class Vista extends JFrame {
         });
     }
 
-    public Familia almacenaSubfamiliaOficina(List<Familia> listaFamiliasRegistradas){
+    public Familia almacenaSubfamiliaOficina(List<Familia> listaFamiliasRegistradas) {
         Familia familia = null;
         ArrayList<String> listaComponentesFamilia = new ArrayList<>();
         String opcionFamilia, opcionSobremesa, opcionPortable, tipoFamilia, subFamilia, duracionBateria;
@@ -1131,7 +1250,7 @@ public class Vista extends JFrame {
         return familia;
     }
 
-    public Familia almacenaSubfamiliaGaming(List<Familia> listaFamiliasRegistradas){
+    public Familia almacenaSubfamiliaGaming(List<Familia> listaFamiliasRegistradas) {
         Familia familia = null;
         ArrayList<String> listaComponentesFamilia = new ArrayList<>();
         String opcionFamilia, opcionSobremesa, opcionPortable, tipoFamilia, subFamilia, duracionBateria;
@@ -1217,8 +1336,6 @@ public class Vista extends JFrame {
         revalidate();
         repaint();
     }
-
-
 
 
     public void listarComponente(List<Componente> componentes) {
@@ -1616,7 +1733,7 @@ public class Vista extends JFrame {
                 subFamilia = "Casa";
                 peso = Float.parseFloat(Utils.leerString(String.format("%-20s: ", "Ingrese el peso: ")));
 
-                Familia nuevaSubfamiliaCasa = new Portable(tipoFamilia, precio, rating, listaComponentes, subFamilia, peso);
+                //Familia nuevaSubfamiliaCasa = new Portable(tipoFamilia, precio, rating, listaComponentes, subFamilia, peso);
                 //familia = new Familia(tipoFamilia, 0, listaComponentes, rating, precio);
 
             } else if (opcionPortable.equals("302")) {
@@ -1636,7 +1753,7 @@ public class Vista extends JFrame {
                 subFamilia = "Trabajo";
 
 
-                Familia nuevaSubfamiliaTrabajo = new Portable(tipoFamilia, precio, rating, listaComponentes, subFamilia, peso);
+                // Familia nuevaSubfamiliaTrabajo = new Portable(tipoFamilia, precio, rating, listaComponentes, subFamilia, peso);
                 //familia = new Familia(tipoFamilia, 0, listaComponentes, rating, precio);
 
             }
@@ -1655,7 +1772,7 @@ public class Vista extends JFrame {
             }
 
 
-            Familia nuevaSubfamiliaTrabajo = new Servidor(tipoFamilia, precio, rating, listaComponentes);
+            //Familia nuevaSubfamiliaTrabajo = new Servidor(tipoFamilia, precio, rating, listaComponentes);
 //            familia = new Familia(tipoFamilia, 0, listaComponentes, rating, precio);
 //
         }

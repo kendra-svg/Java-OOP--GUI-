@@ -6,7 +6,7 @@ public class Servidor extends Familia {
 
     public Servidor() {super.setTipoFamilia("Servidor");}
 
-    public Servidor(String tipoFamilia, double precio, float rating, ArrayList listaComponentes) {
+    public Servidor(String tipoFamilia, double precio, int rating, ArrayList listaComponentes) {
     }
 
     public String ToString(){
