@@ -16,14 +16,14 @@ public class FamiliaControlador {
         this.vista = vista;
     }
 
-    public void registraFamilia() {
-        Familia nuevaFamilia = vista.capturarNuevaFamilia();
-        familiaDAO.agregar(nuevaFamilia);
-    }
+//    public void registraFamilia() {
+//        Familia nuevaFamilia = vista.capturarNuevaFamilia();
+//        familiaDAO.agregar(nuevaFamilia);
+//    }
 
-    public void listarFamilia() {
-        List<Familia> familias = familiaDAO.obtenerListaFamilias();
-        vista.listarFamilia(familias);
-    }
+//    public void listarFamilia() {
+//        List<Familia> familias = familiaDAO.obtenerListaFamilias();
+//        vista.listarFamilia(familias);
+//    }
 
 }

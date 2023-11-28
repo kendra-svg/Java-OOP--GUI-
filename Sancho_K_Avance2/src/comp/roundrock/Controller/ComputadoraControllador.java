@@ -18,10 +18,10 @@ public class ComputadoraControllador {
         this.vista = vista;
     }
 
-    public void registrarComputadora() {
-        Computadora nuevaComputadora = vista.capturarNuevaComputadora();
-        commputadoraDAO.agregar(nuevaComputadora);
-    }
+//    public void registrarComputadora() {
+//        Computadora nuevaComputadora = vista.capturarNuevaComputadora();
+//        commputadoraDAO.agregar(nuevaComputadora);
+//    }
 
 
 }
