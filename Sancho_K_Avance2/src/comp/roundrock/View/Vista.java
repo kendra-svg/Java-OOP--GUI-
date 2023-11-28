@@ -947,7 +947,7 @@ public class Vista extends JFrame {
         registrarPortableTrabajo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                mostrarPanelSubfamiliaTrabajo();
             }
         });
 
@@ -1027,6 +1027,91 @@ public class Vista extends JFrame {
 
         revalidate();
         repaint();
+    }
+
+    public void mostrarPanelSubfamiliaTrabajo() {
+        ArrayList<String> listaComponentesSubFamiliaTrabajo = new ArrayList<>();
+
+        listaComponentesSubFamiliaTrabajo.add(0, "RAM: 8 o 16B en maximo 2 sticks");
+        listaComponentesSubFamiliaTrabajo.add(1, "Almacenamiento:  1 SSD (256GB / 512GB)");
+        listaComponentesSubFamiliaTrabajo.add(2, "Tarjeta de video: Admite Tarjeta de Video (GPU calculo científico, GPU renderizado, GPU homeworking)");
+        listaComponentesSubFamiliaTrabajo.add(3, "Duracion de bateria: Opciones de 8, 10 y 16 horas de duracion");
+
+        JPanel panelSubfamiliaTrabajo = new JPanel(new GridLayout(10, 2));
+        panelSubfamiliaTrabajo.add(new JLabel("Precio"));
+        panelSubfamiliaTrabajo.add(txtPrecio);
+        panelSubfamiliaTrabajo.add(new JLabel("Rating"));
+        panelSubfamiliaTrabajo.add(txtRating);
+        panelSubfamiliaTrabajo.add(new JLabel("ID Familia: "));
+        panelSubfamiliaTrabajo.add(txtIdFamilia);
+        panelSubfamiliaTrabajo.add(new JLabel("RAM"));
+        JTextArea textAreaRam = new JTextArea(listaComponentesSubFamiliaTrabajo.get(0));
+        textAreaRam.setEditable(false);
+        panelSubfamiliaTrabajo.add(textAreaRam);
+        panelSubfamiliaTrabajo.add(new JLabel("Almacenamiento"));
+        JTextArea textAreaAlmacenamiento = new JTextArea(listaComponentesSubFamiliaTrabajo.get(1));
+        textAreaAlmacenamiento.setEditable(false);
+        panelSubfamiliaTrabajo.add(textAreaAlmacenamiento);
+        panelSubfamiliaTrabajo.add(new JLabel("Tarjeta de Video"));
+        JTextArea textAreaTarjetaVideo = new JTextArea(listaComponentesSubFamiliaTrabajo.get(2));
+        textAreaTarjetaVideo.setEditable(false);
+        panelSubfamiliaTrabajo.add(textAreaTarjetaVideo);
+        panelSubfamiliaTrabajo.add(new JLabel("Duración de batería"));
+        JTextArea textAreaDuracionBateria = new JTextArea(listaComponentesSubFamiliaTrabajo.get(3));
+        textAreaDuracionBateria.setEditable(false);
+        panelSubfamiliaTrabajo.add(textAreaDuracionBateria);
+
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+        guardarSubfamiliaTrabajo = new JButton("Guardar Subfamilia Trabajo");
+        panelPrincipal.add(panelSubfamiliaTrabajo);
+
+        panelSubfamiliaTrabajo.add(guardarSubfamiliaTrabajo);
+        panelSubfamiliaTrabajo.add(volverAlMenuBoutton);
+
+        panelPrincipal.add(panelSubfamiliaTrabajo);
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                panelPrincipal.remove(panelSubfamiliaTrabajo);
+            }
+        });
+
+        guardarSubfamiliaTrabajo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                almacenaSubfamiliaTrabajo();
+            }
+        });
+
+        revalidate();
+        repaint();
+    }
+
+    public Familia almacenaSubfamiliaTrabajo(){
+        Familia familia = null;
+        ArrayList<String> listaComponentesFamilia = new ArrayList<>();
+        String opcionFamilia, opcionSobremesa, opcionPortable, tipoFamilia, subFamilia, duracionBateria;
+        double precio;
+        int idFamilia;
+        listaComponentesFamilia.add(0, "RAM: 8 o 16B en maximo 2 sticks");
+        listaComponentesFamilia.add(1, "Almacenamiento:  1 SSD (256GB / 512GB)");
+        listaComponentesFamilia.add(2, "Tarjeta de video: Admite Tarjeta de Video (GPU calculo científico, GPU renderizado, GPU homeworking)");
+        listaComponentesFamilia.add(3, "Duracion de bateria: Opciones de 8, 10 y 16 horas de duracion");
+
+        tipoFamilia = "Portable";
+        String textoPrecio = txtPrecio.getText();
+        String textoRating = txtRating.getText();
+        String textoIdFamilia = txtIdFamilia.getText();
+        subFamilia = "Trabajo";
+
+        Familia nuevaFamiliaPortable = new Portable(tipoFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), listaComponentesFamilia, subFamilia);
+        familia = new Familia(tipoFamilia, Integer.parseInt(textoIdFamilia), listaComponentesFamilia, Integer.parseInt(textoRating), Double.parseDouble(textoPrecio));
+        listaFamiliasRegistradas.add(familia);
+
+
+        return familia;
     }
 
     public Familia almacenaSubfamiliaCasa() {
