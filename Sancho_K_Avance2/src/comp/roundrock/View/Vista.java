@@ -53,6 +53,17 @@ public class Vista extends JFrame {
 
     private JButton guardarFamiliaEscolar;
 
+    private JButton guardarSubfamiliaGaming;
+
+
+    private JButton guardarSubfamiliaOficina;
+
+    private JButton guardarSubFamiliaWorkstation;
+
+    private JButton guardarSubfamiliaCasa;
+
+    private JButton guardarSubfamiliaTrabajo;
+
     private JButton guardarProcesadorButton;
 
     private JButton guardarAlmacenamientoButton;
@@ -703,7 +714,7 @@ public class Vista extends JFrame {
 
     public void initFamilias() {
         setTitle("Registro de Familias");
-        setSize(1500, 1500);
+        setSize(2500, 2500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
@@ -731,15 +742,34 @@ public class Vista extends JFrame {
             }
         });
 
+        registrarFamiliaSobremesa.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarPanelFamiliaSobremesa();
+            }
+        });
+
+        registrarFamiliaPortable.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        registrarFamiliaServidor.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
         JPanel panelFamilias = new JPanel();
         panelFamilias.add(registrarFamiliaEscolar);
         panelFamilias.add(registrarFamiliaPortable);
-        panelFamilias.add(registrarPortableCasa);
-        panelFamilias.add(registrarPortableTrabajo);
+//        panelFamilias.add(registrarPortableCasa);
+//        panelFamilias.add(registrarPortableTrabajo);
         panelFamilias.add(registrarFamiliaServidor);
         panelFamilias.add(registrarFamiliaSobremesa);
-        panelFamilias.add(registrarSobremesaGaming);
-        panelFamilias.add(registrarSobremesaOficina);
         panelFamilias.add(volverAlMenuBoutton);
 
         volverAlMenuBoutton.addActionListener(new ActionListener() {
@@ -757,10 +787,10 @@ public class Vista extends JFrame {
 
     private void mostrarPanelFamiliaEscolar() {
 
-        ArrayList<String> listaComponentesFamilia = new ArrayList<>();
-        listaComponentesFamilia.add(0, "4, 8 o 16GB en maximo 2 sticks");
-        listaComponentesFamilia.add(1, " 1 HDD(1 Tb) o 1 SSD (128GB)");
-        listaComponentesFamilia.add(2, " Tipo de computadora no acepta tarjeta de video");
+        ArrayList<String> listaComponentesFamiliaEscolar = new ArrayList<>();
+        listaComponentesFamiliaEscolar.add(0, "4, 8 o 16GB en maximo 2 sticks");
+        listaComponentesFamiliaEscolar.add(1, " 1 HDD(1 Tb) o 1 SSD (128GB)");
+        listaComponentesFamiliaEscolar.add(2, " Tipo de computadora no acepta tarjeta de video");
         JPanel panelFamiliaEscolar = new JPanel(new GridLayout(8, 2));
         panelFamiliaEscolar.add(new JLabel("Precio"));
         panelFamiliaEscolar.add(txtPrecio);
@@ -769,15 +799,15 @@ public class Vista extends JFrame {
         panelFamiliaEscolar.add(new JLabel("ID Familia: "));
         panelFamiliaEscolar.add(txtIdFamilia);
         panelFamiliaEscolar.add(new JLabel("RAM"));
-        JTextArea textAreaRam = new JTextArea(listaComponentesFamilia.get(0));
+        JTextArea textAreaRam = new JTextArea(listaComponentesFamiliaEscolar.get(0));
         textAreaRam.setEditable(false);
         panelFamiliaEscolar.add(textAreaRam);
         panelFamiliaEscolar.add(new JLabel("Almacenamiento"));
-        JTextArea textAreaAlmacenamiento = new JTextArea(listaComponentesFamilia.get(1));
+        JTextArea textAreaAlmacenamiento = new JTextArea(listaComponentesFamiliaEscolar.get(1));
         textAreaAlmacenamiento.setEditable(false);
         panelFamiliaEscolar.add(textAreaAlmacenamiento);
         panelFamiliaEscolar.add(new JLabel("Tarjeta de Video"));
-        JTextArea textAreaTarjetaVideo = new JTextArea(listaComponentesFamilia.get(2));
+        JTextArea textAreaTarjetaVideo = new JTextArea(listaComponentesFamiliaEscolar.get(2));
         textAreaTarjetaVideo.setEditable(false);
         panelFamiliaEscolar.add(textAreaTarjetaVideo);
 
@@ -790,6 +820,8 @@ public class Vista extends JFrame {
 
         panelFamiliaEscolar.add(guardarFamiliaEscolar);
         panelFamiliaEscolar.add(volverAlMenuBoutton);
+
+
         volverAlMenuBoutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -808,6 +840,246 @@ public class Vista extends JFrame {
         revalidate();
         repaint();
     }
+
+
+
+    private void mostrarPanelFamiliaSobremesa(){
+        JPanel panelFamiliaSobremesa = new JPanel();
+
+        registrarSobremesaGaming = new JButton("Registrar  subfamilia Gaming");
+        registrarSobremesaOficina = new JButton("Registrar subfamilia Oficina");
+        registrarSobremesaWorkstation = new JButton("Registrar subfamilia Workstation");
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+
+        registrarSobremesaGaming.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarPanelSubfamiliaGaming();
+            }
+        });
+
+        registrarSobremesaOficina.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarPanelSubfamiliaOficina();
+            }
+        });
+
+        registrarSobremesaWorkstation.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarPanelSubfamiliaWorkstation();
+            }
+        });
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                panelPrincipal.remove(panelFamiliaSobremesa);
+            }
+        });
+
+        panelFamiliaSobremesa.add(registrarSobremesaWorkstation);
+        panelFamiliaSobremesa.add(registrarSobremesaGaming);
+        panelFamiliaSobremesa.add(registrarSobremesaOficina);
+        panelFamiliaSobremesa.add(volverAlMenuBoutton);
+
+        panelPrincipal.add(panelFamiliaSobremesa);
+
+    }
+
+
+    public void mostrarPanelSubfamiliaGaming(){
+        ArrayList<String> listaComponentesSubFamiliaGaming = new ArrayList<>();
+
+        listaComponentesSubFamiliaGaming.add(0, " 16, 24 o 32GB en maximo 4 sticks");
+        listaComponentesSubFamiliaGaming.add(1, " Hasta 2 HDD (1TB a 2TB), mínimo un SSD (de 256GB a 1TB)");
+        listaComponentesSubFamiliaGaming.add(2, "Tipo de subfamilia si acepta tarjeta de video");
+
+        JPanel panelSubfamiliaGaming = new JPanel(new GridLayout(8, 2));
+        panelSubfamiliaGaming.add(new JLabel("Precio"));
+        panelSubfamiliaGaming.add(txtPrecio);
+        panelSubfamiliaGaming.add(new JLabel("Rating"));
+        panelSubfamiliaGaming.add(txtRating);
+        panelSubfamiliaGaming.add(new JLabel("ID Familia: "));
+        panelSubfamiliaGaming.add(txtIdFamilia);
+        panelSubfamiliaGaming.add(new JLabel("RAM"));
+        JTextArea textAreaRam = new JTextArea(listaComponentesSubFamiliaGaming.get(0));
+        textAreaRam.setEditable(false);
+        panelSubfamiliaGaming.add(textAreaRam);
+        panelSubfamiliaGaming.add(new JLabel("Almacenamiento"));
+        JTextArea textAreaAlmacenamiento = new JTextArea(listaComponentesSubFamiliaGaming.get(1));
+        textAreaAlmacenamiento.setEditable(false);
+        panelSubfamiliaGaming.add(textAreaAlmacenamiento);
+        panelSubfamiliaGaming.add(new JLabel("Tarjeta de Video"));
+        JTextArea textAreaTarjetaVideo = new JTextArea(listaComponentesSubFamiliaGaming.get(2));
+        textAreaTarjetaVideo.setEditable(false);
+        panelSubfamiliaGaming.add(textAreaTarjetaVideo);
+
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+        guardarSubfamiliaGaming = new JButton("Guardar Subfamilia Gaming");
+        panelPrincipal.add(panelSubfamiliaGaming);
+
+        panelSubfamiliaGaming.add(guardarSubfamiliaGaming);
+        panelSubfamiliaGaming.add(volverAlMenuBoutton);
+
+        panelPrincipal.add(panelSubfamiliaGaming);
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                panelPrincipal.remove(panelSubfamiliaGaming);
+            }
+        });
+
+        guardarSubfamiliaGaming.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                almacenaSubfamiliaGaming(listaFamiliasRegistradas);
+            }
+        });
+
+        revalidate();
+        repaint();
+    }
+
+    public void mostrarPanelSubfamiliaOficina(){
+        ArrayList<String> listaComponentesSubFamiliaOficina = new ArrayList<>();
+
+        listaComponentesSubFamiliaOficina.add(0, "8 o 16GB en maximo 2 sticks");
+        listaComponentesSubFamiliaOficina.add(1, " 1 SSD (128GB)");
+        listaComponentesSubFamiliaOficina.add(2, "Tipo de subfamilia no acepta tarjeta de video");
+
+        JPanel panelSubfamiliaOficina = new JPanel(new GridLayout(8, 2));
+        panelSubfamiliaOficina.add(new JLabel("Precio"));
+        panelSubfamiliaOficina.add(txtPrecio);
+        panelSubfamiliaOficina.add(new JLabel("Rating"));
+        panelSubfamiliaOficina.add(txtRating);
+        panelSubfamiliaOficina.add(new JLabel("ID Familia: "));
+        panelSubfamiliaOficina.add(txtIdFamilia);
+        panelSubfamiliaOficina.add(new JLabel("RAM"));
+        JTextArea textAreaRam = new JTextArea(listaComponentesSubFamiliaOficina.get(0));
+        textAreaRam.setEditable(false);
+        panelSubfamiliaOficina.add(textAreaRam);
+        panelSubfamiliaOficina.add(new JLabel("Almacenamiento"));
+        JTextArea textAreaAlmacenamiento = new JTextArea(listaComponentesSubFamiliaOficina.get(1));
+        textAreaAlmacenamiento.setEditable(false);
+        panelSubfamiliaOficina.add(textAreaAlmacenamiento);
+        panelSubfamiliaOficina.add(new JLabel("Tarjeta de Video"));
+        JTextArea textAreaTarjetaVideo = new JTextArea(listaComponentesSubFamiliaOficina.get(2));
+        textAreaTarjetaVideo.setEditable(false);
+        panelSubfamiliaOficina.add(textAreaTarjetaVideo);
+
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+        guardarSubfamiliaOficina = new JButton("Guardar Subfamilia Oficina");
+        panelPrincipal.add(panelSubfamiliaOficina);
+
+        panelSubfamiliaOficina.add(guardarSubfamiliaOficina);
+        panelSubfamiliaOficina.add(volverAlMenuBoutton);
+
+        panelPrincipal.add(panelSubfamiliaOficina);
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                panelPrincipal.remove(panelSubfamiliaOficina);
+            }
+        });
+
+        guardarSubfamiliaOficina.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                almacenaSubfamiliaOficina(listaFamiliasRegistradas);
+            }
+        });
+
+        revalidate();
+        repaint();
+    }
+
+    public void mostrarPanelSubfamiliaWorkstation(){
+        ArrayList<String> listaComponentesSubFamiliaWorkstation = new ArrayList<>();
+
+        listaComponentesSubFamiliaWorkstation.add(0, "32 o 64GB en maximo 8 sticks");
+        listaComponentesSubFamiliaWorkstation.add(1, "Mínimo 1 HDD y máximo 2 (1Tb a 2TB), mínimo un SSD (de 256GB a 1TB)");
+        listaComponentesSubFamiliaWorkstation.add(2, "Tipo de subfamilia si acepta tarjeta de video");
+
+        JPanel panelSubfamiliaWorkstation = new JPanel(new GridLayout(8, 2));
+        panelSubfamiliaWorkstation.add(new JLabel("Precio"));
+        panelSubfamiliaWorkstation.add(txtPrecio);
+        panelSubfamiliaWorkstation.add(new JLabel("Rating"));
+        panelSubfamiliaWorkstation.add(txtRating);
+        panelSubfamiliaWorkstation.add(new JLabel("ID Familia: "));
+        panelSubfamiliaWorkstation.add(txtIdFamilia);
+        panelSubfamiliaWorkstation.add(new JLabel("RAM"));
+        JTextArea textAreaRam = new JTextArea(listaComponentesSubFamiliaWorkstation.get(0));
+        textAreaRam.setEditable(false);
+        panelSubfamiliaWorkstation.add(textAreaRam);
+        panelSubfamiliaWorkstation.add(new JLabel("Almacenamiento"));
+        JTextArea textAreaAlmacenamiento = new JTextArea(listaComponentesSubFamiliaWorkstation.get(1));
+        textAreaAlmacenamiento.setEditable(false);
+        panelSubfamiliaWorkstation.add(textAreaAlmacenamiento);
+        panelSubfamiliaWorkstation.add(new JLabel("Tarjeta de Video"));
+        JTextArea textAreaTarjetaVideo = new JTextArea(listaComponentesSubFamiliaWorkstation.get(2));
+        textAreaTarjetaVideo.setEditable(false);
+        panelSubfamiliaWorkstation.add(textAreaTarjetaVideo);
+
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+        guardarSubFamiliaWorkstation = new JButton("Guardar Subfamilia Workstation");
+        panelPrincipal.add(panelSubfamiliaWorkstation);
+
+        panelSubfamiliaWorkstation.add(guardarSubFamiliaWorkstation);
+        panelSubfamiliaWorkstation.add(volverAlMenuBoutton);
+
+        panelPrincipal.add(panelSubfamiliaWorkstation);
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                panelPrincipal.remove(panelSubfamiliaWorkstation);
+            }
+        });
+
+        guardarSubFamiliaWorkstation.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                almacenaSubfamiliaWorkstation(listaFamiliasRegistradas);
+            }
+        });
+
+        revalidate();
+        repaint();
+    }
+
+    public Familia almacenaSubfamiliaWorkstation(List<Familia> listaFamiliasRegistradas){
+        Familia familia = null;
+        ArrayList<String> listaComponentesFamilia = new ArrayList<>();
+        String opcionFamilia, opcionSobremesa, opcionPortable, tipoFamilia, subFamilia, duracionBateria;
+        double precio;
+        float rating, peso;
+        int idFamilia;
+        listaComponentesFamilia.add(0, "RAM: 32 o 64GB en maximo 8 sticks");
+        listaComponentesFamilia.add(1, "Almacenamiento:  Mínimo 1 HDD y máximo 2 (1Tb a 2TB), mínimo un SSD (de 256GB a 1TB)");
+        listaComponentesFamilia.add(2, "Tarjeta de video: Tipo de computadora si acepta tarjeta de video");
+
+        tipoFamilia = "Sobremesa";
+        String textoPrecio = txtPrecio.getText();
+        String textoRating = txtRating.getText();
+        String textoIdFamilia = txtIdFamilia.getText();
+        subFamilia = "Gaming";
+
+        Familia nuevaFamiliaSobremesa = new Sobremesa(tipoFamilia, listaComponentesFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), subFamilia);
+        familia = new Familia(tipoFamilia, Integer.parseInt(textoIdFamilia), listaComponentesFamilia, Integer.parseInt(textoRating), Double.parseDouble(textoPrecio));
+        listaFamiliasRegistradas.add(familia);
+
+
+        return familia;
+    }
+
 
 
 
@@ -833,6 +1105,58 @@ public class Vista extends JFrame {
             }
         });
     }
+
+    public Familia almacenaSubfamiliaOficina(List<Familia> listaFamiliasRegistradas){
+        Familia familia = null;
+        ArrayList<String> listaComponentesFamilia = new ArrayList<>();
+        String opcionFamilia, opcionSobremesa, opcionPortable, tipoFamilia, subFamilia, duracionBateria;
+        double precio;
+        float rating, peso;
+        int idFamilia;
+        listaComponentesFamilia.add(0, "RAM: 8 o 16GB en maximo 2 sticks");
+        listaComponentesFamilia.add(1, "Almacenamiento:  1 SSD (128GB)");
+        listaComponentesFamilia.add(2, "Tarjeta de video: Tipo de computadora no acepta tarjeta de video");
+
+        tipoFamilia = "Sobremesa";
+        String textoPrecio = txtPrecio.getText();
+        String textoRating = txtRating.getText();
+        String textoIdFamilia = txtIdFamilia.getText();
+        subFamilia = "Oficina";
+
+        Familia nuevaFamiliaOficina = new Sobremesa(tipoFamilia, listaComponentesFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), subFamilia);
+        familia = new Familia(tipoFamilia, Integer.parseInt(textoIdFamilia), listaComponentesFamilia, Integer.parseInt(textoRating), Double.parseDouble(textoPrecio));
+        listaFamiliasRegistradas.add(familia);
+
+
+        return familia;
+    }
+
+    public Familia almacenaSubfamiliaGaming(List<Familia> listaFamiliasRegistradas){
+        Familia familia = null;
+        ArrayList<String> listaComponentesFamilia = new ArrayList<>();
+        String opcionFamilia, opcionSobremesa, opcionPortable, tipoFamilia, subFamilia, duracionBateria;
+        double precio;
+        float rating, peso;
+        int idFamilia;
+        listaComponentesFamilia.add(0, "RAM: 16, 24 o 32GB en maximo 4 sticks");
+        listaComponentesFamilia.add(1, "Almacenamiento: hasta 2 HDD (1TB a 2TB), mínimo un SSD (de 256GB a 1TB)");
+        listaComponentesFamilia.add(2, "Tarjeta de video: Tipo de computadora si acepta tarjeta de video");
+
+        tipoFamilia = "Sobremesa";
+        String textoPrecio = txtPrecio.getText();
+        String textoRating = txtRating.getText();
+        String textoIdFamilia = txtIdFamilia.getText();
+        subFamilia = "Gaming";
+
+        Familia nuevaFamiliaEscolar = new Sobremesa(tipoFamilia, listaComponentesFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), subFamilia);
+        familia = new Familia(tipoFamilia, Integer.parseInt(textoIdFamilia), listaComponentesFamilia, Integer.parseInt(textoRating), Double.parseDouble(textoPrecio));
+        listaFamiliasRegistradas.add(familia);
+
+
+        return familia;
+    }
+
+
     public Familia almacenaFamiliaEscolar(List<Familia> listaFamiliasRegistradas) {
         Familia familia = null;
         ArrayList<String> listaComponentesFamilia = new ArrayList<>();
@@ -869,7 +1193,7 @@ public class Vista extends JFrame {
             JTextArea textAreaPrecio = new JTextArea(String.valueOf(familia.getPrecio()));
             textAreaPrecio.setEditable(false);
             panelListaFamilias.add(textAreaPrecio);
-            panelListaFamilias.add(new JLabel("Precio: "));
+            panelListaFamilias.add(new JLabel("Rating: "));
             JTextArea textAreaRating = new JTextArea(String.valueOf(familia.getRating()));
             textAreaRating.setEditable(false);
             panelListaFamilias.add(textAreaRating);
