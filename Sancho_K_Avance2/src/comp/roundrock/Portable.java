@@ -6,6 +6,14 @@ public class Portable extends Familia{
 
     private String subFamilia;
 
+    public String getSubFamilia() {
+        return subFamilia;
+    }
+
+    public void setSubFamilia(String subFamilia) {
+        this.subFamilia = subFamilia;
+    }
+
     private String duracionBateria;
     //private float peso;
     public Portable(){

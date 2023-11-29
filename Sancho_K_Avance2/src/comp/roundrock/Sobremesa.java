@@ -5,6 +5,15 @@ import java.util.ArrayList;
 public class Sobremesa extends Familia{
 
     private String subFamilia;
+
+    public String getSubFamilia() {
+        return subFamilia;
+    }
+
+    public void setSubFamilia(String subFamilia) {
+        this.subFamilia = subFamilia;
+    }
+
     public Sobremesa(){
         super.setTipoFamilia("Sobremesa");
     }

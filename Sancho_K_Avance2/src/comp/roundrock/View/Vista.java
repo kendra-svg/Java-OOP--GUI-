@@ -127,7 +127,25 @@ public class Vista extends JFrame {
 
     List<Componente> listaDeComponentes = new ArrayList<>();
 
+
+
     List<Familia> listaFamiliasRegistradas = new ArrayList<>();
+
+    List<Portable> listaSubFamiliaTrabajo = new ArrayList<>();
+
+    List<Portable> listaSubFamiliaCasa = new ArrayList<>();
+
+    List<Sobremesa> listaSubfamiliaGaming = new ArrayList<>();
+
+    List<Sobremesa> listaSubfamiliaOficina = new ArrayList<>();
+
+    List<Sobremesa> listaSubfamiliaWorkstation = new ArrayList<>();
+
+    List<Sobremesa> listFamiliaSobremesa = new ArrayList<>();
+
+    List<Portable> listFamiliaPortable = new ArrayList<>();
+
+
 
 
     private JFrame frameListaComponentes;
@@ -509,9 +527,11 @@ public class Vista extends JFrame {
         String tipoComponente = "Almacenamiento";
         String textoCategoria = txtCategoria.getText();
 
-        Componente nuevoComp = new Almacenamiento(Integer.parseInt(textoRating), tipoComponente, Integer.parseInt(textoIdComponente), Double.parseDouble(textoPrecio), textoModelo, textoCategoria, textoCapacidad);
+        //Almacenamiento nuevoComp = new Almacenamiento(Integer.parseInt(textoRating), tipoComponente, Integer.parseInt(textoIdComponente), Double.parseDouble(textoPrecio), textoModelo, textoCategoria, textoCapacidad);
+        Componente  nuevoComp = new Almacenamiento(Integer.parseInt(textoRating), tipoComponente, Integer.parseInt(textoIdComponente), Double.parseDouble(textoPrecio), textoModelo, textoCategoria, textoCapacidad);
         componente = new Componente(Integer.parseInt(textoRating), tipoComponente, Integer.parseInt(textoIdComponente), Double.parseDouble(textoPrecio), textoModelo);
         listaDeComponentes.add(componente);
+        //listaDeAlmacenamientos.add(nuevoComp); /*nueva linea, en  la linea 514 cambie componente por almacenamiento*/
         return componente1;
 
     }
@@ -1162,9 +1182,12 @@ public class Vista extends JFrame {
         String textoIdFamilia = txtIdFamilia.getText();
         subFamilia = "Trabajo";
 
-        Familia nuevaFamiliaPortable = new Portable(tipoFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), listaComponentesFamilia, subFamilia);
+        //Familia nuevaFamiliaPortable = new Portable(tipoFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), listaComponentesFamilia, subFamilia);
+        Portable nuevaFamiliaPortableTrabajo = new Portable(tipoFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), listaComponentesFamilia, subFamilia);
         familia = new Familia(tipoFamilia, Integer.parseInt(textoIdFamilia), listaComponentesFamilia, Integer.parseInt(textoRating), Double.parseDouble(textoPrecio));
         listaFamiliasRegistradas.add(familia);
+        listaSubFamiliaTrabajo.add(nuevaFamiliaPortableTrabajo);
+        listFamiliaPortable.add(nuevaFamiliaPortableTrabajo);
 
 
         return familia;
@@ -1187,9 +1210,12 @@ public class Vista extends JFrame {
         String textoIdFamilia = txtIdFamilia.getText();
         subFamilia = "Casa";
 
-        Familia nuevaFamiliaPortable = new Portable(tipoFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), listaComponentesFamilia, subFamilia);
+        //Familia nuevaFamiliaPortable = new Portable(tipoFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), listaComponentesFamilia, subFamilia);
+        Portable nuevaFamiliaPortableCasa = new Portable(tipoFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), listaComponentesFamilia, subFamilia);
         familia = new Familia(tipoFamilia, Integer.parseInt(textoIdFamilia), listaComponentesFamilia, Integer.parseInt(textoRating), Double.parseDouble(textoPrecio));
         listaFamiliasRegistradas.add(familia);
+        listaSubFamiliaCasa.add(nuevaFamiliaPortableCasa);
+        listFamiliaPortable.add(nuevaFamiliaPortableCasa);
 
 
         return familia;
@@ -1432,11 +1458,14 @@ public class Vista extends JFrame {
         String textoPrecio = txtPrecio.getText();
         String textoRating = txtRating.getText();
         String textoIdFamilia = txtIdFamilia.getText();
-        subFamilia = "Gaming";
+        subFamilia = "Workstation";
 
-        Familia nuevaFamiliaSobremesa = new Sobremesa(tipoFamilia, listaComponentesFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), subFamilia);
+        //Familia nuevaFamiliaSobremesa = new Sobremesa(tipoFamilia, listaComponentesFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), subFamilia);
+        Sobremesa nuevaFamiliaSobremesaWorkstation = new Sobremesa(tipoFamilia, listaComponentesFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), subFamilia);
         familia = new Familia(tipoFamilia, Integer.parseInt(textoIdFamilia), listaComponentesFamilia, Integer.parseInt(textoRating), Double.parseDouble(textoPrecio));
         listaFamiliasRegistradas.add(familia);
+        listaSubfamiliaWorkstation.add(nuevaFamiliaSobremesaWorkstation);
+        listFamiliaSobremesa.add(nuevaFamiliaSobremesaWorkstation);
 
 
         return familia;
@@ -1463,7 +1492,7 @@ public class Vista extends JFrame {
         mostrarFamiliasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mostrarPanelListarFamilias(listaFamiliasRegistradas);
+                mostrarPanelListarFamilias(listaFamiliasRegistradas, listFamiliaSobremesa, listFamiliaPortable);
             }
         });
 
@@ -1503,9 +1532,12 @@ public class Vista extends JFrame {
         String textoIdFamilia = txtIdFamilia.getText();
         subFamilia = "Oficina";
 
-        Familia nuevaFamiliaOficina = new Sobremesa(tipoFamilia, listaComponentesFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), subFamilia);
+        //Familia nuevaFamiliaOficina = new Sobremesa(tipoFamilia, listaComponentesFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), subFamilia);
+        Sobremesa nuevaFamiliaSobremesaOficina = new Sobremesa(tipoFamilia, listaComponentesFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), subFamilia);
         familia = new Familia(tipoFamilia, Integer.parseInt(textoIdFamilia), listaComponentesFamilia, Integer.parseInt(textoRating), Double.parseDouble(textoPrecio));
         listaFamiliasRegistradas.add(familia);
+        listaSubfamiliaOficina.add(nuevaFamiliaSobremesaOficina);
+        listFamiliaSobremesa.add(nuevaFamiliaSobremesaOficina);
 
 
         return familia;
@@ -1528,9 +1560,11 @@ public class Vista extends JFrame {
         String textoIdFamilia = txtIdFamilia.getText();
         subFamilia = "Gaming";
 
-        Familia nuevaFamiliaEscolar = new Sobremesa(tipoFamilia, listaComponentesFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), subFamilia);
+        Sobremesa nuevaFamiliaSobremesaGaming = new Sobremesa(tipoFamilia, listaComponentesFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), subFamilia);
         familia = new Familia(tipoFamilia, Integer.parseInt(textoIdFamilia), listaComponentesFamilia, Integer.parseInt(textoRating), Double.parseDouble(textoPrecio));
         listaFamiliasRegistradas.add(familia);
+        listaSubfamiliaGaming.add(nuevaFamiliaSobremesaGaming);
+        listFamiliaSobremesa.add(nuevaFamiliaSobremesaGaming);
 
 
         return familia;
@@ -1562,14 +1596,34 @@ public class Vista extends JFrame {
 
     }
 
-    public void mostrarPanelListarFamilias(List<Familia> listaFamiliasRegistradas) {
+    public void mostrarPanelListarFamilias(List<Familia> listaFamiliasRegistradas, List<Sobremesa> listFamiliaSobremesa, List<Portable> listFamiliaPortable) {
         //JPanel panelListaFamilias = new JPanel(new GridLayout(3, 2));
         JPanel panelListaFamilias = new JPanel(new GridLayout(listaFamiliasRegistradas.size(), 6));
         for (Familia familia : listaFamiliasRegistradas) {
             panelListaFamilias.add(new JLabel("Tipo de Familia: "));
-            JTextArea textAreaTipoComponente = new JTextArea(String.valueOf(familia.getTipoFamilia()));
-            textAreaTipoComponente.setEditable(false);
-            panelListaFamilias.add(textAreaTipoComponente);
+            JTextArea textAreaTipoFamilia = new JTextArea(String.valueOf(familia.getTipoFamilia()));
+            textAreaTipoFamilia.setEditable(false);
+            panelListaFamilias.add(textAreaTipoFamilia);
+            if (textAreaTipoFamilia.equals(familia.getTipoFamilia())) {
+                for (Sobremesa sobremesa : listFamiliaSobremesa) {
+                    panelListaFamilias.add(new JLabel("Subfamilia: "));
+                    JTextArea textAreaSubFamilia = new JTextArea(String.valueOf(sobremesa.getSubFamilia()));
+                    textAreaSubFamilia.setEditable(false);
+                    panelListaFamilias.add(textAreaSubFamilia);
+                }
+            } else if (textAreaTipoFamilia.equals("Portable")) {
+                for (Portable portable : listFamiliaPortable) {
+                    panelListaFamilias.add(new JLabel("Subfamilia: "));
+                    JTextArea textAreaSubFamilia = new JTextArea(String.valueOf(portable.getSubFamilia()));
+                    textAreaSubFamilia.setEditable(false);
+                    panelListaFamilias.add(textAreaSubFamilia);
+                }
+            } else {
+                panelListaFamilias.add(new JLabel("Subfamilia: "));
+                JTextArea textAreaSubFamilia = new JTextArea("No tiene subfamilia");
+                textAreaSubFamilia.setEditable(false);
+                panelListaFamilias.add(textAreaSubFamilia);
+            }
             panelListaFamilias.add(new JLabel("Precio: "));
             JTextArea textAreaPrecio = new JTextArea(String.valueOf(familia.getPrecio()));
             textAreaPrecio.setEditable(false);
