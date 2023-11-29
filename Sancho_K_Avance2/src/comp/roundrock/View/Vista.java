@@ -340,7 +340,8 @@ public class Vista extends JFrame {
     }
 
     private void mostrarPanelListarComponentes(List<Componente> listaDeComponentes) { /*HASTA ACA*/
-        JPanel panelLista = new JPanel(new GridLayout(2, 3));
+        //JPanel panelLista = new JPanel(new GridLayout(2, 3));
+        JPanel panelLista = new JPanel(new GridLayout(listaDeComponentes.size(), 6));
         for (Componente componente : listaDeComponentes) {
             panelLista.add(new JLabel("Tipo de componente: "));
             JTextArea textAreaTipoComponente = new JTextArea(String.valueOf(componente.getTipoComponente()));
@@ -1457,9 +1458,6 @@ public class Vista extends JFrame {
         mostrarFamiliasButton = new JButton("Mostrar Familias");
         volverAlMenuBoutton = new JButton("Menú Principal");
 
-        JPanel panelMainFamilias = new JPanel();
-        panelMainFamilias.add(mostrarFamiliasButton);
-        panelMainFamilias.add(volverAlMenuBoutton);
 //        panelPrincipal.add(panelMainFamilias);
 //
         mostrarFamiliasButton.addActionListener(new ActionListener() {
@@ -1468,6 +1466,10 @@ public class Vista extends JFrame {
                 mostrarPanelListarFamilias(listaFamiliasRegistradas);
             }
         });
+
+        JPanel panelMainFamilias = new JPanel();
+        panelMainFamilias.add(mostrarFamiliasButton);
+        panelMainFamilias.add(volverAlMenuBoutton);
 
         volverAlMenuBoutton.addActionListener(new ActionListener() {
             @Override
@@ -1561,7 +1563,8 @@ public class Vista extends JFrame {
     }
 
     public void mostrarPanelListarFamilias(List<Familia> listaFamiliasRegistradas) {
-        JPanel panelListaFamilias = new JPanel(new GridLayout(3, 2));
+        //JPanel panelListaFamilias = new JPanel(new GridLayout(3, 2));
+        JPanel panelListaFamilias = new JPanel(new GridLayout(listaFamiliasRegistradas.size(), 6));
         for (Familia familia : listaFamiliasRegistradas) {
             panelListaFamilias.add(new JLabel("Tipo de Familia: "));
             JTextArea textAreaTipoComponente = new JTextArea(String.valueOf(familia.getTipoFamilia()));
