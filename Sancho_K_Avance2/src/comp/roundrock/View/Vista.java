@@ -739,12 +739,12 @@ public class Vista extends JFrame {
 
         registrarFamiliaEscolar = new JButton("Registrar familia Escolar");
         registrarFamiliaPortable = new JButton("Registrar familia Portable");
-        registrarPortableCasa = new JButton("Registrar subfamilia Casa");
-        registrarPortableTrabajo = new JButton("Registrar subfamilia Trabajo");
+        //registrarPortableCasa = new JButton("Registrar subfamilia Casa");
+        //registrarPortableTrabajo = new JButton("Registrar subfamilia Trabajo");
         registrarFamiliaServidor = new JButton("Registrar familia Servidor");
         registrarFamiliaSobremesa = new JButton("Registrar familia Sobremesa");
-        registrarSobremesaGaming = new JButton("Registrar  subfamilia Gaming");
-        registrarSobremesaOficina = new JButton("Registrar subfamilia Oficina");
+        //registrarSobremesaGaming = new JButton("Registrar  subfamilia Gaming");
+       // registrarSobremesaOficina = new JButton("Registrar subfamilia Oficina");
         volverAlMenuBoutton = new JButton("Menú Principal");
 
         registrarFamiliaEscolar.addActionListener(new ActionListener() {
@@ -758,14 +758,19 @@ public class Vista extends JFrame {
         registrarFamiliaSobremesa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mostrarPanelFamiliaSobremesa();
+
+                initPanelFamiliaSobremesa();
+                //mostrarPanelFamiliaSobremesa();
             }
         });
 
         registrarFamiliaPortable.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mostrarPanelFamiliaPortable();
+
+                //mostrarPanelFamiliaPortable();
+                //initPanelSubCasa();
+                initPanelFamiliaPortable();
             }
         });
 
@@ -943,6 +948,32 @@ public class Vista extends JFrame {
         repaint();
     }
 
+    public void initPanelSubCasa(){
+        setTitle("Registro de Subfamilia Portable; Casa");
+        setSize(1100, 1100);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        mostrarPanelSubfamiliaCasa();
+    }
+
+    public void initPanelSubTrabajo(){
+        setTitle("Registro de Subfamilia Portable; Trabajo");
+        setSize(1200, 1200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        mostrarPanelSubfamiliaTrabajo();
+    }
+
+    public void initPanelFamiliaPortable(){
+        setTitle("Registro de Familias Portable");
+        setSize(1200, 1200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        mostrarPanelFamiliaPortable();
+    }
+
     private void mostrarPanelFamiliaPortable() {
         JPanel panelFamiliaPortable = new JPanel();
 
@@ -953,14 +984,17 @@ public class Vista extends JFrame {
         registrarPortableCasa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mostrarPanelSubfamiliaCasa();
+                //mostrarPanelSubfamiliaCasa();
+                initPanelSubCasa();
             }
         });
 
         registrarPortableTrabajo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mostrarPanelSubfamiliaTrabajo();
+
+                //mostrarPanelSubfamiliaTrabajo();
+                initPanelSubTrabajo();
             }
         });
 
@@ -983,6 +1017,10 @@ public class Vista extends JFrame {
     }
 
     public void mostrarPanelSubfamiliaCasa() {
+        setTitle("Registro subfamilia Casa");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(900, 900);
+        setLocationRelativeTo(null);
         ArrayList<String> listaComponentesSubFamiliaCasa = new ArrayList<>();
 
         listaComponentesSubFamiliaCasa.add(0, "8 o 16B en maximo 2 sticks");
@@ -1016,7 +1054,7 @@ public class Vista extends JFrame {
 
         volverAlMenuBoutton = new JButton("Volver al menu principal");
         guardarSubfamiliaCasa = new JButton("Guardar Subfamilia Casa");
-        panelPrincipal.add(panelSubfamiliaCasa);
+        //panelPrincipal.add(panelSubfamiliaCasa);
 
         panelSubfamiliaCasa.add(guardarSubfamiliaCasa);
         panelSubfamiliaCasa.add(volverAlMenuBoutton);
@@ -1043,12 +1081,16 @@ public class Vista extends JFrame {
     }
 
     public void mostrarPanelSubfamiliaTrabajo() {
+        setTitle("Registro subfamilia Trabajo");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(900, 900);
+        setLocationRelativeTo(null);
         ArrayList<String> listaComponentesSubFamiliaTrabajo = new ArrayList<>();
 
-        listaComponentesSubFamiliaTrabajo.add(0, "RAM: 8 o 16B en maximo 2 sticks");
-        listaComponentesSubFamiliaTrabajo.add(1, "Almacenamiento:  1 SSD (256GB / 512GB)");
-        listaComponentesSubFamiliaTrabajo.add(2, "Tarjeta de video: Admite Tarjeta de Video (GPU calculo científico, GPU renderizado, GPU homeworking)");
-        listaComponentesSubFamiliaTrabajo.add(3, "Duracion de bateria: Opciones de 8, 10 y 16 horas de duracion");
+        listaComponentesSubFamiliaTrabajo.add(0, "8 o 16B en maximo 2 sticks");
+        listaComponentesSubFamiliaTrabajo.add(1, "1 SSD (256GB / 512GB)");
+        listaComponentesSubFamiliaTrabajo.add(2, " Admite (GPU calculo científico, \n GPU renderizado, \n GPU homeworking) \n");
+        listaComponentesSubFamiliaTrabajo.add(3, "8, 10 y 16 horas de duracion");
 
         JPanel panelSubfamiliaTrabajo = new JPanel(new GridLayout(10, 2));
         panelSubfamiliaTrabajo.add(new JLabel("Precio"));
@@ -1076,7 +1118,7 @@ public class Vista extends JFrame {
 
         volverAlMenuBoutton = new JButton("Volver al menu principal");
         guardarSubfamiliaTrabajo = new JButton("Guardar Subfamilia Trabajo");
-        panelPrincipal.add(panelSubfamiliaTrabajo);
+        //panelPrincipal.add(panelSubfamiliaTrabajo);
 
         panelSubfamiliaTrabajo.add(guardarSubfamiliaTrabajo);
         panelSubfamiliaTrabajo.add(volverAlMenuBoutton);
@@ -1151,6 +1193,16 @@ public class Vista extends JFrame {
 
         return familia;
     }
+
+    public void initPanelFamiliaSobremesa() {
+        setTitle("Registro de Familias Sobremesa");
+        setSize(1200, 1200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        mostrarPanelFamiliaSobremesa();
+    }
+
+
 
     private void mostrarPanelFamiliaSobremesa() {
         JPanel panelFamiliaSobremesa = new JPanel();
