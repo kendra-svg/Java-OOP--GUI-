@@ -138,28 +138,49 @@ public class Vista extends JFrame {
 
     public Vista() {
 
-
         panelPrincipal = new JPanel();
         getContentPane().add(panelPrincipal);
 
-            /*panelPrincipalMostrarComponentes = new JPanel();
-            /*getContentPane().add(panelPrincipalMostrarComponentes);*/
-
     }
 
-    /*public void inicializacionGeneralPaneles(){
-        panel
-    }*/
 
 
+    public boolean isComponentesInicializados() {
+        return componentesInicializados;
+    }
+    private boolean componentesInicializados = false;
 
+    private boolean listaComponentesInicializada = false;
+
+    public boolean isListaComponentesInicializada() {
+        return listaComponentesInicializada;
+    }
+
+    private boolean familiasInicializadas = false;
+
+    public boolean isFamiliasInicializadas() {
+        return familiasInicializadas;
+    }
+
+    private boolean listaFamiliasInicializada = false;
+
+    public boolean isListaFamiliasInicializada() {
+        return listaFamiliasInicializada;
+    }
 
     public void initComponents() {
         setTitle("Registro de componente");
         setSize(1500, 1500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setVisible(true);
+        //setVisible(true);
+        if (!componentesInicializados) {
+            // Si ya se han inicializado, simplemente muestra la ventana
+            componentesInicializados = true;
+        }
+
+
+
 
 
         txtModelo = new JTextField();
@@ -239,34 +260,42 @@ public class Vista extends JFrame {
         volverAlMenuBoutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
                 panelPrincipal.remove(panelComponentes);
+                setVisible(false);
 
             }
         });
-
+        panelPrincipal.removeAll();
         panelPrincipal.add(panelComponentes);
 
-
+//        panelPrincipal.add(panelComponentes);
+        setVisible(true);
     }
 
 
     public void initListaComponente() {
         setTitle("Listar componentes");
-        setSize(900, 900);
+        setSize(800, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setVisible(true);
-        panelPrincipalMostrarComponentes = new JPanel();
+
+//        if (listaComponentesInicializada) {
+//            // Si ya se ha inicializado, simplemente muestra la ventana
+//            //setVisible(true);
+//            setVisible(true);
+//            return;
+//        }
+        //setVisible(true);
+        //panelPrincipalMostrarComponentes = new JPanel();
+
+        if (listaComponentesInicializada) {
+            componentesInicializados = true;
+        }
 
 
         mostrarComponentesButton = new JButton("Mostrar Componentes");
-        JButton cerrarButton = new JButton("Menú Principal");
+        volverAlMenuBoutton = new JButton("Menú Principal");
 
-        JPanel panelMainComponentes = new JPanel();
-        panelMainComponentes.add(mostrarComponentesButton);
-        panelMainComponentes.add(cerrarButton);
-        panelPrincipal.add(panelMainComponentes);
 
 
         mostrarComponentesButton.addActionListener(new ActionListener() {
@@ -281,7 +310,12 @@ public class Vista extends JFrame {
             }
         });
 
-        cerrarButton.addActionListener(new ActionListener() {
+        JPanel panelMainComponentes = new JPanel();
+        panelMainComponentes.add(mostrarComponentesButton);
+        panelMainComponentes.add(volverAlMenuBoutton);
+        panelPrincipal.add(panelMainComponentes);
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
@@ -291,17 +325,22 @@ public class Vista extends JFrame {
 
 
 
+
+
+        //listaComponentesInicializada = true;
+        panelPrincipal.removeAll();
+
+        panelPrincipal.add(panelMainComponentes);
+
+        setVisible(true);
+
         /*-panelPrincipalMostrarComponentes.add(panelMainComponentes);*/
 
 
     }
 
     private void mostrarPanelListarComponentes(List<Componente> listaDeComponentes) { /*HASTA ACA*/
-//            JFrame frameMostrarListaComponentes = new JFrame();
-//            frameMostrarListaComponentes.setSize(800, 800);
-
-
-        JPanel panelLista = new JPanel(new GridLayout(3, 2));
+        JPanel panelLista = new JPanel(new GridLayout(2, 3));
         for (Componente componente : listaDeComponentes) {
             panelLista.add(new JLabel("Tipo de componente: "));
             JTextArea textAreaTipoComponente = new JTextArea(String.valueOf(componente.getTipoComponente()));
@@ -477,11 +516,6 @@ public class Vista extends JFrame {
     }
 
     private void mostrarPanelAlmacenamiento() {
-        setTitle("Registro de componente de Almacenamiento");
-        setSize(1500, 1500);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setVisible(true);
         JPanel panelAlmacenamiento = new JPanel(new GridLayout(6, 2));
         panelAlmacenamiento.add(new JLabel("Modelo: "));
         panelAlmacenamiento.add(txtModelo);
@@ -535,11 +569,6 @@ public class Vista extends JFrame {
     }
 
     private void mostrarPanelFuentePoder() {
-        setTitle("Registro de componente de Fuente de Poder");
-        setSize(1500, 1500);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setVisible(true);
         JPanel panelFuentePoder = new JPanel(new GridLayout(6, 2));
         panelFuentePoder.add(new JLabel("Modelo: "));
         panelFuentePoder.add(txtModelo);
@@ -594,11 +623,6 @@ public class Vista extends JFrame {
     }
 
     private void mostrarPanelTarjetaMadre() {
-        setTitle("Registro de componente de Tarjeta Madre");
-        setSize(1500, 1500);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setVisible(true);
         JPanel panelTarjetaMadre = new JPanel(new GridLayout(6, 2));
         panelTarjetaMadre.add(new JLabel("Modelo: "));
         panelTarjetaMadre.add(txtModelo);
@@ -656,11 +680,6 @@ public class Vista extends JFrame {
     }
 
     private void mostrarPanelTarjetaVideo() {
-        setTitle("Registro de componente de Tarjeta de Video");
-        setSize(1500, 1500);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setVisible(true);
         JPanel panelTarjetaVideo = new JPanel(new GridLayout(6, 2));
         panelTarjetaVideo.add(new JLabel("Modelo: "));
         panelTarjetaVideo.add(txtModelo);
@@ -701,10 +720,17 @@ public class Vista extends JFrame {
 
     public void initFamilias() {
         setTitle("Registro de Familias");
-        setSize(2500, 2500);
+        setSize(1100, 1100);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setVisible(true);
+        //setVisible(true);
+
+        if (!familiasInicializadas) {
+            // Si ya se han inicializado, simplemente muestra la ventana
+//            setVisible(true);
+//            return;
+            familiasInicializadas = true;
+        }
 
         txtPrecio = new JTextField();
         txtRating = new JTextField();
@@ -766,9 +792,10 @@ public class Vista extends JFrame {
                 panelPrincipal.remove(panelFamilias);
             }
         });
-
+        panelPrincipal.removeAll();
         panelPrincipal.add(panelFamilias);
-
+        //familiasInicializadas = true;
+        setVisible(true);
 
     }
 
@@ -1368,22 +1395,41 @@ public class Vista extends JFrame {
         setSize(900, 900);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setVisible(true);
+        //setVisible(true);
+
+        if (!listaFamiliasInicializada) {
+            // Si ya se ha inicializado, simplemente muestra la ventana
+            listaFamiliasInicializada = true;
+        }
 
         mostrarFamiliasButton = new JButton("Mostrar Familias");
-        JButton cerrarButton = new JButton("Menú Principal");
+        volverAlMenuBoutton = new JButton("Menú Principal");
 
         JPanel panelMainFamilias = new JPanel();
         panelMainFamilias.add(mostrarFamiliasButton);
-        panelMainFamilias.add(cerrarButton);
-        panelPrincipal.add(panelMainFamilias);
-
+        panelMainFamilias.add(volverAlMenuBoutton);
+//        panelPrincipal.add(panelMainFamilias);
+//
         mostrarFamiliasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mostrarPanelListarFamilias(listaFamiliasRegistradas);
             }
         });
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                panelPrincipal.remove(panelMainFamilias);
+            }
+        });
+
+
+        panelPrincipal.removeAll();
+        panelPrincipal.add(panelMainFamilias);
+        //listaFamiliasInicializada = true;
+        setVisible(true);
     }
 
     public Familia almacenaSubfamiliaOficina(List<Familia> listaFamiliasRegistradas) {

@@ -61,18 +61,18 @@ public class Main extends JFrame {
         registrarComponenteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 vista.initComponents();
-                /*componenteControlador.registrarComponente();*/
-
-
             }
         });
+
+
+
 
         listarComponenteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 vista.initListaComponente();
-                /*vista.panelInit();*/
             }
         });
 
@@ -81,13 +81,17 @@ public class Main extends JFrame {
         registrarFamiliaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               vista.initFamilias();
+                vista.initFamilias();
+
             }
         });
 
         listarFamiliasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+//                if (!vista.isListaFamiliasInicializada()) {
+//                    vista.initListaFamilias();  // Inicializa la lista de familias solo si aún no se ha inicializado
+//                }
                 vista.initListaFamilias();
             }
         });
