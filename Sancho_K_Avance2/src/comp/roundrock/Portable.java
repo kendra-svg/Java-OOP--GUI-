@@ -16,14 +16,23 @@ public class Portable extends Familia{
 
     private String duracionBateria;
     //private float peso;
-    public Portable(){
-        super.setTipoFamilia("Portable");
+    //public Portable(){
+        //super.setTipoFamilia("Portable");
+    //}
+
+    public Portable(String tipoFamilia, double precio, int rating, ArrayList listaComponentes, String subFamilia, int idFamilia) {
+        super(tipoFamilia, idFamilia, listaComponentes, rating, precio);
+        this.subFamilia = subFamilia;
+        // Asigna otros valores específicos de Portable si es necesario
     }
 
 
 
-    public Portable(String tipoFamilia, double precio, int rating, ArrayList listaComponentes, String subFamilia /*, float peso*/) {
-    }
+    //public Portable(String tipoFamilia, double precio, int rating, ArrayList listaComponentes, String subFamilia /*, float peso*/) {
+
+    //}
+
+
 
     public String ToString(){
         return "Familia: " + setTipoFamilia() +

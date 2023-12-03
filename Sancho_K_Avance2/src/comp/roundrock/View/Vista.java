@@ -1093,7 +1093,7 @@ public class Vista extends JFrame {
         guardarSubfamiliaCasa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                almacenaSubfamiliaCasa();
+                almacenaSubfamiliaCasa(listFamiliaPortable);
             }
         });
 
@@ -1167,14 +1167,14 @@ public class Vista extends JFrame {
 
     public Familia almacenaSubfamiliaTrabajo(){
         Familia familia = null;
-        ArrayList<String> listaComponentesFamilia = new ArrayList<>();
+        ArrayList<String> listaComponentesSubfamiliaTrabajo = new ArrayList<>();
         String opcionFamilia, opcionSobremesa, opcionPortable, tipoFamilia, subFamilia, duracionBateria;
         double precio;
         int idFamilia;
-        listaComponentesFamilia.add(0, "RAM: 8 o 16B en maximo 2 sticks");
-        listaComponentesFamilia.add(1, "Almacenamiento:  1 SSD (256GB / 512GB)");
-        listaComponentesFamilia.add(2, "Tarjeta de video: Admite Tarjeta de Video (GPU calculo científico, GPU renderizado, GPU homeworking)");
-        listaComponentesFamilia.add(3, "Duracion de bateria: Opciones de 8, 10 y 16 horas de duracion");
+        listaComponentesSubfamiliaTrabajo.add(0, "RAM: 8 o 16B en maximo 2 sticks");
+        listaComponentesSubfamiliaTrabajo.add(1, "Almacenamiento:  1 SSD (256GB / 512GB)");
+        listaComponentesSubfamiliaTrabajo.add(2, "Tarjeta de video: Admite Tarjeta de Video (GPU calculo científico, GPU renderizado, GPU homeworking)");
+        listaComponentesSubfamiliaTrabajo.add(3, "Duracion de bateria: Opciones de 8, 10 y 16 horas de duracion");
 
         tipoFamilia = "Portable";
         String textoPrecio = txtPrecio.getText();
@@ -1183,22 +1183,57 @@ public class Vista extends JFrame {
         subFamilia = "Trabajo";
 
         //Familia nuevaFamiliaPortable = new Portable(tipoFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), listaComponentesFamilia, subFamilia);
-        Portable nuevaFamiliaPortableTrabajo = new Portable(tipoFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), listaComponentesFamilia, subFamilia);
-        familia = new Familia(tipoFamilia, Integer.parseInt(textoIdFamilia), listaComponentesFamilia, Integer.parseInt(textoRating), Double.parseDouble(textoPrecio));
-        listaFamiliasRegistradas.add(familia);
-        listaSubFamiliaTrabajo.add(nuevaFamiliaPortableTrabajo);
-        listFamiliaPortable.add(nuevaFamiliaPortableTrabajo);
+        Portable portableTrabajo = new Portable(tipoFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), listaComponentesSubfamiliaTrabajo, "Trabajo", Integer.parseInt(textoIdFamilia));
+        familia = new Familia(tipoFamilia, Integer.parseInt(textoIdFamilia), listaComponentesSubfamiliaTrabajo, Integer.parseInt(textoRating), Double.parseDouble(textoPrecio));
+        //listaFamiliasRegistradas.add(familia);
+        listaFamiliasRegistradas.add(portableTrabajo);
+        listaSubFamiliaTrabajo.add(portableTrabajo);
+        listFamiliaPortable.add(portableTrabajo);
 
 
         return familia;
     }
 
-    public Familia almacenaSubfamiliaCasa() {
+    public Familia almacenaSubfamiliaCasa(List<Portable> listFamiliaPortable) {
         Familia familia = null;
+        ArrayList<String> listaComponentesSubfamiliaCasa = new ArrayList<>();
+        String opcionFamilia, opcionSobremesa, opcionPortable, tipoFamilia, subFamilia, duracionBateria;
+        double precio;
+        int idFamilia;
+        //
+        listaComponentesSubfamiliaCasa.add(0, "RAM: 8 o 16B en maximo 2 sticks");
+        listaComponentesSubfamiliaCasa.add(1, "Almacenamiento:  1 SSD (256GB / 512GB)");
+        listaComponentesSubfamiliaCasa.add(2, "Tarjeta de video: Tipo de computadora no acepta tarjeta de video");
+        listaComponentesSubfamiliaCasa.add(3, "Duracion de bateria: de 8 a 10 horas de duracion");
+
+        tipoFamilia = "Portable";
+        String textoPrecio = txtPrecio.getText();
+        String textoRating = txtRating.getText();
+        String textoIdFamilia = txtIdFamilia.getText();
+        subFamilia = "Casa";
+
+        //Familia nuevaFamiliaPortable = new Portable(tipoFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), listaComponentesFamilia, subFamilia);
+        Portable portableCasa = new Portable(tipoFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), listaComponentesSubfamiliaCasa, "Casa", Integer.parseInt(textoIdFamilia));
+        familia = new Familia(tipoFamilia, Integer.parseInt(textoIdFamilia), listaComponentesSubfamiliaCasa, Integer.parseInt(textoRating), Double.parseDouble(textoPrecio));
+       // listaFamiliasRegistradas.add(familia);
+        listaFamiliasRegistradas.add(portableCasa);
+        listaSubFamiliaCasa.add(portableCasa);
+        listFamiliaPortable.add(portableCasa);
+
+
+
+
+
+
+        return familia;
+    }
+
+    public Portable almacenaSubFamiliaCasa2(List<Portable> listFamiliaPortable) {
         ArrayList<String> listaComponentesFamilia = new ArrayList<>();
         String opcionFamilia, opcionSobremesa, opcionPortable, tipoFamilia, subFamilia, duracionBateria;
         double precio;
         int idFamilia;
+        Portable portable = null;
         listaComponentesFamilia.add(0, "RAM: 8 o 16B en maximo 2 sticks");
         listaComponentesFamilia.add(1, "Almacenamiento:  1 SSD (256GB / 512GB)");
         listaComponentesFamilia.add(2, "Tarjeta de video: Tipo de computadora no acepta tarjeta de video");
@@ -1210,15 +1245,11 @@ public class Vista extends JFrame {
         String textoIdFamilia = txtIdFamilia.getText();
         subFamilia = "Casa";
 
-        //Familia nuevaFamiliaPortable = new Portable(tipoFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), listaComponentesFamilia, subFamilia);
-        Portable nuevaFamiliaPortableCasa = new Portable(tipoFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), listaComponentesFamilia, subFamilia);
-        familia = new Familia(tipoFamilia, Integer.parseInt(textoIdFamilia), listaComponentesFamilia, Integer.parseInt(textoRating), Double.parseDouble(textoPrecio));
-        listaFamiliasRegistradas.add(familia);
-        listaSubFamiliaCasa.add(nuevaFamiliaPortableCasa);
-        listFamiliaPortable.add(nuevaFamiliaPortableCasa);
+        portable = new Portable(tipoFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), listaComponentesFamilia, subFamilia, Integer.parseInt(textoIdFamilia));
+        listFamiliaPortable.add(portable);
+        listaSubFamiliaCasa.add(portable);
 
-
-        return familia;
+        return portable;
     }
 
     public void initPanelFamiliaSobremesa() {
@@ -1461,11 +1492,12 @@ public class Vista extends JFrame {
         subFamilia = "Workstation";
 
         //Familia nuevaFamiliaSobremesa = new Sobremesa(tipoFamilia, listaComponentesFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), subFamilia);
-        Sobremesa nuevaFamiliaSobremesaWorkstation = new Sobremesa(tipoFamilia, listaComponentesFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), subFamilia);
+        Sobremesa sobremesa = new Sobremesa(tipoFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating),  listaComponentesFamilia, subFamilia, Integer.parseInt(textoIdFamilia));
         familia = new Familia(tipoFamilia, Integer.parseInt(textoIdFamilia), listaComponentesFamilia, Integer.parseInt(textoRating), Double.parseDouble(textoPrecio));
-        listaFamiliasRegistradas.add(familia);
-        listaSubfamiliaWorkstation.add(nuevaFamiliaSobremesaWorkstation);
-        listFamiliaSobremesa.add(nuevaFamiliaSobremesaWorkstation);
+        //listaFamiliasRegistradas.add(familia);
+        listaFamiliasRegistradas.add(sobremesa);
+        listaSubfamiliaWorkstation.add(sobremesa);
+        listFamiliaSobremesa.add(sobremesa);
 
 
         return familia;
@@ -1515,6 +1547,49 @@ public class Vista extends JFrame {
         setVisible(true);
     }
 
+    public void initRegistroComponenteFamilia() {
+        setTitle("Listar Familias");
+        setSize(900, 900);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        //setVisible(true);
+
+        if (!listaFamiliasInicializada) {
+            // Si ya se ha inicializado, simplemente muestra la ventana
+            listaFamiliasInicializada = true;
+        }
+
+        mostrarFamiliasButton = new JButton("Mostrar Familias");
+        volverAlMenuBoutton = new JButton("Menú Principal");
+
+//        panelPrincipal.add(panelMainFamilias);
+//
+        mostrarFamiliasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarPanelRegistroComponenteAFamilia(listaFamiliasRegistradas, listFamiliaSobremesa, listFamiliaPortable);
+            }
+        });
+
+        JPanel panelMainFamilias = new JPanel();
+        panelMainFamilias.add(mostrarFamiliasButton);
+        panelMainFamilias.add(volverAlMenuBoutton);
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                panelPrincipal.remove(panelMainFamilias);
+            }
+        });
+
+
+        panelPrincipal.removeAll();
+        panelPrincipal.add(panelMainFamilias);
+        //listaFamiliasInicializada = true;
+        setVisible(true);
+    }
+
     public Familia almacenaSubfamiliaOficina(List<Familia> listaFamiliasRegistradas) {
         Familia familia = null;
         ArrayList<String> listaComponentesFamilia = new ArrayList<>();
@@ -1533,11 +1608,11 @@ public class Vista extends JFrame {
         subFamilia = "Oficina";
 
         //Familia nuevaFamiliaOficina = new Sobremesa(tipoFamilia, listaComponentesFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), subFamilia);
-        Sobremesa nuevaFamiliaSobremesaOficina = new Sobremesa(tipoFamilia, listaComponentesFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), subFamilia);
+        Sobremesa sobremesa = new Sobremesa(tipoFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating),  listaComponentesFamilia, subFamilia, Integer.parseInt(textoIdFamilia));
         familia = new Familia(tipoFamilia, Integer.parseInt(textoIdFamilia), listaComponentesFamilia, Integer.parseInt(textoRating), Double.parseDouble(textoPrecio));
-        listaFamiliasRegistradas.add(familia);
-        listaSubfamiliaOficina.add(nuevaFamiliaSobremesaOficina);
-        listFamiliaSobremesa.add(nuevaFamiliaSobremesaOficina);
+        listaFamiliasRegistradas.add(sobremesa);
+        listaSubfamiliaOficina.add(sobremesa);
+        listFamiliaSobremesa.add(sobremesa);
 
 
         return familia;
@@ -1560,11 +1635,12 @@ public class Vista extends JFrame {
         String textoIdFamilia = txtIdFamilia.getText();
         subFamilia = "Gaming";
 
-        Sobremesa nuevaFamiliaSobremesaGaming = new Sobremesa(tipoFamilia, listaComponentesFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), subFamilia);
+        Sobremesa sobremesa = new Sobremesa(tipoFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating),  listaComponentesFamilia, subFamilia, Integer.parseInt(textoIdFamilia));
         familia = new Familia(tipoFamilia, Integer.parseInt(textoIdFamilia), listaComponentesFamilia, Integer.parseInt(textoRating), Double.parseDouble(textoPrecio));
-        listaFamiliasRegistradas.add(familia);
-        listaSubfamiliaGaming.add(nuevaFamiliaSobremesaGaming);
-        listFamiliaSobremesa.add(nuevaFamiliaSobremesaGaming);
+        //listaFamiliasRegistradas.add(familia);
+        listaFamiliasRegistradas.add(sobremesa);
+        listaSubfamiliaGaming.add(sobremesa);
+        listFamiliaSobremesa.add(sobremesa);
 
 
         return familia;
@@ -1604,19 +1680,92 @@ public class Vista extends JFrame {
             JTextArea textAreaTipoFamilia = new JTextArea(String.valueOf(familia.getTipoFamilia()));
             textAreaTipoFamilia.setEditable(false);
             panelListaFamilias.add(textAreaTipoFamilia);
-            if (textAreaTipoFamilia.equals(familia.getTipoFamilia())) {
+            String tipoFamiliaRegistrado = familia.getTipoFamilia(); /*con cuidado*/
+            if ("Sobremesa".equals((tipoFamiliaRegistrado))) {
                 for (Sobremesa sobremesa : listFamiliaSobremesa) {
-                    panelListaFamilias.add(new JLabel("Subfamilia: "));
-                    JTextArea textAreaSubFamilia = new JTextArea(String.valueOf(sobremesa.getSubFamilia()));
-                    textAreaSubFamilia.setEditable(false);
-                    panelListaFamilias.add(textAreaSubFamilia);
+                    if (sobremesa.getTipoFamilia().equals(tipoFamiliaRegistrado)  && sobremesa.getIdFamilia() == familia.getIdFamilia()) {
+                        panelListaFamilias.add(new JLabel("Subfamilia: "));
+                        JTextArea textAreaSubFamilia = new JTextArea(String.valueOf(sobremesa.getSubFamilia()));
+                        textAreaSubFamilia.setEditable(false);
+                        panelListaFamilias.add(textAreaSubFamilia);
+                        break;
+
+                    }
                 }
-            } else if (textAreaTipoFamilia.equals("Portable")) {
+            } else if ("Portable".equals(familia.getTipoFamilia())) {
                 for (Portable portable : listFamiliaPortable) {
-                    panelListaFamilias.add(new JLabel("Subfamilia: "));
-                    JTextArea textAreaSubFamilia = new JTextArea(String.valueOf(portable.getSubFamilia()));
-                    textAreaSubFamilia.setEditable(false);
-                    panelListaFamilias.add(textAreaSubFamilia);
+                    if (portable.getTipoFamilia().equals(tipoFamiliaRegistrado) && portable.getIdFamilia() == familia.getIdFamilia()) {
+                        panelListaFamilias.add(new JLabel("Subfamilia: "));
+                        JTextArea textAreaSubFamilia = new JTextArea(String.valueOf(portable.getSubFamilia()));
+                        textAreaSubFamilia.setEditable(false);
+                        panelListaFamilias.add(textAreaSubFamilia);
+                        break;
+                    }
+                }
+            } else {
+                panelListaFamilias.add(new JLabel("Subfamilia: "));
+                JTextArea textAreaSubFamilia = new JTextArea("No tiene subfamilia");
+                textAreaSubFamilia.setEditable(false);
+                panelListaFamilias.add(textAreaSubFamilia);
+            }
+            panelListaFamilias.add(new JLabel("Precio: "));
+            JTextArea textAreaPrecio = new JTextArea(String.valueOf(familia.getPrecio()));
+            textAreaPrecio.setEditable(false);
+            panelListaFamilias.add(textAreaPrecio);
+            panelListaFamilias.add(new JLabel("Rating: "));
+            JTextArea textAreaRating = new JTextArea(String.valueOf(familia.getRating()));
+            textAreaRating.setEditable(false);
+            panelListaFamilias.add(textAreaRating);
+        }
+
+        panelPrincipal.add(panelListaFamilias);
+//            frameMostrarListaComponentes.add(panelLista);
+
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+        panelPrincipal.add(volverAlMenuBoutton);
+//            frameMostrarListaComponentes.add(volverAlMenuBoutton);
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                panelPrincipal.remove(panelListaFamilias);
+            }
+        });
+
+        revalidate();
+        repaint();
+    }
+
+    public void mostrarPanelRegistroComponenteAFamilia(List<Familia> listaFamiliasRegistradas, List<Sobremesa> listFamiliaSobremesa, List<Portable> listFamiliaPortable) {
+        //JPanel panelListaFamilias = new JPanel(new GridLayout(3, 2));
+        JPanel panelListaFamilias = new JPanel(new GridLayout(listaFamiliasRegistradas.size(), 6));
+        for (Familia familia : listaFamiliasRegistradas) {
+            panelListaFamilias.add(new JLabel("Tipo de Familia: "));
+            JTextArea textAreaTipoFamilia = new JTextArea(String.valueOf(familia.getTipoFamilia()));
+            textAreaTipoFamilia.setEditable(false);
+            panelListaFamilias.add(textAreaTipoFamilia);
+            String tipoFamiliaRegistrado = familia.getTipoFamilia(); /*con cuidado*/
+            if ("Sobremesa".equals((tipoFamiliaRegistrado))) {
+                for (Sobremesa sobremesa : listFamiliaSobremesa) {
+                    if (sobremesa.getTipoFamilia().equals(tipoFamiliaRegistrado)  && sobremesa.getIdFamilia() == familia.getIdFamilia()) {
+                        panelListaFamilias.add(new JLabel("Subfamilia: "));
+                        JTextArea textAreaSubFamilia = new JTextArea(String.valueOf(sobremesa.getSubFamilia()));
+                        textAreaSubFamilia.setEditable(false);
+                        panelListaFamilias.add(textAreaSubFamilia);
+                        break;
+
+                    }
+                }
+            } else if ("Portable".equals(familia.getTipoFamilia())) {
+                for (Portable portable : listFamiliaPortable) {
+                    if (portable.getTipoFamilia().equals(tipoFamiliaRegistrado) && portable.getIdFamilia() == familia.getIdFamilia()) {
+                        panelListaFamilias.add(new JLabel("Subfamilia: "));
+                        JTextArea textAreaSubFamilia = new JTextArea(String.valueOf(portable.getSubFamilia()));
+                        textAreaSubFamilia.setEditable(false);
+                        panelListaFamilias.add(textAreaSubFamilia);
+                        break;
+                    }
                 }
             } else {
                 panelListaFamilias.add(new JLabel("Subfamilia: "));

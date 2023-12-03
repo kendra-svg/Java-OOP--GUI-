@@ -14,12 +14,20 @@ public class Sobremesa extends Familia{
         this.subFamilia = subFamilia;
     }
 
-    public Sobremesa(){
-        super.setTipoFamilia("Sobremesa");
+    //public Sobremesa(){
+       // super.setTipoFamilia("Sobremesa");
+   // }
+
+   // public Sobremesa(String tipoFamilia, ArrayList listaComponentes, double precio, float rating, String subFamilia) {
+    //}
+
+    public Sobremesa(String tipoFamilia, double precio, int rating, ArrayList listaComponentes, String subFamilia, int idFamilia) {
+        super(tipoFamilia, idFamilia, listaComponentes, rating, precio);
+        this.subFamilia = subFamilia;
+        // Asigna otros valores específicos de Sobremesa si es necesario
     }
 
-    public Sobremesa(String tipoFamilia, ArrayList listaComponentes, double precio, float rating, String subFamilia) {
-    }
+
 
     public String ToString(){
         return "Familia: " + setTipoFamilia() +
