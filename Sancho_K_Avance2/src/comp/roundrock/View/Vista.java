@@ -24,6 +24,8 @@ public class Vista extends JFrame {
 
     private JButton registrarRAMButton;
 
+    private JButton registrarDuracionBateria;
+
     private JButton registrarFamiliaEscolar;
 
     private JButton registrarFamiliaSobremesa;
@@ -596,6 +598,42 @@ public class Vista extends JFrame {
         repaint();
     }
 
+    private void mostrarPanelAlmacenamientoSubfamiliaCasa() {
+        JPanel panelAlmacenamiento = new JPanel(new GridLayout(6, 2));
+        panelAlmacenamiento.add(new JLabel("Modelo: "));
+        panelAlmacenamiento.add(txtModelo);
+        panelAlmacenamiento.add(new JLabel("Precio: "));
+        panelAlmacenamiento.add(txtPrecio);
+            panelAlmacenamiento.add(new JLabel("Capacidad (Elija entre 1 de 256GB o elija entre 1 SSD de 512GB"));
+        panelAlmacenamiento.add(txtCapacidad);
+        panelAlmacenamiento.add(new JLabel("Rating: "));
+        panelAlmacenamiento.add(txtRating);
+        panelAlmacenamiento.add(new JLabel("Id Componente: "));
+        panelAlmacenamiento.add(txtIdComponente);
+        guardarAlmacenamientoButton = new JButton("Guardar Almacenamiento");
+        panelAlmacenamiento.add(guardarAlmacenamientoButton);
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+        panelAlmacenamiento.add(volverAlMenuBoutton);
+        guardarAlmacenamientoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                almacenaComponenteAlmacenamiento();
+            }
+        });
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                panelPrincipal.remove(panelAlmacenamiento);
+            }
+        });
+
+        panelPrincipal.add(panelAlmacenamiento);
+        revalidate();
+        repaint();
+    }
+
     private void mostrarPanelRAMFamiliaEscolar() {
         JPanel panelRAM = new JPanel(new GridLayout(6, 2));
         String modelo, tipoComponente, capacidad;
@@ -605,6 +643,49 @@ public class Vista extends JFrame {
         panelRAM.add(new JLabel("Precio:"));
         panelRAM.add(txtPrecio);
         panelRAM.add(new JLabel("Capacidad (Elija entre 4, 8, 16GB):"));
+        panelRAM.add(txtCapacidad);
+        capacidad = String.valueOf(txtCapacidad);
+        panelRAM.add(new JLabel("Rating:"));
+        panelRAM.add(txtRating);
+        panelRAM.add(new JLabel("Id Componente:"));
+        panelRAM.add(txtIdComponente);
+        guardarRAMButton = new JButton("Guardar RAM");
+        panelRAM.add(guardarRAMButton);
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+        panelRAM.add(volverAlMenuBoutton);
+        tipoComponente = "Ram";
+
+        guardarRAMButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                almacenaComponenteRam();
+
+            }
+        });
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                panelPrincipal.remove(panelRAM);
+            }
+        });
+
+        panelPrincipal.add(panelRAM);
+        revalidate();
+        repaint();
+    }
+
+    private void mostrarPanelRAMSubfamiliaCasa() {
+        JPanel panelRAM = new JPanel(new GridLayout(6, 2));
+        String modelo, tipoComponente, capacidad;
+        panelRAM.add(new JLabel("Modelo:"));
+        panelRAM.add(txtModelo);
+        modelo = String.valueOf(txtModelo);
+        panelRAM.add(new JLabel("Precio:"));
+        panelRAM.add(txtPrecio);
+        panelRAM.add(new JLabel("Capacidad (Elija entre 8GB de capacidad o, elija entre 16GB de capacidad ):"));
         panelRAM.add(txtCapacidad);
         capacidad = String.valueOf(txtCapacidad);
         panelRAM.add(new JLabel("Rating:"));
@@ -658,6 +739,43 @@ public class Vista extends JFrame {
     }
 
     private void mostrarPanelFuentePoder() {
+        JPanel panelFuentePoder = new JPanel(new GridLayout(6, 2));
+        panelFuentePoder.add(new JLabel("Modelo: "));
+        panelFuentePoder.add(txtModelo);
+        panelFuentePoder.add(new JLabel("Precio: "));
+        panelFuentePoder.add(txtPrecio);
+        panelFuentePoder.add(new JLabel("Rating: "));
+        panelFuentePoder.add(txtRating);
+        panelFuentePoder.add(new JLabel("Duración batería: "));
+        panelFuentePoder.add(txtDuracionBateria);
+        panelFuentePoder.add(new JLabel("Id Componente: "));
+        panelFuentePoder.add(txtIdComponente);
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+        panelFuentePoder.add(volverAlMenuBoutton);
+        guardarFuentePoder = new JButton("Guardar Fuente de Poder");
+        panelFuentePoder.add(guardarFuentePoder);
+
+        guardarFuentePoder.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                almacenaFuentePoder();
+            }
+        });
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                panelPrincipal.remove(panelFuentePoder);
+            }
+        });
+
+        panelPrincipal.add(panelFuentePoder);
+        revalidate();
+        repaint();
+    }
+
+    private void mostrarPanelFuentePoderSubfamiliaCasa() {
         JPanel panelFuentePoder = new JPanel(new GridLayout(6, 2));
         panelFuentePoder.add(new JLabel("Modelo: "));
         panelFuentePoder.add(txtModelo);
@@ -1084,6 +1202,15 @@ public class Vista extends JFrame {
         mostrarPanelSubfamiliaCasa();
     }
 
+    public void initPanelRegistroComponenteSubCasa(){
+        setTitle("Registro de Componente Portable; Casa");
+        setSize(1920, 1080);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        mostrarPanelRegistroComponenteSubCasa();
+    }
+
     public void initPanelSubTrabajo(){
         setTitle("Registro de Subfamilia Portable; Trabajo");
         setSize(1200, 1200);
@@ -1100,6 +1227,14 @@ public class Vista extends JFrame {
         setLocationRelativeTo(null);
         mostrarPanelFamiliaPortable();
     }
+    public void iniciaInitPanelRegistroComponentePortable(){
+        setTitle("Registro de Componente para Familia Portable");
+        setSize(1920, 1080);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        initPanelRegistroComponentePortable();
+    }
+
 
     public void initPanelRegistroComponenteEscolar(){
         setTitle("Registro de Componente para Familia Escolar");
@@ -1146,6 +1281,46 @@ public class Vista extends JFrame {
 
         panelPrincipal.add(panelFamiliaPortable);
 
+
+    }
+
+    private void initPanelRegistroComponentePortable(){
+        JPanel panelFamiliaPortable = new JPanel();
+
+        registrarPortableCasa = new JButton("Registrar  subfamilia Casa");
+        registrarPortableTrabajo = new JButton("Registrar subfamilia Trabajo");
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+
+        registrarPortableCasa.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //initPanelSubCasa();
+                initPanelRegistroComponenteSubCasa();
+            }
+        });
+
+        registrarPortableTrabajo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                initPanelSubTrabajo();
+            }
+        });
+
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                panelPrincipal.remove(panelFamiliaPortable);
+            }
+        });
+
+        panelFamiliaPortable.add(registrarPortableCasa);
+        panelFamiliaPortable.add(registrarPortableTrabajo);
+        panelFamiliaPortable.add(volverAlMenuBoutton);
+
+        panelPrincipal.add(panelFamiliaPortable);
 
     }
 
@@ -1211,6 +1386,80 @@ public class Vista extends JFrame {
         revalidate();
         repaint();
     }
+
+    public void mostrarPanelRegistroComponenteSubCasa(){
+        setTitle("Registro de componente para Escolar");
+        setSize(1600, 1600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        if (!componentesInicializados) {
+            // Si ya se han inicializado, simplemente muestra la ventana
+            componentesInicializados = true;
+        }
+
+        txtModelo = new JTextField();
+        txtPrecio = new JTextField();
+        txtCategoria = new JTextField();
+        txtCapacidad = new JTextField();
+        txtRating = new JTextField();
+        txtIdComponente = new JTextField();
+        txtChipset = new JTextField();
+        txtCantidadVentiladores = new JTextField();
+        txtDuracionBateria = new JTextField();
+        txtCantidadNucleos = new JTextField();
+
+        registrarRAMButton = new JButton("Registrar RAM");
+        registrarAlmacenamientoButton = new JButton("Registrar Almacenamiento");
+        //registrarDuracionBateria = new JButton("Registrar duración de Batería");
+        registrarFuenteDePoderButton = new JButton("Registrar Batería");
+
+        //volverAlMenuBoutton = new JButton("Menú Principal");
+
+
+        componenteControlador = new ComponenteControlador(componenteDAO, vista);
+
+        registrarRAMButton.addActionListener(new ActionListener() { /*Esto hace que se muestre el panel de ram despues de hacer click en el boton*/
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarPanelRAMSubfamiliaCasa();
+            }
+        });
+
+        registrarAlmacenamientoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarPanelAlmacenamientoSubfamiliaCasa();
+            }
+        });
+
+        registrarFuenteDePoderButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { mostrarPanelFuentePoderSubfamiliaCasa();
+
+            }
+        });
+
+
+
+
+        JPanel panelComponentes = new JPanel(new GridLayout(2, 1));
+        panelComponentes.add(registrarRAMButton);
+        panelComponentes.add(registrarAlmacenamientoButton);
+        //panelComponentes.add(volverAlMenuBoutton);
+
+//        volverAlMenuBoutton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                panelPrincipal.remove(panelComponentes);
+//                setVisible(false);
+//
+//            }
+//        });
+        //panelPrincipal.removeAll();
+        panelPrincipal.add(panelComponentes);
+        setVisible(true);
+    }
+
 
     public void mostrarPanelSubfamiliaTrabajo() {
         setTitle("Registro subfamilia Trabajo");
@@ -1900,7 +2149,8 @@ public class Vista extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
 
-                    initPanelFamiliaPortable();
+                    //initPanelFamiliaPortable();
+                    iniciaInitPanelRegistroComponentePortable();
                 }
             });
 
