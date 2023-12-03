@@ -1848,10 +1848,10 @@ public class Vista extends JFrame {
             txtIdFamilia = new JTextField();
 
 
-            registrarFamiliaEscolar = new JButton("Registrar familia Escolar");
-            registrarFamiliaPortable = new JButton("Registrar familia Portable");
-            registrarFamiliaServidor = new JButton("Registrar familia Servidor");
-            registrarFamiliaSobremesa = new JButton("Registrar familia Sobremesa");
+            registrarFamiliaEscolar = new JButton("Registrar Comp para Escolar");
+            registrarFamiliaPortable = new JButton("Registrar Comp para Portable");
+            registrarFamiliaServidor = new JButton("Registrar Comp para Servidor");
+            registrarFamiliaSobremesa = new JButton("Registrar Comp para Sobremesa");
             volverAlMenuBoutton = new JButton("Menú Principal");
 
             registrarFamiliaEscolar.addActionListener(new ActionListener() {
@@ -1892,12 +1892,12 @@ public class Vista extends JFrame {
             panelFamilias.add(registrarFamiliaServidor);
             panelFamilias.add(registrarFamiliaSobremesa);
             panelFamilias.add(volverAlMenuBoutton);
-
+            panelPrincipal.removeAll();
             panelPrincipal.add(panelFamilias);
 
         }
 
-        panelPrincipal.removeAll();
+        //panelPrincipal.removeAll();
         panelPrincipal.add(panelListaFamilias);
 
 
@@ -1918,29 +1918,29 @@ public class Vista extends JFrame {
     }
 
 
-    public void listarComponente(List<Componente> componentes) {
-        boolean impar = false;
-        Utils.limpiar();
-        Utils.establecerColorAzul();
-        System.out.printf("%-10s %-20s %-20s\n", "Tipo", "Precio", "Modelo");
-        if (componentes != null && componentes.size() > 0) {
-            for (Componente c : componentes) {
-                impar = !impar;
-                if (impar) {
-                    Utils.establecerColorAmarillo();
-                } else {
-                    Utils.establecerColorVerde();
-                }
-                System.out.printf("%-10s %-20.2f %-20s\n", c.getTipoComponente(), c.getPrecio(), c.getModelo());
-            }
-            Utils.establecerColorMangenta();
-            System.out.println("EOF");
-        } else {
-            Utils.establecerColorRojo();
-            System.out.println("NO HAY DATOS");
-        }
-        Utils.reiniciarColores();
-    }
+//    public void listarComponente(List<Componente> componentes) {
+//        boolean impar = false;
+//        Utils.limpiar();
+//        Utils.establecerColorAzul();
+//        System.out.printf("%-10s %-20s %-20s\n", "Tipo", "Precio", "Modelo");
+//        if (componentes != null && componentes.size() > 0) {
+//            for (Componente c : componentes) {
+//                impar = !impar;
+//                if (impar) {
+//                    Utils.establecerColorAmarillo();
+//                } else {
+//                    Utils.establecerColorVerde();
+//                }
+//                System.out.printf("%-10s %-20.2f %-20s\n", c.getTipoComponente(), c.getPrecio(), c.getModelo());
+//            }
+//            Utils.establecerColorMangenta();
+//            System.out.println("EOF");
+//        } else {
+//            Utils.establecerColorRojo();
+//            System.out.println("NO HAY DATOS");
+//        }
+//        Utils.reiniciarColores();
+//    }
 
 
 //    public Computadora capturarNuevaComputadora() {

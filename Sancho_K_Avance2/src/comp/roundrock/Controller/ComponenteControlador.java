@@ -22,11 +22,11 @@ public class ComponenteControlador {
         componenteDAO.agregar(nuevoComponente);
     }
 */
-    public void listarComponente() {
-        List<Componente> componentes = componenteDAO.obtenerListaComponentes();
-        vista.listarComponente(componentes);
-
-    }
+//    public void listarComponente() {
+//        List<Componente> componentes = componenteDAO.obtenerListaComponentes();
+//        vista.listarComponente(componentes);
+//
+//    }
 
 
 }
