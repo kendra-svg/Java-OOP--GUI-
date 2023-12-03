@@ -1897,7 +1897,7 @@ public class Vista extends JFrame {
 
         }
 
-
+        panelPrincipal.removeAll();
         panelPrincipal.add(panelListaFamilias);
 
 
