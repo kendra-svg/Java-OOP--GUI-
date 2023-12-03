@@ -22,7 +22,6 @@ import java.awt.event.ActionListener;
 
 public class Vista extends JFrame {
 
-
     private JButton registrarRAMButton;
 
     private JButton registrarFamiliaEscolar;
@@ -57,7 +56,6 @@ public class Vista extends JFrame {
 
     private JButton guardarSubfamiliaGaming;
 
-
     private JButton guardarSubfamiliaOficina;
 
     private JButton guardarSubFamiliaWorkstation;
@@ -86,7 +84,6 @@ public class Vista extends JFrame {
 
     private JTextField txtChipset;
 
-    private JPanel inicializacionGeneralPaneles;
 
     private JTextField txtCantidadVentiladores;
     private JTextField txtPrecio;
@@ -107,22 +104,9 @@ public class Vista extends JFrame {
 
     private JPanel panelPrincipal;
 
-    private JPanel panelPrueba;
-
-    private JPanel panelPrincipalMostrarComponentes;
-
-    private JPanel panelRegistroProcesador;
 
     private Componente componente;
 
-    private JButton registrarComponenteButton;
-    private JButton listarComponenteButton;
-    private JButton registrarFamiliaButton;
-    private JButton listarFamiliasButton;
-    private JButton salirButton;
-
-
-    /*private ComponenteDAO componenteDAO;*/
 
     private ComponenteControlador componenteControlador;
 
@@ -150,13 +134,7 @@ public class Vista extends JFrame {
     List<Portable> listFamiliaPortable = new ArrayList<>();
 
 
-
-
-    private JFrame frameListaComponentes;
-
-
     ComponenteDAOMemoria componenteDAO = new ComponenteDAOMemoria();
-
 
     public Vista() {
 
@@ -165,11 +143,6 @@ public class Vista extends JFrame {
 
     }
 
-
-
-    public boolean isComponentesInicializados() {
-        return componentesInicializados;
-    }
     private boolean componentesInicializados = false;
 
     private boolean listaComponentesInicializada = false;
@@ -180,30 +153,19 @@ public class Vista extends JFrame {
 
     private boolean familiasInicializadas = false;
 
-    public boolean isFamiliasInicializadas() {
-        return familiasInicializadas;
-    }
 
     private boolean listaFamiliasInicializada = false;
 
-    public boolean isListaFamiliasInicializada() {
-        return listaFamiliasInicializada;
-    }
 
     public void initComponents() {
         setTitle("Registro de componente");
         setSize(1500, 1500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        //setVisible(true);
         if (!componentesInicializados) {
             // Si ya se han inicializado, simplemente muestra la ventana
             componentesInicializados = true;
         }
-
-
-
-
 
         txtModelo = new JTextField();
         txtPrecio = new JTextField();
@@ -289,8 +251,6 @@ public class Vista extends JFrame {
         });
         panelPrincipal.removeAll();
         panelPrincipal.add(panelComponentes);
-
-//        panelPrincipal.add(panelComponentes);
         setVisible(true);
     }
 
@@ -301,34 +261,18 @@ public class Vista extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-//        if (listaComponentesInicializada) {
-//            // Si ya se ha inicializado, simplemente muestra la ventana
-//            //setVisible(true);
-//            setVisible(true);
-//            return;
-//        }
-        //setVisible(true);
-        //panelPrincipalMostrarComponentes = new JPanel();
-
         if (listaComponentesInicializada) {
             componentesInicializados = true;
         }
 
-
         mostrarComponentesButton = new JButton("Mostrar Componentes");
         volverAlMenuBoutton = new JButton("Menú Principal");
-
-
 
         mostrarComponentesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 mostrarPanelListarComponentes(listaDeComponentes);
-//                    JFrame frameMostrarComponentes = new JFrame();
-//                    frameMostrarComponentes.setVisible(true);
-//                    frameMostrarComponentes.setSize(800, 800);
-//                    frameMostrarComponentes.add(panelMainComponentes);
             }
         });
 
@@ -344,25 +288,12 @@ public class Vista extends JFrame {
                 panelPrincipal.remove(panelMainComponentes);
             }
         });
-
-
-
-
-
-        //listaComponentesInicializada = true;
         panelPrincipal.removeAll();
-
         panelPrincipal.add(panelMainComponentes);
-
         setVisible(true);
-
-        /*-panelPrincipalMostrarComponentes.add(panelMainComponentes);*/
-
-
     }
 
     private void mostrarPanelListarComponentes(List<Componente> listaDeComponentes) { /*HASTA ACA*/
-        //JPanel panelLista = new JPanel(new GridLayout(2, 3));
         JPanel panelLista = new JPanel(new GridLayout(listaDeComponentes.size(), 6));
         for (Componente componente : listaDeComponentes) {
             panelLista.add(new JLabel("Tipo de componente: "));
@@ -380,12 +311,8 @@ public class Vista extends JFrame {
         }
 
         panelPrincipal.add(panelLista);
-//            frameMostrarListaComponentes.add(panelLista);
-
         volverAlMenuBoutton = new JButton("Volver al menu principal");
         panelPrincipal.add(volverAlMenuBoutton);
-//            frameMostrarListaComponentes.add(volverAlMenuBoutton);
-
         volverAlMenuBoutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -393,7 +320,6 @@ public class Vista extends JFrame {
                 panelPrincipal.remove(panelLista);
             }
         });
-
         revalidate();
         repaint();
     }
@@ -401,9 +327,7 @@ public class Vista extends JFrame {
 
     private void mostrarPanelRAM() {
         JPanel panelRAM = new JPanel(new GridLayout(6, 2));
-        String modelo, tipoComponente, categoria, capacidad, duracionBateria, opcionComponente, chipset;
-        int rating, idComponente, cantidadNucleos, cantidadVentiladores;
-        double precio;
+        String modelo, tipoComponente, capacidad;
         panelRAM.add(new JLabel("Modelo:"));
         panelRAM.add(txtModelo);
         modelo = String.valueOf(txtModelo);
@@ -421,7 +345,6 @@ public class Vista extends JFrame {
         volverAlMenuBoutton = new JButton("Volver al menu principal");
         panelRAM.add(volverAlMenuBoutton);
         tipoComponente = "Ram";
-
 
         guardarRAMButton.addActionListener(new ActionListener() {
             @Override
@@ -441,7 +364,6 @@ public class Vista extends JFrame {
         });
 
         panelPrincipal.add(panelRAM);
-
         revalidate();
         repaint();
     }
@@ -449,7 +371,6 @@ public class Vista extends JFrame {
     public Componente almacenaComponenteRam() {
 
         Componente componente1 = null;
-
         String textoPrecio = txtPrecio.getText();
         String textoRating = txtRating.getText();
         String textoIdComponente = txtIdComponente.getText();
@@ -531,11 +452,9 @@ public class Vista extends JFrame {
         String tipoComponente = "Almacenamiento";
         String textoCategoria = txtCategoria.getText();
 
-        //Almacenamiento nuevoComp = new Almacenamiento(Integer.parseInt(textoRating), tipoComponente, Integer.parseInt(textoIdComponente), Double.parseDouble(textoPrecio), textoModelo, textoCategoria, textoCapacidad);
         Componente  nuevoComp = new Almacenamiento(Integer.parseInt(textoRating), tipoComponente, Integer.parseInt(textoIdComponente), Double.parseDouble(textoPrecio), textoModelo, textoCategoria, textoCapacidad);
         componente = new Componente(Integer.parseInt(textoRating), tipoComponente, Integer.parseInt(textoIdComponente), Double.parseDouble(textoPrecio), textoModelo);
         listaDeComponentes.add(componente);
-        //listaDeAlmacenamientos.add(nuevoComp); /*nueva linea, en  la linea 514 cambie componente por almacenamiento*/
         return componente1;
 
     }
@@ -748,12 +667,10 @@ public class Vista extends JFrame {
         setSize(1100, 1100);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        //setVisible(true);
+
 
         if (!familiasInicializadas) {
-            // Si ya se han inicializado, simplemente muestra la ventana
-//            setVisible(true);
-//            return;
+
             familiasInicializadas = true;
         }
 
@@ -761,15 +678,10 @@ public class Vista extends JFrame {
         txtRating = new JTextField();
         txtIdFamilia = new JTextField();
 
-
         registrarFamiliaEscolar = new JButton("Registrar familia Escolar");
         registrarFamiliaPortable = new JButton("Registrar familia Portable");
-        //registrarPortableCasa = new JButton("Registrar subfamilia Casa");
-        //registrarPortableTrabajo = new JButton("Registrar subfamilia Trabajo");
         registrarFamiliaServidor = new JButton("Registrar familia Servidor");
         registrarFamiliaSobremesa = new JButton("Registrar familia Sobremesa");
-        //registrarSobremesaGaming = new JButton("Registrar  subfamilia Gaming");
-       // registrarSobremesaOficina = new JButton("Registrar subfamilia Oficina");
         volverAlMenuBoutton = new JButton("Menú Principal");
 
         registrarFamiliaEscolar.addActionListener(new ActionListener() {
@@ -783,18 +695,14 @@ public class Vista extends JFrame {
         registrarFamiliaSobremesa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 initPanelFamiliaSobremesa();
-                //mostrarPanelFamiliaSobremesa();
+
             }
         });
 
         registrarFamiliaPortable.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                //mostrarPanelFamiliaPortable();
-                //initPanelSubCasa();
                 initPanelFamiliaPortable();
             }
         });
@@ -809,8 +717,6 @@ public class Vista extends JFrame {
         JPanel panelFamilias = new JPanel();
         panelFamilias.add(registrarFamiliaEscolar);
         panelFamilias.add(registrarFamiliaPortable);
-//        panelFamilias.add(registrarPortableCasa);
-//        panelFamilias.add(registrarPortableTrabajo);
         panelFamilias.add(registrarFamiliaServidor);
         panelFamilias.add(registrarFamiliaSobremesa);
         panelFamilias.add(volverAlMenuBoutton);
@@ -824,7 +730,6 @@ public class Vista extends JFrame {
         });
         panelPrincipal.removeAll();
         panelPrincipal.add(panelFamilias);
-        //familiasInicializadas = true;
         setVisible(true);
 
     }
@@ -988,14 +893,8 @@ public class Vista extends JFrame {
         panelFamiliaEscolar.add(txtIdFamilia);
         panelFamiliaEscolar.add(new JLabel("RAM: Elija entre 4, 8 o 16GB"));
         panelFamiliaEscolar.add(txtRam);
-//        JTextArea textAreaRam = new JTextArea(listaComponentesFamiliaEscolar.get(0));
-//        textAreaRam.setEditable(false);
-//        panelFamiliaEscolar.add(textAreaRam);
         panelFamiliaEscolar.add(new JLabel("Almacenamiento: Elija entre 1 HDD(1 Tb) o 1 SSD (128GB)"));
         panelFamiliaEscolar.add(txtAlmacenamiento);
-//        JTextArea textAreaAlmacenamiento = new JTextArea(listaComponentesFamiliaEscolar.get(1));
-//        textAreaAlmacenamiento.setEditable(false);
-//        panelFamiliaEscolar.add(textAreaAlmacenamiento);
         panelFamiliaEscolar.add(new JLabel("Tarjeta de Video"));
         JTextArea textAreaTarjetaVideo = new JTextArea(listaComponentesFamiliaEscolar.get(2));
         textAreaTarjetaVideo.setEditable(false);
@@ -1067,7 +966,6 @@ public class Vista extends JFrame {
         registrarPortableCasa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //mostrarPanelSubfamiliaCasa();
                 initPanelSubCasa();
             }
         });
@@ -1076,7 +974,6 @@ public class Vista extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                //mostrarPanelSubfamiliaTrabajo();
                 initPanelSubTrabajo();
             }
         });
@@ -1137,7 +1034,6 @@ public class Vista extends JFrame {
 
         volverAlMenuBoutton = new JButton("Volver al menu principal");
         guardarSubfamiliaCasa = new JButton("Guardar Subfamilia Casa");
-        //panelPrincipal.add(panelSubfamiliaCasa);
 
         panelSubfamiliaCasa.add(guardarSubfamiliaCasa);
         panelSubfamiliaCasa.add(volverAlMenuBoutton);
@@ -1201,7 +1097,6 @@ public class Vista extends JFrame {
 
         volverAlMenuBoutton = new JButton("Volver al menu principal");
         guardarSubfamiliaTrabajo = new JButton("Guardar Subfamilia Trabajo");
-        //panelPrincipal.add(panelSubfamiliaTrabajo);
 
         panelSubfamiliaTrabajo.add(guardarSubfamiliaTrabajo);
         panelSubfamiliaTrabajo.add(volverAlMenuBoutton);
@@ -1244,10 +1139,8 @@ public class Vista extends JFrame {
         String textoIdFamilia = txtIdFamilia.getText();
         subFamilia = "Trabajo";
 
-        //Familia nuevaFamiliaPortable = new Portable(tipoFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), listaComponentesFamilia, subFamilia);
         Portable portableTrabajo = new Portable(tipoFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), listaComponentesSubfamiliaTrabajo, "Trabajo", Integer.parseInt(textoIdFamilia));
         familia = new Familia(tipoFamilia, Integer.parseInt(textoIdFamilia), listaComponentesSubfamiliaTrabajo, Integer.parseInt(textoRating), Double.parseDouble(textoPrecio));
-        //listaFamiliasRegistradas.add(familia);
         listaFamiliasRegistradas.add(portableTrabajo);
         listaSubFamiliaTrabajo.add(portableTrabajo);
         listFamiliaPortable.add(portableTrabajo);
@@ -1262,7 +1155,7 @@ public class Vista extends JFrame {
         String opcionFamilia, opcionSobremesa, opcionPortable, tipoFamilia, subFamilia, duracionBateria;
         double precio;
         int idFamilia;
-        //
+
         listaComponentesSubfamiliaCasa.add(0, "RAM: 8 o 16B en maximo 2 sticks");
         listaComponentesSubfamiliaCasa.add(1, "Almacenamiento:  1 SSD (256GB / 512GB)");
         listaComponentesSubfamiliaCasa.add(2, "Tarjeta de video: Tipo de computadora no acepta tarjeta de video");
@@ -1274,10 +1167,8 @@ public class Vista extends JFrame {
         String textoIdFamilia = txtIdFamilia.getText();
         subFamilia = "Casa";
 
-        //Familia nuevaFamiliaPortable = new Portable(tipoFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), listaComponentesFamilia, subFamilia);
         Portable portableCasa = new Portable(tipoFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), listaComponentesSubfamiliaCasa, "Casa", Integer.parseInt(textoIdFamilia));
         familia = new Familia(tipoFamilia, Integer.parseInt(textoIdFamilia), listaComponentesSubfamiliaCasa, Integer.parseInt(textoRating), Double.parseDouble(textoPrecio));
-       // listaFamiliasRegistradas.add(familia);
         listaFamiliasRegistradas.add(portableCasa);
         listaSubFamiliaCasa.add(portableCasa);
         listFamiliaPortable.add(portableCasa);
@@ -1552,16 +1443,11 @@ public class Vista extends JFrame {
         String textoRating = txtRating.getText();
         String textoIdFamilia = txtIdFamilia.getText();
         subFamilia = "Workstation";
-
-        //Familia nuevaFamiliaSobremesa = new Sobremesa(tipoFamilia, listaComponentesFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), subFamilia);
         Sobremesa sobremesa = new Sobremesa(tipoFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating),  listaComponentesFamilia, subFamilia, Integer.parseInt(textoIdFamilia));
         familia = new Familia(tipoFamilia, Integer.parseInt(textoIdFamilia), listaComponentesFamilia, Integer.parseInt(textoRating), Double.parseDouble(textoPrecio));
-        //listaFamiliasRegistradas.add(familia);
         listaFamiliasRegistradas.add(sobremesa);
         listaSubfamiliaWorkstation.add(sobremesa);
         listFamiliaSobremesa.add(sobremesa);
-
-
         return familia;
     }
 
@@ -1571,8 +1457,6 @@ public class Vista extends JFrame {
         setSize(900, 900);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        //setVisible(true);
-
         if (!listaFamiliasInicializada) {
             // Si ya se ha inicializado, simplemente muestra la ventana
             listaFamiliasInicializada = true;
@@ -1581,8 +1465,6 @@ public class Vista extends JFrame {
         mostrarFamiliasButton = new JButton("Mostrar Familias");
         volverAlMenuBoutton = new JButton("Menú Principal");
 
-//        panelPrincipal.add(panelMainFamilias);
-//
         mostrarFamiliasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -1605,7 +1487,6 @@ public class Vista extends JFrame {
 
         panelPrincipal.removeAll();
         panelPrincipal.add(panelMainFamilias);
-        //listaFamiliasInicializada = true;
         setVisible(true);
     }
 
@@ -1614,7 +1495,7 @@ public class Vista extends JFrame {
         setSize(900, 900);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        //setVisible(true);
+
 
         txtRam = new JTextField();
         txtAlmacenamiento = new JTextField();
@@ -1627,8 +1508,6 @@ public class Vista extends JFrame {
         mostrarFamiliasButton = new JButton("Mostrar Familias");
         volverAlMenuBoutton = new JButton("Menú Principal");
 
-//        panelPrincipal.add(panelMainFamilias);
-//
         mostrarFamiliasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -1651,7 +1530,6 @@ public class Vista extends JFrame {
 
         panelPrincipal.removeAll();
         panelPrincipal.add(panelMainFamilias);
-        //listaFamiliasInicializada = true;
         setVisible(true);
     }
 
@@ -1672,7 +1550,6 @@ public class Vista extends JFrame {
         String textoIdFamilia = txtIdFamilia.getText();
         subFamilia = "Oficina";
 
-        //Familia nuevaFamiliaOficina = new Sobremesa(tipoFamilia, listaComponentesFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating), subFamilia);
         Sobremesa sobremesa = new Sobremesa(tipoFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating),  listaComponentesFamilia, subFamilia, Integer.parseInt(textoIdFamilia));
         familia = new Familia(tipoFamilia, Integer.parseInt(textoIdFamilia), listaComponentesFamilia, Integer.parseInt(textoRating), Double.parseDouble(textoPrecio));
         listaFamiliasRegistradas.add(sobremesa);
@@ -1702,7 +1579,6 @@ public class Vista extends JFrame {
 
         Sobremesa sobremesa = new Sobremesa(tipoFamilia, Double.parseDouble(textoPrecio), Integer.parseInt(textoRating),  listaComponentesFamilia, subFamilia, Integer.parseInt(textoIdFamilia));
         familia = new Familia(tipoFamilia, Integer.parseInt(textoIdFamilia), listaComponentesFamilia, Integer.parseInt(textoRating), Double.parseDouble(textoPrecio));
-        //listaFamiliasRegistradas.add(familia);
         listaFamiliasRegistradas.add(sobremesa);
         listaSubfamiliaGaming.add(sobremesa);
         listFamiliaSobremesa.add(sobremesa);
@@ -1738,14 +1614,13 @@ public class Vista extends JFrame {
     }
 
     public void mostrarPanelListarFamilias(List<Familia> listaFamiliasRegistradas, List<Sobremesa> listFamiliaSobremesa, List<Portable> listFamiliaPortable) {
-        //JPanel panelListaFamilias = new JPanel(new GridLayout(3, 2));
         JPanel panelListaFamilias = new JPanel(new GridLayout(listaFamiliasRegistradas.size(), 6));
         for (Familia familia : listaFamiliasRegistradas) {
             panelListaFamilias.add(new JLabel("Tipo de Familia: "));
             JTextArea textAreaTipoFamilia = new JTextArea(String.valueOf(familia.getTipoFamilia()));
             textAreaTipoFamilia.setEditable(false);
             panelListaFamilias.add(textAreaTipoFamilia);
-            String tipoFamiliaRegistrado = familia.getTipoFamilia(); /*con cuidado*/
+            String tipoFamiliaRegistrado = familia.getTipoFamilia();
             if ("Sobremesa".equals((tipoFamiliaRegistrado))) {
                 for (Sobremesa sobremesa : listFamiliaSobremesa) {
                     if (sobremesa.getTipoFamilia().equals(tipoFamiliaRegistrado)  && sobremesa.getIdFamilia() == familia.getIdFamilia()) {
@@ -1784,11 +1659,9 @@ public class Vista extends JFrame {
         }
 
         panelPrincipal.add(panelListaFamilias);
-//            frameMostrarListaComponentes.add(panelLista);
 
         volverAlMenuBoutton = new JButton("Volver al menu principal");
         panelPrincipal.add(volverAlMenuBoutton);
-//            frameMostrarListaComponentes.add(volverAlMenuBoutton);
 
         volverAlMenuBoutton.addActionListener(new ActionListener() {
             @Override
@@ -1803,7 +1676,6 @@ public class Vista extends JFrame {
     }
 
     public void mostrarPanelRegistroComponenteAFamilia(List<Familia> listaFamiliasRegistradas, List<Sobremesa> listFamiliaSobremesa, List<Portable> listFamiliaPortable) {
-        //JPanel panelListaFamilias = new JPanel(new GridLayout(3, 2));
         JPanel panelListaFamilias = new JPanel(new GridLayout(listaFamiliasRegistradas.size(), 3));
         for (Familia familia : listaFamiliasRegistradas) {
             panelListaFamilias.add(new JLabel("Tipo de Familia: "));
@@ -1897,7 +1769,6 @@ public class Vista extends JFrame {
 
         }
 
-        //panelPrincipal.removeAll();
         panelPrincipal.add(panelListaFamilias);
 
 
