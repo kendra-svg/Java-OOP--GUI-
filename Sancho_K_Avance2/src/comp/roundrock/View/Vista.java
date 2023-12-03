@@ -598,7 +598,7 @@ public class Vista extends JFrame {
         repaint();
     }
 
-    private void mostrarPanelAlmacenamientoSubfamiliaCasa() {
+    private void mostrarPanelAlmacenamientoSubfamiliaCasaTrabajo() {
         JPanel panelAlmacenamiento = new JPanel(new GridLayout(6, 2));
         panelAlmacenamiento.add(new JLabel("Modelo: "));
         panelAlmacenamiento.add(txtModelo);
@@ -677,7 +677,7 @@ public class Vista extends JFrame {
         repaint();
     }
 
-    private void mostrarPanelRAMSubfamiliaCasa() {
+    private void mostrarPanelRAMSubfamiliaCasaTrabajo() {
         JPanel panelRAM = new JPanel(new GridLayout(6, 2));
         String modelo, tipoComponente, capacidad;
         panelRAM.add(new JLabel("Modelo:"));
@@ -783,7 +783,43 @@ public class Vista extends JFrame {
         panelFuentePoder.add(txtPrecio);
         panelFuentePoder.add(new JLabel("Rating: "));
         panelFuentePoder.add(txtRating);
-        panelFuentePoder.add(new JLabel("Duración batería: "));
+        panelFuentePoder.add(new JLabel("Duración batería (Elija entre 8 horas de duración o elija entre 10 horas de duración): "));
+        panelFuentePoder.add(txtDuracionBateria);
+        panelFuentePoder.add(new JLabel("Id Componente: "));
+        panelFuentePoder.add(txtIdComponente);
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+        panelFuentePoder.add(volverAlMenuBoutton);
+        guardarFuentePoder = new JButton("Guardar Fuente de Poder");
+        panelFuentePoder.add(guardarFuentePoder);
+
+        guardarFuentePoder.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                almacenaFuentePoder();
+            }
+        });
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                panelPrincipal.remove(panelFuentePoder);
+            }
+        });
+
+        panelPrincipal.add(panelFuentePoder);
+        revalidate();
+        repaint();
+    }
+    private void mostrarPanelFuentePoderSubfamiliaTrabajo() {
+        JPanel panelFuentePoder = new JPanel(new GridLayout(6, 2));
+        panelFuentePoder.add(new JLabel("Modelo: "));
+        panelFuentePoder.add(txtModelo);
+        panelFuentePoder.add(new JLabel("Precio: "));
+        panelFuentePoder.add(txtPrecio);
+        panelFuentePoder.add(new JLabel("Rating: "));
+        panelFuentePoder.add(txtRating);
+        panelFuentePoder.add(new JLabel("Duración batería (Elija entre 8 horas de duración, 10, o 16  horas de duración): "));
         panelFuentePoder.add(txtDuracionBateria);
         panelFuentePoder.add(new JLabel("Id Componente: "));
         panelFuentePoder.add(txtIdComponente);
@@ -889,6 +925,43 @@ public class Vista extends JFrame {
     private void mostrarPanelTarjetaVideo() {
         JPanel panelTarjetaVideo = new JPanel(new GridLayout(6, 2));
         panelTarjetaVideo.add(new JLabel("Modelo: "));
+        panelTarjetaVideo.add(txtModelo);
+        panelTarjetaVideo.add(new JLabel("Precio: "));
+        panelTarjetaVideo.add(txtPrecio);
+        panelTarjetaVideo.add(new JLabel("Rating: "));
+        panelTarjetaVideo.add(txtRating);
+        panelTarjetaVideo.add(new JLabel("Cantidad de Ventiladores: "));
+        panelTarjetaVideo.add(txtCantidadVentiladores);
+        panelTarjetaVideo.add(new JLabel("Id Componente: "));
+        panelTarjetaVideo.add(txtIdComponente);
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+        panelTarjetaVideo.add(volverAlMenuBoutton);
+        guardarTarjetaVideo = new JButton("Guardar Fuente de Poder");
+        panelTarjetaVideo.add(guardarTarjetaVideo);
+
+        guardarTarjetaVideo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                almacenaTarjetaVideo();
+            }
+        });
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                panelPrincipal.remove(panelTarjetaVideo);
+            }
+        });
+
+        panelPrincipal.add(panelTarjetaVideo);
+        revalidate();
+        repaint();
+    }
+    private void mostrarPanelTarjetaVideoSubfamiliaTrabajo() {
+        JPanel panelTarjetaVideo = new JPanel(new GridLayout(6, 2));
+        panelTarjetaVideo.add(new JLabel("Modelo (Elija entre GPU calculo científico, GPU renderizado, GPU homeworking): "));
         panelTarjetaVideo.add(txtModelo);
         panelTarjetaVideo.add(new JLabel("Precio: "));
         panelTarjetaVideo.add(txtPrecio);
@@ -1211,6 +1284,16 @@ public class Vista extends JFrame {
         mostrarPanelRegistroComponenteSubCasa();
     }
 
+    public void initPanelRegistroComponenteSubTrabajo(){
+        setTitle("Registro de Componente Portable; Trabajo");
+        setSize(1920, 1080);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+       mostrarPanelRegistroComponenteSubTrabajo();
+
+    }
+
     public void initPanelSubTrabajo(){
         setTitle("Registro de Subfamilia Portable; Trabajo");
         setSize(1200, 1200);
@@ -1303,7 +1386,8 @@ public class Vista extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                initPanelSubTrabajo();
+                //initPanelSubTrabajo();
+                initPanelRegistroComponenteSubTrabajo();
             }
         });
 
@@ -1388,7 +1472,7 @@ public class Vista extends JFrame {
     }
 
     public void mostrarPanelRegistroComponenteSubCasa(){
-        setTitle("Registro de componente para Escolar");
+        setTitle("Registro de componente para Subfamilia Casa");
         setSize(1600, 1600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -1421,14 +1505,14 @@ public class Vista extends JFrame {
         registrarRAMButton.addActionListener(new ActionListener() { /*Esto hace que se muestre el panel de ram despues de hacer click en el boton*/
             @Override
             public void actionPerformed(ActionEvent e) {
-                mostrarPanelRAMSubfamiliaCasa();
+                mostrarPanelRAMSubfamiliaCasaTrabajo();
             }
         });
 
         registrarAlmacenamientoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mostrarPanelAlmacenamientoSubfamiliaCasa();
+                mostrarPanelAlmacenamientoSubfamiliaCasaTrabajo();
             }
         });
 
@@ -1445,6 +1529,88 @@ public class Vista extends JFrame {
         JPanel panelComponentes = new JPanel(new GridLayout(2, 1));
         panelComponentes.add(registrarRAMButton);
         panelComponentes.add(registrarAlmacenamientoButton);
+        panelComponentes.add(registrarFuenteDePoderButton);
+        //panelComponentes.add(volverAlMenuBoutton);
+
+//        volverAlMenuBoutton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                panelPrincipal.remove(panelComponentes);
+//                setVisible(false);
+//
+//            }
+//        });
+        //panelPrincipal.removeAll();
+        panelPrincipal.add(panelComponentes);
+        setVisible(true);
+    }
+
+    public void mostrarPanelRegistroComponenteSubTrabajo(){
+        setTitle("Registro de componente para Subfamilia Trabajo");
+        setSize(1600, 1600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        if (!componentesInicializados) {
+            // Si ya se han inicializado, simplemente muestra la ventana
+            componentesInicializados = true;
+        }
+
+        txtModelo = new JTextField();
+        txtPrecio = new JTextField();
+        txtCategoria = new JTextField();
+        txtCapacidad = new JTextField();
+        txtRating = new JTextField();
+        txtIdComponente = new JTextField();
+        txtChipset = new JTextField();
+        txtCantidadVentiladores = new JTextField();
+        txtDuracionBateria = new JTextField();
+        txtCantidadNucleos = new JTextField();
+
+        registrarRAMButton = new JButton("Registrar RAM");
+        registrarAlmacenamientoButton = new JButton("Registrar Almacenamiento");
+        registrarTarjetaVideoButton = new JButton("Registrar Tarjerta de Video");
+        registrarFuenteDePoderButton = new JButton("Registrar Batería");
+
+        //volverAlMenuBoutton = new JButton("Menú Principal");
+
+
+        componenteControlador = new ComponenteControlador(componenteDAO, vista);
+
+        registrarRAMButton.addActionListener(new ActionListener() { /*Esto hace que se muestre el panel de ram despues de hacer click en el boton*/
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarPanelRAMSubfamiliaCasaTrabajo();
+            }
+        });
+
+        registrarAlmacenamientoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarPanelAlmacenamientoSubfamiliaCasaTrabajo();
+            }
+        });
+
+        registrarTarjetaVideoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarPanelTarjetaVideoSubfamiliaTrabajo();
+            }
+        });
+
+        registrarFuenteDePoderButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { mostrarPanelFuentePoderSubfamiliaTrabajo();
+
+            }
+        });
+
+
+
+
+        JPanel panelComponentes = new JPanel(new GridLayout(2, 1));
+        panelComponentes.add(registrarRAMButton);
+        panelComponentes.add(registrarAlmacenamientoButton);
+        panelComponentes.add(registrarFuenteDePoderButton);
         //panelComponentes.add(volverAlMenuBoutton);
 
 //        volverAlMenuBoutton.addActionListener(new ActionListener() {
