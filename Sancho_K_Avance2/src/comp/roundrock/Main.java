@@ -92,9 +92,7 @@ public class Main extends JFrame {
         listarFamiliasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                if (!vista.isListaFamiliasInicializada()) {
-//                    vista.initListaFamilias();  // Inicializa la lista de familias solo si aún no se ha inicializado
-//                }
+
                 vista.initListaFamilias();
             }
         });
