@@ -94,6 +94,10 @@ public class Vista extends JFrame {
     private JTextField txtCapacidad;
     private JTextField txtRating;
 
+    private JTextField txtRam;
+
+    private JTextField txtAlmacenamiento;
+
     private JTextField txtIdFamilia;
 
     private JTextField txtDuracionBateria;
@@ -969,6 +973,64 @@ public class Vista extends JFrame {
         repaint();
     }
 
+    private void mostrarPanelFamiliaEscolarParaRegistroComponente() {
+
+        ArrayList<String> listaComponentesFamiliaEscolar = new ArrayList<>();
+        listaComponentesFamiliaEscolar.add(0, "4, 8 o 16GB en maximo 2 sticks");
+        listaComponentesFamiliaEscolar.add(1, " 1 HDD(1 Tb) o 1 SSD (128GB)");
+        listaComponentesFamiliaEscolar.add(2, " Tipo de computadora no acepta tarjeta de video");
+        JPanel panelFamiliaEscolar = new JPanel(new GridLayout(8, 2));
+        panelFamiliaEscolar.add(new JLabel("Precio"));
+        panelFamiliaEscolar.add(txtPrecio);
+        panelFamiliaEscolar.add(new JLabel("Rating"));
+        panelFamiliaEscolar.add(txtRating);
+        panelFamiliaEscolar.add(new JLabel("ID Familia: "));
+        panelFamiliaEscolar.add(txtIdFamilia);
+        panelFamiliaEscolar.add(new JLabel("RAM: Elija entre 4, 8 o 16GB"));
+        panelFamiliaEscolar.add(txtRam);
+//        JTextArea textAreaRam = new JTextArea(listaComponentesFamiliaEscolar.get(0));
+//        textAreaRam.setEditable(false);
+//        panelFamiliaEscolar.add(textAreaRam);
+        panelFamiliaEscolar.add(new JLabel("Almacenamiento: Elija entre 1 HDD(1 Tb) o 1 SSD (128GB)"));
+        panelFamiliaEscolar.add(txtAlmacenamiento);
+//        JTextArea textAreaAlmacenamiento = new JTextArea(listaComponentesFamiliaEscolar.get(1));
+//        textAreaAlmacenamiento.setEditable(false);
+//        panelFamiliaEscolar.add(textAreaAlmacenamiento);
+        panelFamiliaEscolar.add(new JLabel("Tarjeta de Video"));
+        JTextArea textAreaTarjetaVideo = new JTextArea(listaComponentesFamiliaEscolar.get(2));
+        textAreaTarjetaVideo.setEditable(false);
+        panelFamiliaEscolar.add(textAreaTarjetaVideo);
+
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+
+        panelPrincipal.add(panelFamiliaEscolar);
+
+        guardarFamiliaEscolar = new JButton("Guardar Familia Escolar");
+
+
+        panelFamiliaEscolar.add(guardarFamiliaEscolar);
+        panelFamiliaEscolar.add(volverAlMenuBoutton);
+
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                panelPrincipal.remove(panelFamiliaEscolar);
+            }
+        });
+
+        guardarFamiliaEscolar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                almacenaFamiliaEscolar(listaFamiliasRegistradas);
+            }
+        });
+
+        revalidate();
+        repaint();
+    }
+
     public void initPanelSubCasa(){
         setTitle("Registro de Subfamilia Portable; Casa");
         setSize(1100, 1100);
@@ -1548,11 +1610,14 @@ public class Vista extends JFrame {
     }
 
     public void initRegistroComponenteFamilia() {
-        setTitle("Listar Familias");
+        setTitle("Registro de Componente a Familia");
         setSize(900, 900);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         //setVisible(true);
+
+        txtRam = new JTextField();
+        txtAlmacenamiento = new JTextField();
 
         if (!listaFamiliasInicializada) {
             // Si ya se ha inicializado, simplemente muestra la ventana
@@ -1739,7 +1804,7 @@ public class Vista extends JFrame {
 
     public void mostrarPanelRegistroComponenteAFamilia(List<Familia> listaFamiliasRegistradas, List<Sobremesa> listFamiliaSobremesa, List<Portable> listFamiliaPortable) {
         //JPanel panelListaFamilias = new JPanel(new GridLayout(3, 2));
-        JPanel panelListaFamilias = new JPanel(new GridLayout(listaFamiliasRegistradas.size(), 6));
+        JPanel panelListaFamilias = new JPanel(new GridLayout(listaFamiliasRegistradas.size(), 3));
         for (Familia familia : listaFamiliasRegistradas) {
             panelListaFamilias.add(new JLabel("Tipo de Familia: "));
             JTextArea textAreaTipoFamilia = new JTextArea(String.valueOf(familia.getTipoFamilia()));
@@ -1773,22 +1838,72 @@ public class Vista extends JFrame {
                 textAreaSubFamilia.setEditable(false);
                 panelListaFamilias.add(textAreaSubFamilia);
             }
-            panelListaFamilias.add(new JLabel("Precio: "));
-            JTextArea textAreaPrecio = new JTextArea(String.valueOf(familia.getPrecio()));
-            textAreaPrecio.setEditable(false);
-            panelListaFamilias.add(textAreaPrecio);
-            panelListaFamilias.add(new JLabel("Rating: "));
-            JTextArea textAreaRating = new JTextArea(String.valueOf(familia.getRating()));
-            textAreaRating.setEditable(false);
-            panelListaFamilias.add(textAreaRating);
+            panelListaFamilias.add(new JLabel("Id Familia: "));
+            JTextArea textAreaId = new JTextArea(String.valueOf(familia.getIdFamilia()));
+            textAreaId.setEditable(false);
+            panelListaFamilias.add(textAreaId);
+
+            txtPrecio = new JTextField();
+            txtRating = new JTextField();
+            txtIdFamilia = new JTextField();
+
+
+            registrarFamiliaEscolar = new JButton("Registrar familia Escolar");
+            registrarFamiliaPortable = new JButton("Registrar familia Portable");
+            registrarFamiliaServidor = new JButton("Registrar familia Servidor");
+            registrarFamiliaSobremesa = new JButton("Registrar familia Sobremesa");
+            volverAlMenuBoutton = new JButton("Menú Principal");
+
+            registrarFamiliaEscolar.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    mostrarPanelFamiliaEscolarParaRegistroComponente();
+
+                }
+            });
+
+            registrarFamiliaSobremesa.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                    initPanelFamiliaSobremesa();
+                }
+            });
+
+            registrarFamiliaPortable.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                    initPanelFamiliaPortable();
+                }
+            });
+
+            registrarFamiliaServidor.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    mostrarPanelFamiliaServidor();
+                }
+            });
+
+            JPanel panelFamilias = new JPanel();
+            panelFamilias.add(registrarFamiliaEscolar);
+            panelFamilias.add(registrarFamiliaPortable);
+
+            panelFamilias.add(registrarFamiliaServidor);
+            panelFamilias.add(registrarFamiliaSobremesa);
+            panelFamilias.add(volverAlMenuBoutton);
+
+            panelPrincipal.add(panelFamilias);
+
         }
 
+
         panelPrincipal.add(panelListaFamilias);
-//            frameMostrarListaComponentes.add(panelLista);
+
 
         volverAlMenuBoutton = new JButton("Volver al menu principal");
         panelPrincipal.add(volverAlMenuBoutton);
-//            frameMostrarListaComponentes.add(volverAlMenuBoutton);
+
 
         volverAlMenuBoutton.addActionListener(new ActionListener() {
             @Override
