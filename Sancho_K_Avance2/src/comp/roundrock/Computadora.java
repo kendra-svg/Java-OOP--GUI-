@@ -6,18 +6,18 @@ public class Computadora {
 
     private List listaComponentes;
     private String familia;
-    private float rating;
+    private int rating;
     private int idComputadora;
     private double precio;
-    private Usuario usuario;
+    //private Usuario usuario;
 
-    public Computadora(List listaComponentes, String familia, float rating, int idComputadora, double precio, Usuario usuario) {
+    public Computadora(List listaComponentes, String familia, int rating, int idComputadora, double precio /*Usuario usuario*/) {
         this.listaComponentes = listaComponentes;
         this.familia = familia;
         this.rating = rating;
         this.idComputadora = idComputadora;
         this.precio = precio;
-        this.usuario = usuario;
+        //this.usuario = usuario;
     }
 
     public Computadora() {
@@ -43,7 +43,7 @@ public class Computadora {
         return rating;
     }
 
-    public void setRating(float rating) {
+    public void setRating(int rating) {
         this.rating = rating;
     }
 
@@ -63,13 +63,13 @@ public class Computadora {
         this.precio = precio;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
+//    public Usuario getUsuario() {
+//        return usuario;
+//    }
+//
+//    public void setUsuario(Usuario usuario) {
+//        this.usuario = usuario;
+//    }
 
     @Override
     public String toString() {
@@ -78,8 +78,8 @@ public class Computadora {
                 ", familia='" + familia + '\'' +
                 ", rating=" + rating +
                 ", idComputadora=" + idComputadora +
-                ", precio=" + precio +
+                ", precio=" + precio/* +
                 ", usuario=" + usuario +
-                '}';
+                '}'*/;
     }
 }

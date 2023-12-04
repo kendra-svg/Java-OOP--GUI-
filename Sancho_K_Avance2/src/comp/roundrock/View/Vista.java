@@ -93,6 +93,8 @@ public class Vista extends JFrame {
     private JTextField txtCapacidad;
     private JTextField txtRating;
 
+    private JTextField txtTipoFamilia;
+
     private JTextField txtRam;
 
     private JTextField txtAlmacenamiento;
@@ -117,7 +119,7 @@ public class Vista extends JFrame {
 
     List<Componente> listaDeComponentes = new ArrayList<>();
 
-
+    List<Computadora> listaDeComputadoras = new ArrayList<>();
 
     List<Familia> listaFamiliasRegistradas = new ArrayList<>();
 
@@ -158,6 +160,20 @@ public class Vista extends JFrame {
 
     private boolean listaFamiliasInicializada = false;
 
+    private JTextArea registrarComputadoraArea;
+
+    private JButton registrarDetallesComputadoraButton;
+
+    private JButton registrarComputadoraButton;
+
+    private JTextField txtNombreComputadora;
+
+    private JButton guardarDetallesButton;
+
+    private JTextField txtIdComputadora;
+
+    private JButton registrarIdComputadora;
+
 
     public void initComponents() {
         setTitle("Registro de componente");
@@ -169,6 +185,7 @@ public class Vista extends JFrame {
             componentesInicializados = true;
         }
 
+
         txtModelo = new JTextField();
         txtPrecio = new JTextField();
         txtCategoria = new JTextField();
@@ -179,6 +196,7 @@ public class Vista extends JFrame {
         txtCantidadVentiladores = new JTextField();
         txtDuracionBateria = new JTextField();
         txtCantidadNucleos = new JTextField();
+
 
         registrarRAMButton = new JButton("Registrar RAM");
         registrarProcesadorButton = new JButton("Registrar Procesador");
@@ -255,6 +273,236 @@ public class Vista extends JFrame {
         panelPrincipal.add(panelComponentes);
         setVisible(true);
     }
+
+    public void iniciaInitArmadoComputadora(){
+        setTitle("Registro de Computadora");
+        setSize(1920, 1080);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        if (!componentesInicializados) {
+            // Si ya se han inicializado, simplemente muestra la ventana
+            componentesInicializados = true;
+        }
+        txtNombreComputadora = new JTextField();
+        txtTipoFamilia = new JTextField();
+        txtIdComputadora = new JTextField();
+
+        txtModelo = new JTextField();
+        txtPrecio = new JTextField();
+        txtCategoria = new JTextField();
+        txtCapacidad = new JTextField();
+        txtRating = new JTextField();
+        txtIdComponente = new JTextField();
+        txtChipset = new JTextField();
+        txtCantidadVentiladores = new JTextField();
+        txtDuracionBateria = new JTextField();
+        txtCantidadNucleos = new JTextField();
+
+        registrarComputadoraButton = new JButton("Registrar Computadora");
+//        registrarRAMButton = new JButton("Registrar RAM");
+//        registrarProcesadorButton = new JButton("Registrar Procesador");
+//        registrarAlmacenamientoButton = new JButton("Registrar Almacenamiento");
+//        registrarFuenteDePoderButton = new JButton("Registrar Fuente de Poder");
+//        registrarTarjetaMadreButton = new JButton("Registrar Tarjeta Madre");
+//        registrarTarjetaVideoButton = new JButton("Registrar Tarjeta de Video");
+        volverAlMenuBoutton = new JButton("Menú Principal");
+
+
+        componenteControlador = new ComponenteControlador(componenteDAO, vista);
+
+        registrarComputadoraButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                initArmadoComputadora();
+            }
+        });
+
+//        registrarRAMButton.addActionListener(new ActionListener() { /*Esto hace que se muestre el panel de ram despues de hacer click en el boton*/
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                mostrarPanelRAM();
+//            }
+//        });
+//
+//        registrarProcesadorButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                mostrarPanelProcesador();
+//            }
+//        });
+//
+//        registrarAlmacenamientoButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                mostrarPanelAlmacenamiento();
+//            }
+//        });
+//
+//        registrarFuenteDePoderButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                mostrarPanelFuentePoder();
+//            }
+//        });
+//
+//        registrarTarjetaVideoButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                mostrarPanelTarjetaVideo();
+//            }
+//        });
+//
+//        registrarTarjetaMadreButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                mostrarPanelTarjetaMadre();
+//            }
+//        });
+
+
+        JPanel panelComponentes = new JPanel();
+        panelComponentes.add(registrarComputadoraButton);
+//        panelComponentes.add(registrarRAMButton);
+//        panelComponentes.add(registrarAlmacenamientoButton);
+//        panelComponentes.add(registrarProcesadorButton);
+//        panelComponentes.add(registrarFuenteDePoderButton);
+//        panelComponentes.add(registrarTarjetaVideoButton);
+//        panelComponentes.add(registrarTarjetaMadreButton);
+   panelComponentes.add(volverAlMenuBoutton);
+//
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panelPrincipal.remove(panelComponentes);
+                setVisible(false);
+
+            }
+        });
+        panelPrincipal.removeAll();
+        panelPrincipal.add(panelComponentes);
+        setVisible(true);
+    }
+
+    public void initArmadoComputadora(){
+        setTitle("Registro de Computadora");
+        setSize(1920, 1080);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        if (!componentesInicializados) {
+            // Si ya se han inicializado, simplemente muestra la ventana
+            componentesInicializados = true;
+        }
+        txtNombreComputadora = new JTextField();
+
+        txtModelo = new JTextField();
+        txtPrecio = new JTextField();
+        txtCategoria = new JTextField();
+        txtCapacidad = new JTextField();
+        txtRating = new JTextField();
+        txtIdComponente = new JTextField();
+        txtIdComputadora = new JTextField();
+        txtChipset = new JTextField();
+        txtCantidadVentiladores = new JTextField();
+        txtDuracionBateria = new JTextField();
+        txtCantidadNucleos = new JTextField();
+
+
+//        registrarDetallesComputadoraButton = new JButton("Registrar detalles finales de Computadora (nombre, id)");
+        registrarComputadoraArea = new JTextArea("Registro de computadora");
+        registrarComputadoraArea.setEditable(false);
+        registrarRAMButton = new JButton("Registrar RAM");
+        registrarProcesadorButton = new JButton("Registrar Procesador");
+        registrarAlmacenamientoButton = new JButton("Registrar Almacenamiento");
+        registrarFuenteDePoderButton = new JButton("Registrar Fuente de Poder");
+        registrarTarjetaMadreButton = new JButton("Registrar Tarjeta Madre");
+        registrarTarjetaVideoButton = new JButton("Registrar Tarjeta de Video");
+        registrarDetallesComputadoraButton = new JButton("Registrar detalles finales de Computadora (nombre, id)");
+        volverAlMenuBoutton = new JButton("Menú Principal");
+
+
+        componenteControlador = new ComponenteControlador(componenteDAO, vista);
+
+        registrarDetallesComputadoraButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarPanelDetallesComputadora();
+            }
+        });
+
+//        registrarIdComputadora.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//
+//            }
+//        });
+
+        registrarRAMButton.addActionListener(new ActionListener() { /*Esto hace que se muestre el panel de ram despues de hacer click en el boton*/
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarPanelRAMRegistroComputadora();
+            }
+        });
+
+        registrarProcesadorButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarPanelProcesadorRegistroComputadora();
+            }
+        });
+
+        registrarAlmacenamientoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarPanelAlmacenamientoRegistroComputadora();
+            }
+        });
+
+        registrarFuenteDePoderButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarPanelFuentePoderRegistroComputadora();
+            }
+        });
+
+        registrarTarjetaVideoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarPanelTarjetaVideoRegistroComputadora();
+            }
+        });
+
+        registrarTarjetaMadreButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarPanelTarjetaMadreRegistroComputadora();
+            }
+        });
+
+
+        JPanel panelComponentes = new JPanel();
+        panelComponentes.add(registrarComputadoraArea);
+        panelComponentes.add(registrarRAMButton);
+        panelComponentes.add(registrarAlmacenamientoButton);
+        panelComponentes.add(registrarProcesadorButton);
+        panelComponentes.add(registrarFuenteDePoderButton);
+        panelComponentes.add(registrarTarjetaVideoButton);
+        panelComponentes.add(registrarTarjetaMadreButton);
+        panelComponentes.add(registrarDetallesComputadoraButton);
+        panelComponentes.add(volverAlMenuBoutton);
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panelPrincipal.remove(panelComponentes);
+                setVisible(false);
+
+            }
+        });
+        panelPrincipal.removeAll();
+        panelPrincipal.add(panelComponentes);
+        setVisible(true);
+    }
+
 
     public void mostrarPanelRegistroComponenteEscolar(){
         setTitle("Registro de componente para Escolar");
@@ -491,6 +739,181 @@ public class Vista extends JFrame {
         repaint();
     }
 
+    private void limpiarCamposRam() {
+        txtModelo.setText("");
+        txtPrecio.setText("");
+        txtCapacidad.setText("");
+        txtRating.setText("");
+        txtIdComponente.setText("");
+//        txtNombreComputadora.setText("");
+//        txtCategoria.setText("");
+//        txtIdFamilia.setText("");
+//        txtAlmacenamiento.setText("");
+//        txtChipset.setText("");
+//        txtDuracionBateria.setText("");
+//        txtCantidadVentiladores.setText("");
+//        txtCantidadNucleos.setText("");
+//        txtRam.setText("");
+//        txtTipoFamilia.setText("");
+//        txtIdComputadora.setText("");
+    }
+
+    private void limpiarCamposAlmacenamiento() {
+        txtModelo.setText("");
+        txtPrecio.setText("");
+        txtCapacidad.setText("");
+        txtRating.setText("");
+        txtIdComponente.setText("");
+//        txtNombreComputadora.setText("");
+        txtCategoria.setText("");
+//        txtIdFamilia.setText("");
+//        txtAlmacenamiento.setText("");
+//        txtChipset.setText("");
+//        txtDuracionBateria.setText("");
+//        txtCantidadVentiladores.setText("");
+//        txtCantidadNucleos.setText("");
+//        txtRam.setText("");
+//        txtTipoFamilia.setText("");
+//        txtIdComputadora.setText("");
+    }
+
+    private void limpiarCamposProcesador() {
+        txtModelo.setText("");
+        txtPrecio.setText("");
+        //txtCapacidad.setText("");
+        txtRating.setText("");
+        txtIdComponente.setText("");
+        txtCantidadNucleos.setText("");
+    }
+
+    private void limpiarCamposFuentePoder() {
+        txtModelo.setText("");
+        txtPrecio.setText("");
+        txtRating.setText("");
+        txtIdComponente.setText("");
+        txtDuracionBateria.setText("");
+    }
+
+    private void limpiarCamposTarjetaVideo() {
+        txtModelo.setText("");
+        txtPrecio.setText("");
+        txtRating.setText("");
+        txtIdComponente.setText("");
+        txtCantidadVentiladores.setText("");
+    }
+
+    private void limpiarCamposTarjetaMadre() {
+        txtModelo.setText("");
+        txtPrecio.setText("");
+        txtRating.setText("");
+        txtIdComponente.setText("");
+        txtChipset.setText("");
+    }
+
+    private void limpiarCamposDetallesComputadora() {
+        txtNombreComputadora.setText("");
+        txtTipoFamilia.setText("");
+        txtRating.setText("");
+        txtPrecio.setText("");
+        txtIdComputadora.setText("");
+    }
+
+
+
+
+
+
+
+
+
+
+    private void mostrarPanelRAMRegistroComputadora() {
+        JPanel panelRAM = new JPanel(new GridLayout(6, 2));
+        String modelo, tipoComponente, capacidad;
+        panelRAM.add(new JLabel("Modelo:"));
+        panelRAM.add(txtModelo);
+        modelo = String.valueOf(txtModelo);
+        panelRAM.add(new JLabel("Precio:"));
+        panelRAM.add(txtPrecio);
+        panelRAM.add(new JLabel("Capacidad (Elija entre 4, 8, 16, 24, 32 64, 128, 256, 512, 1024 GB):"));
+        panelRAM.add(txtCapacidad);
+        capacidad = String.valueOf(txtCapacidad);
+        panelRAM.add(new JLabel("Rating:"));
+        panelRAM.add(txtRating);
+        panelRAM.add(new JLabel("Id Componente:"));
+        panelRAM.add(txtIdComponente);
+        guardarRAMButton = new JButton("Guardar RAM");
+        panelRAM.add(guardarRAMButton);
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+        panelRAM.add(volverAlMenuBoutton);
+        tipoComponente = "Ram";
+
+        guardarRAMButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                almacenaComponenteRam();
+
+            }
+        });
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//                dispose();
+//                panelPrincipal.remove(panelRAM);
+                limpiarCamposRam();
+                panelRAM.setVisible(false);
+                //panelRAM.removeAll();
+            }
+        });
+        //panelPrincipal.removeAll();
+        panelPrincipal.add(panelRAM);
+        revalidate();
+        repaint();
+    }
+
+    private void mostrarPanelDetallesComputadora() {
+        JPanel panelDetallesComputadora = new JPanel(new GridLayout(8, 2));
+        String modelo, tipoComponente, capacidad;
+        panelDetallesComputadora.add(new JLabel("Nombre de Computadora:"));
+        panelDetallesComputadora.add(txtNombreComputadora);
+        panelDetallesComputadora.add(new JLabel("Tipo de familia:"));
+        panelDetallesComputadora.add(txtTipoFamilia);
+        panelDetallesComputadora.add(new JLabel("Precio:"));
+        panelDetallesComputadora.add(txtPrecio);
+        panelDetallesComputadora.add(new JLabel("Rating:"));
+        panelDetallesComputadora.add(txtRating);
+        panelDetallesComputadora.add(new JLabel("Id Computadora:"));
+        panelDetallesComputadora.add(txtIdComputadora);
+        guardarDetallesButton = new JButton("Guardar Detalles");
+        panelDetallesComputadora.add(guardarDetallesButton);
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+        panelDetallesComputadora.add(volverAlMenuBoutton);
+
+
+        guardarDetallesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                //almacenaComponenteRam();
+
+            }
+        });
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                limpiarCamposDetallesComputadora();
+                panelDetallesComputadora.setVisible(false);
+            }
+        });
+
+        panelPrincipal.add(panelDetallesComputadora);
+        revalidate();
+        repaint();
+    }
+
     public Componente almacenaComponenteRam() {
 
         Componente componente1 = null;
@@ -507,6 +930,21 @@ public class Vista extends JFrame {
 
         return componente1;
 
+    }
+
+    public Computadora almacenaDetalles(){
+        //Computadora computadora = null;
+        String textoPrecio = txtPrecio.getText();
+        String textoRating = txtRating.getText();
+        String textoIdComputadora = txtIdComputadora.getText();
+        String textoTipoFamilia = txtTipoFamilia.getText();
+
+
+        //listaDeComponentes = listaDeComponentes;
+
+        Computadora computadora = new Computadora(listaDeComponentes, textoTipoFamilia, Integer.parseInt(textoRating), Integer.parseInt(textoIdComputadora), Double.parseDouble(textoPrecio));
+        listaDeComputadoras.add(computadora);
+        return computadora;
     }
 
 
@@ -555,6 +993,44 @@ public class Vista extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 panelPrincipal.remove(panelProcesador);
+            }
+        });
+
+        panelPrincipal.add(panelProcesador);
+        revalidate();
+        repaint();
+    }
+    private void mostrarPanelProcesadorRegistroComputadora() {
+        JPanel panelProcesador = new JPanel(new GridLayout(6, 2));
+        panelProcesador.add(new JLabel("Modelo: "));
+        panelProcesador.add(txtModelo);
+        panelProcesador.add(new JLabel("Precio: "));
+        panelProcesador.add(txtPrecio);
+        panelProcesador.add(new JLabel("Cantidad de Nucleos: "));
+        panelProcesador.add(txtCantidadNucleos);
+        panelProcesador.add(new JLabel("Rating: "));
+        panelProcesador.add(txtRating);
+        panelProcesador.add(new JLabel("Id Componente: "));
+        panelProcesador.add(txtIdComponente);
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+        panelProcesador.add(volverAlMenuBoutton);
+        guardarProcesadorButton = new JButton("Guardar Procesador");
+        panelProcesador.add(guardarProcesadorButton);
+
+        guardarProcesadorButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                almacenaComponenteProcesador();
+            }
+        });
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//                dispose();
+//                panelPrincipal.remove(panelProcesador);
+                limpiarCamposProcesador();
+                panelProcesador.setVisible(false);
             }
         });
 
@@ -612,6 +1088,46 @@ public class Vista extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 panelPrincipal.remove(panelAlmacenamiento);
+            }
+        });
+
+        panelPrincipal.add(panelAlmacenamiento);
+        revalidate();
+        repaint();
+    }
+
+    private void mostrarPanelAlmacenamientoRegistroComputadora() {
+        JPanel panelAlmacenamiento = new JPanel(new GridLayout(8, 2));
+        panelAlmacenamiento.add(new JLabel("Modelo: "));
+        panelAlmacenamiento.add(txtModelo);
+        panelAlmacenamiento.add(new JLabel("Precio: "));
+        panelAlmacenamiento.add(txtPrecio);
+        panelAlmacenamiento.add(new JLabel("Categoría (Elija entre las opciones de HDD o las opciones de SSD:"));
+        panelAlmacenamiento.add(txtCategoria);
+        panelAlmacenamiento.add(new JLabel("Capacidad (Elija entre 1 TB, 2TB, 32TB, 64TB o 128TB (si en categoría eligió HDD) o elija entre 128GB, 256GB, 512GB o 1Tb (si en categoría eligió SSD)"));
+        panelAlmacenamiento.add(txtCapacidad);
+        panelAlmacenamiento.add(new JLabel("Rating: "));
+        panelAlmacenamiento.add(txtRating);
+        panelAlmacenamiento.add(new JLabel("Id Componente: "));
+        panelAlmacenamiento.add(txtIdComponente);
+        guardarAlmacenamientoButton = new JButton("Guardar Almacenamiento");
+        panelAlmacenamiento.add(guardarAlmacenamientoButton);
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+        panelAlmacenamiento.add(volverAlMenuBoutton);
+        guardarAlmacenamientoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                almacenaComponenteAlmacenamiento();
+            }
+        });
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//                dispose();
+//                panelPrincipal.remove(panelAlmacenamiento);
+                limpiarCamposAlmacenamiento();
+                panelAlmacenamiento.setVisible(false);
             }
         });
 
@@ -1116,6 +1632,45 @@ public class Vista extends JFrame {
         repaint();
     }
 
+    private void mostrarPanelFuentePoderRegistroComputadora() {
+        JPanel panelFuentePoder = new JPanel(new GridLayout(6, 2));
+        panelFuentePoder.add(new JLabel("Modelo: "));
+        panelFuentePoder.add(txtModelo);
+        panelFuentePoder.add(new JLabel("Precio: "));
+        panelFuentePoder.add(txtPrecio);
+        panelFuentePoder.add(new JLabel("Rating: "));
+        panelFuentePoder.add(txtRating);
+        panelFuentePoder.add(new JLabel("Duración batería: "));
+        panelFuentePoder.add(txtDuracionBateria);
+        panelFuentePoder.add(new JLabel("Id Componente: "));
+        panelFuentePoder.add(txtIdComponente);
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+        panelFuentePoder.add(volverAlMenuBoutton);
+        guardarFuentePoder = new JButton("Guardar Fuente de Poder");
+        panelFuentePoder.add(guardarFuentePoder);
+
+        guardarFuentePoder.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                almacenaFuentePoder();
+            }
+        });
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//                dispose();
+//                panelPrincipal.remove(panelFuentePoder);
+                limpiarCamposFuentePoder();
+                panelFuentePoder.setVisible(false);
+            }
+        });
+
+        panelPrincipal.add(panelFuentePoder);
+        revalidate();
+        repaint();
+    }
+
     private void mostrarPanelFuentePoderSubfamiliaCasa() {
         JPanel panelFuentePoder = new JPanel(new GridLayout(6, 2));
         panelFuentePoder.add(new JLabel("Modelo: "));
@@ -1281,6 +1836,46 @@ public class Vista extends JFrame {
         repaint();
     }
 
+    private void mostrarPanelTarjetaMadreRegistroComputadora() {
+        JPanel panelTarjetaMadre = new JPanel(new GridLayout(6, 2));
+        panelTarjetaMadre.add(new JLabel("Modelo: "));
+        panelTarjetaMadre.add(txtModelo);
+        panelTarjetaMadre.add(new JLabel("Precio: "));
+        panelTarjetaMadre.add(txtPrecio);
+        panelTarjetaMadre.add(new JLabel("Rating: "));
+        panelTarjetaMadre.add(txtRating);
+        panelTarjetaMadre.add(new JLabel("Chipset: "));
+        panelTarjetaMadre.add(txtChipset);
+        panelTarjetaMadre.add(new JLabel("Id Componente: "));
+        panelTarjetaMadre.add(txtIdComponente);
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+        panelTarjetaMadre.add(volverAlMenuBoutton);
+        guardarTarjetaMadre = new JButton("Guardar Fuente de Poder");
+        panelTarjetaMadre.add(guardarTarjetaMadre);
+
+        guardarTarjetaMadre.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                almacenaTarjetaMadre();
+            }
+        });
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//                dispose();
+//                panelPrincipal.remove(panelTarjetaMadre);
+                limpiarCamposTarjetaMadre();
+                panelTarjetaMadre.setVisible(false);
+            }
+        });
+
+        panelPrincipal.add(panelTarjetaMadre);
+        revalidate();
+        repaint();
+    }
+
 
     public Componente almacenaTarjetaVideo() {
         Componente componente1 = null;
@@ -1337,6 +1932,46 @@ public class Vista extends JFrame {
         revalidate();
         repaint();
     }
+    private void mostrarPanelTarjetaVideoRegistroComputadora() {
+        JPanel panelTarjetaVideo = new JPanel(new GridLayout(6, 2));
+        panelTarjetaVideo.add(new JLabel("Modelo: "));
+        panelTarjetaVideo.add(txtModelo);
+        panelTarjetaVideo.add(new JLabel("Precio: "));
+        panelTarjetaVideo.add(txtPrecio);
+        panelTarjetaVideo.add(new JLabel("Rating: "));
+        panelTarjetaVideo.add(txtRating);
+        panelTarjetaVideo.add(new JLabel("Cantidad de Ventiladores: "));
+        panelTarjetaVideo.add(txtCantidadVentiladores);
+        panelTarjetaVideo.add(new JLabel("Id Componente: "));
+        panelTarjetaVideo.add(txtIdComponente);
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+        panelTarjetaVideo.add(volverAlMenuBoutton);
+        guardarTarjetaVideo = new JButton("Guardar Tarjeta de Video");
+        panelTarjetaVideo.add(guardarTarjetaVideo);
+
+        guardarTarjetaVideo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                almacenaTarjetaVideo();
+            }
+        });
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//                dispose();
+//                panelPrincipal.remove(panelTarjetaVideo);
+                limpiarCamposTarjetaVideo();
+                panelTarjetaVideo.setVisible(false);
+            }
+        });
+
+        panelPrincipal.add(panelTarjetaVideo);
+        revalidate();
+        repaint();
+    }
+
     private void mostrarPanelTarjetaVideoSubfamiliaTrabajo() {
         JPanel panelTarjetaVideo = new JPanel(new GridLayout(6, 2));
         panelTarjetaVideo.add(new JLabel("Modelo (Elija entre GPU calculo científico, GPU renderizado, GPU homeworking): "));
