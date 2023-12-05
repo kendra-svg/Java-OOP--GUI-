@@ -753,11 +753,37 @@ public class Vista extends JFrame {
             textAreaTipoFamilia.setEditable(false);
             panelLista.add(textAreaTipoFamilia);
 
+            JButton mostrarComponentesArmados = new JButton("Mostrar componentes");
 
-            //panelLista.add(new JLabel("Componentes: "));
-//            JTextArea textAreaComponentes = new JTextArea(obtenerRepresentacionComponentes(listaDeComponentes));
+
+//            panelLista.add(new JLabel("Componentes: "));
+//            JTextArea textAreaComponentes = new JTextArea(String.valueOf(computadora.getListaComponentes()));
 //            textAreaComponentes.setEditable(false);
 //            panelLista.add(textAreaComponentes);
+
+//            panelLista.add(new JLabel("Componentes: "));
+//
+//            List<Componente> listaComponentesArmados = computadora.getListaComponentes();
+//
+//            for (Componente componente : listaComponentesArmados) {
+//                // Agrega un JLabel para el tipo de componente
+//                JLabel labelTipoComponente = new JLabel("Tipo componente: ");
+//                panelLista.add(labelTipoComponente);
+//
+//                // Agrega un JTextArea para el valor del componente
+//                JTextArea textAreaComponente = new JTextArea(componente.toString()); // Asume que la clase Componente tiene un método toString()
+//                textAreaComponente.setEditable(false);
+//                panelLista.add(textAreaComponente);
+//            }
+
+            mostrarComponentesArmados.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    mostrarPanelListarComponentesDeComputadoraArmados(listaDeComputadoras);
+                }
+            });
+
+            panelPrincipal.add(mostrarComponentesArmados);
         }
 
         panelPrincipal.add(panelLista);
@@ -768,6 +794,53 @@ public class Vista extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 panelPrincipal.remove(panelLista);
+            }
+        });
+        revalidate();
+        repaint();
+    }
+
+    private void mostrarPanelListarComponentesDeComputadoraArmados(List<Computadora> listaDeComputadoras){
+        JPanel panelListarComponentes = new JPanel(new GridLayout(6, 3));
+        for (int i = 0; i < listaDeComputadoras.size(); i++) {
+            Computadora computadora = listaDeComputadoras.get(i);
+            List<Componente> listaComponentesArmados = computadora.getListaComponentes();
+
+            for (Componente componente : listaComponentesArmados) {
+                JLabel labelTipoComponente = new JLabel("Tipo componente: ");
+                panelListarComponentes.add(labelTipoComponente);
+
+                JTextArea textAreaTipoComponente = new JTextArea(componente.getTipoComponente()); // Asume que la clase Componente tiene un método toString()
+                textAreaTipoComponente.setEditable(false);
+                panelListarComponentes.add(textAreaTipoComponente);
+
+
+                JLabel labelPrecio = new JLabel("Precio: ");
+                panelListarComponentes.add(labelPrecio);
+
+                JTextArea textAreaPrecio = new JTextArea(String.valueOf(componente.getPrecio()));
+                textAreaPrecio.setEditable(false);
+                panelListarComponentes.add(textAreaPrecio);
+
+                JLabel labelRating = new JLabel("Rating: ");
+                panelListarComponentes.add(labelRating);
+
+                JTextArea textAreaRating = new JTextArea(String.valueOf(componente.getRating()));
+                textAreaRating.setEditable(false);
+                panelListarComponentes.add(textAreaRating);
+
+
+
+            }
+        }
+        panelPrincipal.add(panelListarComponentes);
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+        panelPrincipal.add(volverAlMenuBoutton);
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                panelPrincipal.remove(panelListarComponentes);
             }
         });
         revalidate();
