@@ -1,11 +1,7 @@
 package comp.roundrock.View;
 
 import comp.roundrock.*;
-import comp.roundrock.Controller.FamiliaControlador;
-import comp.roundrock.DAO.ComponenteDAO;
 import comp.roundrock.DAO.Memory.ComponenteDAOMemoria;
-import comp.roundrock.DAO.Memory.FamiliaDAOMemoria;
-import comp.roundrock.Utilitarios.Utils;
 import comp.roundrock.Controller.ComponenteControlador;
 
 import javax.swing.*;
@@ -14,10 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 
 public class Vista extends JFrame {
@@ -43,6 +35,8 @@ public class Vista extends JFrame {
     private JButton registrarPortableTrabajo;
 
     private JButton registrarFamiliaServidor;
+
+    private JButton mostrarComputadorasButton;
 
     private JButton registrarProcesadorButton;
     private JButton registrarAlmacenamientoButton;
@@ -118,6 +112,8 @@ public class Vista extends JFrame {
     private Vista vista;
 
     List<Componente> listaDeComponentes = new ArrayList<>();
+
+   List<String> listaNombreComputadoras = new ArrayList<>();
 
     List<Computadora> listaDeComputadoras = new ArrayList<>();
 
@@ -664,6 +660,44 @@ public class Vista extends JFrame {
         setVisible(true);
     }
 
+    public void initListaComputadoras() {
+        setTitle("Listar Computadoras Armadas");
+        setSize(1920, 1080);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        if (listaComponentesInicializada) {
+            componentesInicializados = true;
+        }
+
+        mostrarComputadorasButton = new JButton("Mostrar Computadoras");
+        volverAlMenuBoutton = new JButton("Menú Principal");
+
+        mostrarComputadorasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarPanelListarComputadoras(listaDeComputadoras, listaNombreComputadoras);
+               // mostrarPanelListarComponentes(listaDeComponentes);
+            }
+        });
+
+        JPanel panelMainComputadoras = new JPanel();
+        panelMainComputadoras.add(mostrarComputadorasButton);
+        panelMainComputadoras.add(volverAlMenuBoutton);
+        panelPrincipal.add(panelMainComputadoras);
+
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                panelPrincipal.remove(panelMainComputadoras);
+            }
+        });
+        panelPrincipal.removeAll();
+        panelPrincipal.add(panelMainComputadoras);
+        setVisible(true);
+    }
+
     private void mostrarPanelListarComponentes(List<Componente> listaDeComponentes) { /*HASTA ACA*/
         JPanel panelLista = new JPanel(new GridLayout(listaDeComponentes.size(), 6));
         for (Componente componente : listaDeComponentes) {
@@ -693,6 +727,59 @@ public class Vista extends JFrame {
         });
         revalidate();
         repaint();
+    }
+    private void mostrarPanelListarComputadoras(List<Computadora> listaDeComputadoras, List<String> listaNombreComputadoras) { /*HASTA ACA*/
+        JPanel panelLista = new JPanel(new GridLayout(listaDeComputadoras.size(), 6));
+        for (int i = 0; i < listaDeComputadoras.size(); i++) {
+            Computadora computadora = listaDeComputadoras.get(i);
+
+            panelLista.add(new JLabel("Id Computadora: "));
+            JTextArea textAreaIdComputadora = new JTextArea(String.valueOf(computadora.getIdComputadora()));
+            textAreaIdComputadora.setEditable(false);
+            panelLista.add(textAreaIdComputadora);
+
+            panelLista.add(new JLabel("Nombre computadora: "));
+            JTextArea textAreaNombre = new JTextArea(computadora.getNombreComputadora());
+            textAreaNombre.setEditable(false);
+            panelLista.add(textAreaNombre);
+
+            panelLista.add(new JLabel("Precio: "));
+            JTextArea textAreaPrecio = new JTextArea(String.valueOf(computadora.getPrecio()));
+            textAreaPrecio.setEditable(false);
+            panelLista.add(textAreaPrecio);
+
+            panelLista.add(new JLabel("Tipo de familia"));
+            JTextArea textAreaTipoFamilia = new JTextArea(computadora.getFamilia());
+            textAreaTipoFamilia.setEditable(false);
+            panelLista.add(textAreaTipoFamilia);
+
+
+            //panelLista.add(new JLabel("Componentes: "));
+//            JTextArea textAreaComponentes = new JTextArea(obtenerRepresentacionComponentes(listaDeComponentes));
+//            textAreaComponentes.setEditable(false);
+//            panelLista.add(textAreaComponentes);
+        }
+
+        panelPrincipal.add(panelLista);
+        volverAlMenuBoutton = new JButton("Volver al menu principal");
+        panelPrincipal.add(volverAlMenuBoutton);
+        volverAlMenuBoutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                panelPrincipal.remove(panelLista);
+            }
+        });
+        revalidate();
+        repaint();
+    }
+
+    private String obtenerRepresentacionComponentes(List<Componente> listaDeComponentes) {
+        List<String> representaciones = new ArrayList<>();
+        for (Componente componente : listaDeComponentes) {
+            representaciones.add(componente.toString()); // Suponiendo que tu clase Componente tiene un método toString()
+        }
+        return String.join(", ", representaciones);
     }
 
 
@@ -811,7 +898,7 @@ public class Vista extends JFrame {
     }
 
     private void limpiarCamposDetallesComputadora() {
-        txtNombreComputadora.setText("");
+        //txtNombreComputadora.setText("");
         txtTipoFamilia.setText("");
         txtRating.setText("");
         txtPrecio.setText("");
@@ -890,13 +977,15 @@ public class Vista extends JFrame {
         panelDetallesComputadora.add(guardarDetallesButton);
         volverAlMenuBoutton = new JButton("Volver al menu principal");
         panelDetallesComputadora.add(volverAlMenuBoutton);
+        String nombreComputadora = txtNombreComputadora.getText();
 
 
         guardarDetallesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                //almacenaComponenteRam();
+               almacenaDetalles();
+               listaNombreComputadoras.add(nombreComputadora);
 
             }
         });
@@ -938,11 +1027,12 @@ public class Vista extends JFrame {
         String textoRating = txtRating.getText();
         String textoIdComputadora = txtIdComputadora.getText();
         String textoTipoFamilia = txtTipoFamilia.getText();
+        String nombreComputadora = txtNombreComputadora.getText();
 
 
         //listaDeComponentes = listaDeComponentes;
 
-        Computadora computadora = new Computadora(listaDeComponentes, textoTipoFamilia, Integer.parseInt(textoRating), Integer.parseInt(textoIdComputadora), Double.parseDouble(textoPrecio));
+        Computadora computadora = new Computadora(listaDeComponentes, textoTipoFamilia, Integer.parseInt(textoRating), Integer.parseInt(textoIdComputadora), Double.parseDouble(textoPrecio), nombreComputadora);
         listaDeComputadoras.add(computadora);
         return computadora;
     }

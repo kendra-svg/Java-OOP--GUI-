@@ -11,12 +11,15 @@ public class Computadora {
     private double precio;
     //private Usuario usuario;
 
-    public Computadora(List listaComponentes, String familia, int rating, int idComputadora, double precio /*Usuario usuario*/) {
+    private String nombreComputadora;
+
+    public Computadora(List listaComponentes, String familia, int rating, int idComputadora, double precio, String nombreComputadora ) {
         this.listaComponentes = listaComponentes;
         this.familia = familia;
         this.rating = rating;
         this.idComputadora = idComputadora;
         this.precio = precio;
+        this.nombreComputadora = nombreComputadora;
         //this.usuario = usuario;
     }
 
@@ -70,6 +73,15 @@ public class Computadora {
 //    public void setUsuario(Usuario usuario) {
 //        this.usuario = usuario;
 //    }
+
+
+    public String getNombreComputadora() {
+        return nombreComputadora;
+    }
+
+    public void setNombreComputadora(String nombreComputadora) {
+        this.nombreComputadora = nombreComputadora;
+    }
 
     @Override
     public String toString() {

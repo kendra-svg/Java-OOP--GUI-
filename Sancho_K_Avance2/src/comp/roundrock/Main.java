@@ -34,6 +34,8 @@ public class Main extends JFrame {
     private JButton registroArmarComputadoraButton;
     private JButton salirButton;
 
+    private JButton listarComputadorasArmadasButton;
+
 
 
 
@@ -61,6 +63,8 @@ public class Main extends JFrame {
         listarFamiliasButton = new JButton("Listar Familias");
         registrarComponentesPermitidosAfamiliaButton = new JButton("Agregar componentes permitidos a familia");
         registroArmarComputadoraButton = new JButton("Armar Computadora");
+        listarComputadorasArmadasButton = new JButton("Listar computadoras armadas");
+
         salirButton = new JButton("Salir");
 
         // Configurar acciones de los botones
@@ -114,6 +118,13 @@ public class Main extends JFrame {
             }
         });
 
+        listarComputadorasArmadasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vista.initListaComputadoras();
+            }
+        });
+
         salirButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -131,6 +142,7 @@ public class Main extends JFrame {
         panel.add(listarFamiliasButton);
         panel.add(registrarComponentesPermitidosAfamiliaButton);
         panel.add(registroArmarComputadoraButton);
+        panel.add(listarComputadorasArmadasButton);
         panel.add(salirButton);
 
 
