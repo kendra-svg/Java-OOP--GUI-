@@ -56,8 +56,6 @@ public class Main extends JFrame {
         // Crear botones
         registrarComponenteButton = new JButton("Registrar Componente");
 
-
-
         listarComponenteButton = new JButton("Listar Componentes");
         registrarFamiliaButton = new JButton("Registrar Familia");
         listarFamiliasButton = new JButton("Listar Familias");
